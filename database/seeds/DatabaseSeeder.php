@@ -7,6 +7,7 @@ class DatabaseSeeder extends Seeder
     protected $tables = [
         'users',
         'roles',
+        'role_user'
     ];
 
     /**
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);
         $this->call(RolesTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
     }
 
     /**

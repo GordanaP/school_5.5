@@ -11,6 +11,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class)->create();
+        $names = ['Gordana', 'Darko'];
+
+        foreach ($names as $name)
+        {
+            factory(App\User::class)->create([
+                'name' => $name,
+                'email' => strtolower(substr($name, 0, 1)) . '@gmail.com',
+            ]);
+        }
     }
 }
