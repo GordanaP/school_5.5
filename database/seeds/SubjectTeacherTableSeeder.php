@@ -2,8 +2,6 @@
 
 use App\Classroom;
 use App\Subject;
-use App\Teacher;
-use App\Teacher;
 use App\User;
 use Illuminate\Database\Seeder;
 
