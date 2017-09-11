@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
         'teachers',
         'subjects',
         'classrooms',
+        'subject_teacher'
     ];
 
     /**
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeachersTableSeeder::class);
         $this->call(SubjectsTableSeeder::class);
         $this->call(ClassroomsTableSeeder::class);
+        $this->call(SubjectTeacherTableSeeder::class);
     }
 
     /**

@@ -20,4 +20,9 @@ class Subject extends Model
     {
         return 'slug';
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class)->withPivot('classroom');
+    }
 }
