@@ -50,10 +50,13 @@ class Lesson extends Model
         return $lesson;
     }
 
-    public function assignReadings($readings)
+    public function assignReadings(array $readings)
     {
-        $this->readings()->create([
-            'title' => $readings
-        ]);
+        foreach ($readings as $reading)
+        {
+            $this->readings()->create([
+                'title' => $reading
+            ]);
+        }
     }
 }

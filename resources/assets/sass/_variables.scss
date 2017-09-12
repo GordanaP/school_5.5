@@ -44,7 +44,7 @@ $primary-dark: #6b9b37;
 $primary-light: #cfff95;
 
 // Seconadry colors
-$secondary: #ffee58;
+$secondary: darken(#ffee58, 18%);
 $secondary-dark: #c9bc1f;
 $secondary-light: #ffff8b;
 
@@ -54,3 +54,5 @@ $secondary-text: #757575;
 
 // Devider color
 $devider: #bdbdbd;
+
+$grey-dark: darken(#f5f5f6, 10%);

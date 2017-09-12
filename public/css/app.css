@@ -8499,6 +8499,16 @@ p.required__fields {
   color: red;
 }
 
+.create__button {
+  border: 2px solid #9ccc65;
+  color: #212121;
+}
+
+.create__button:hover {
+  background: #9ccc65;
+  color: #fff;
+}
+
 nav.navbar.main {
   background: #9ccc65;
   border-top: 6px solid #6b9b37;
@@ -8524,11 +8534,19 @@ nav.navbar.main .dropdown-menu li a {
 }
 
 .lecture__info .panel-heading {
-  background: #c9bc1f;
+  background: #fbe200;
 }
 
 .lecture__info .panel-body {
   background: #f5f5f6;
+}
+
+.lecture__info .form-group {
+  margin-bottom: 0 !important;
+}
+
+.lecture__info .add_field_button {
+  margin-top: 15px;
 }
 
 .lecture__title {

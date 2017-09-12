@@ -45,7 +45,7 @@ class LessonController extends Controller
         // Assign readings to the lesson
         $newLesson->assignReadings($request->readings);
 
-       return back();
+        return back();
     }
 
     /**
