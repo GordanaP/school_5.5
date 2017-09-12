@@ -11,3 +11,4 @@ npm-debug.log
 yarn-error.log
 .env
 workflow.txt
+/resources/views/test.php

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Lesson;
+use App\User;
 use Illuminate\Http\Request;
 
 class LessonController extends Controller
@@ -22,9 +23,9 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        return view('lessons.create', compact('user'));
     }
 
     /**
@@ -33,9 +34,15 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        // Create a lesson
+        $lesson = Lesson::new($request);
+
+        // Assign lesson to the user
+        $user->createLesson($lesson);
+
+       return back();
     }
 
     /**

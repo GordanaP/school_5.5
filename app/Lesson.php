@@ -30,4 +30,18 @@ class Lesson extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public static function new($request)
+    {
+        $lesson = new static;
+
+        $lesson->year = $request->year;
+        $lesson->title = $request->title;
+        $lesson->topic = $request->topic;
+        $lesson->goals = $request->goals;
+
+        $lesson->subject()->associate($request->subject_id);
+
+        return $lesson;
+    }
 }

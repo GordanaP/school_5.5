@@ -16,13 +16,22 @@ class SubjectTeacherTableSeeder extends Seeder
     {
         $user = User::whereEmail('d@gmail.com')->first();
 
-        $subject = Subject::whereName('maths')->first();
+        $subject1 = Subject::whereName('maths')->first();
+        $classrooms1 = Classroom::whereIn('label', ['I-1', 'I-2'])->get();
 
-        $classrooms = Classroom::whereIn('label', ['I-1', 'I-2'])->get();
+        $subject2 = Subject::whereName('arts & culture')->first();
+        $classrooms2 = Classroom::whereIn('label', ['II-1', 'II-2'])->get();
 
-        foreach ($classrooms as $classroom)
+        foreach ($classrooms1 as $classroom)
         {
-            $user->teacher->subjects()->attach($subject->id, [
+            $user->teacher->subjects()->attach($subject1->id, [
+                'classroom' => $classroom->label,
+            ]);
+        }
+
+        foreach ($classrooms2 as $classroom)
+        {
+            $user->teacher->subjects()->attach($subject2->id, [
                 'classroom' => $classroom->label,
             ]);
         }

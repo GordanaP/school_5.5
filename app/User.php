@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
        return $this->hasOne(Teacher::class);
     }
+
+    public function createLesson($lesson)
+    {
+       $this->teacher->lessons()->save($lesson);
+    }
 }

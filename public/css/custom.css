@@ -1,0 +1,11 @@
+span.asterisk {color:red;}
+p.required__fields{ font-family: Gabriela }
+
+main.lecture{background: #fff; padding: 18px;}
+main.lecture .wrapper{border: 1px solid #eee; padding: 12px}
+
+section.lecture__title {background: #212121; padding: 6px 15px; margin-bottom: 12px; color: #fff}
+section.lecture__title #subject {margin-right: 5px;}
+
+section.lecture__info .panel-heading {background: #ffee58}
+section.lecture__info .panel-body {background: #f5f5f6}
