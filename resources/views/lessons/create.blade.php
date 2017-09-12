@@ -55,7 +55,7 @@
 
                     <section class="lecture__info" id="general">
                         <div class="panel">
-                            <div class="panel-heading text-uppercase ls-2">
+                            <div class="panel-heading text-uppercase ls-1">
                                 General
                             </div>
                             <div class="panel-body">
@@ -83,10 +83,27 @@
                             </div>
                         </div>
                     </section>
+
+                    <section class="lecture__info" id="materials">
+                        <div class="panel">
+                            <div class="panel-heading text-uppercase ls-1">
+                                MATERIALS
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label for="readings" class="col-sm-2 control-label">Readings</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="readings" id="readings" value="{{ old('readings') }}" placeholder="Readings">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <section>
                         <div class="form-group">
                             <button type="submit" class="btn btn-default pull-right" style="margin-right: 15px;">
-                                Create lecture
+                                Create lesson
                             </button>
                         </div>
                     </section>

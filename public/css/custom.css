@@ -1,11 +1,38 @@
-span.asterisk {color:red;}
-p.required__fields{ font-family: Gabriela }
+/* span.asterisk {color:red;} */
+/*p.required__fields{ font-family: Gabriela }*/
 
-main.lecture{background: #fff; padding: 18px;}
-main.lecture .wrapper{border: 1px solid #eee; padding: 12px}
 
-section.lecture__title {background: #212121; padding: 6px 15px; margin-bottom: 12px; color: #fff}
-section.lecture__title #subject {margin-right: 5px;}
 
-section.lecture__info .panel-heading {background: #ffee58}
-section.lecture__info .panel-body {background: #f5f5f6}
+/*main.lecture{background: #fff; padding: 18px;}*/
+  /*main.lecture .wrapper{border: 1px solid #eee; padding: 12px}*/
+
+/* section.lecture__title {background: #212121; padding: 6px 15px; margin-bottom: 12px; color: #fff} */
+/*section.lecture__title #subject {margin-right: 5px;}*/
+
+
+/* section.lecture__info .panel-body {background: #f5f5f6} */
+
+.flex{display: flex;}
+.flex-1{flex: 1}
+.flex-2{flex: 2}
+.flex-3{flex: 3}
+.flex-column{flex-direction: column;}
+.justify-between{justify-content: space-between;}
+.justify-around{justify-content: space-around;}
+.justify-center{justify-content: center;}
+.justify-start{justify-content: flex-start;}
+.justify-end{justify-content: flex-end;}
+.align-center{align-items: center;}
+.align-end{align-items: flex-end;}
+.align-start{align-items: flex-start;}
+
+.opacity-7{opacity: 0.6}
+.opacity-9{opacity: 0.9}
+
+.grayscale-30{filter: grayscale(30%)}
+.grayscale-20{filter: grayscale(20%)}
+.grayscale-10{filter: grayscale(10%)}
+
+.image{width:100%;}
+
+.ls-1{letter-spacing: 1px}

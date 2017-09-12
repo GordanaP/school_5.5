@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Lesson;
-use App\User;
+use App\Reading;
 use Illuminate\Http\Request;
 
-class LessonController extends Controller
+class ReadingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,9 +22,9 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(User $user)
+    public function create()
     {
-        return view('lessons.create', compact('user'));
+        //
     }
 
     /**
@@ -34,27 +33,18 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(Request $request)
     {
-        // Create a lesson
-        $lesson = Lesson::new($request);
-
-        // Assign the lesson to the user
-        $newLesson = $user->createLesson($lesson);
-
-        // Assign readings to the lesson
-        $newLesson->assignReadings($request->readings);
-
-       return back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function show(Lesson $lesson)
+    public function show(Reading $reading)
     {
         //
     }
@@ -62,10 +52,10 @@ class LessonController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lesson $lesson)
+    public function edit(Reading $reading)
     {
         //
     }
@@ -74,10 +64,10 @@ class LessonController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lesson $lesson)
+    public function update(Request $request, Reading $reading)
     {
         //
     }
@@ -85,10 +75,10 @@ class LessonController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lesson $lesson)
+    public function destroy(Reading $reading)
     {
         //
     }

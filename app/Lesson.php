@@ -31,6 +31,11 @@ class Lesson extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function readings()
+    {
+        return $this->hasMany(Reading::class);
+    }
+
     public static function new($request)
     {
         $lesson = new static;
@@ -43,5 +48,12 @@ class Lesson extends Model
         $lesson->subject()->associate($request->subject_id);
 
         return $lesson;
+    }
+
+    public function assignReadings($readings)
+    {
+        $this->readings()->create([
+            'title' => $readings
+        ]);
     }
 }

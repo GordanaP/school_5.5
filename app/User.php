@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function createLesson($lesson)
     {
-       $this->teacher->lessons()->save($lesson);
+       return $this->teacher->lessons()->save($lesson);
     }
 }
