@@ -13,9 +13,11 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $lessons = $user->teacher->lessons->load('readings', 'subject');
+
+        return view('lessons.index', compact('user', 'lessons'));
     }
 
     /**
@@ -65,9 +67,9 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lesson $lesson)
+    public function edit(User $user, Lesson $lesson)
     {
-        //
+        return view('lessons.edit', compact('user', 'lesson'));
     }
 
     /**

@@ -11,5 +11,8 @@ Auth::routes();
 Route::name('pages.home')->get('/home', 'PageController@home');
 
 // Lesson
-Route::name('lessons.create')->get('/lessons/{user}/create', 'LessonController@create');
+Route::name('lessons.index')->get('/lessons/{user}', 'LessonController@index');
 Route::name('lessons.store')->post('/lessons/{user}', 'LessonController@store');
+Route::name('lessons.create')->get('/lessons/{user}/create', 'LessonController@create');
+Route::name('lessons.update')->put('/lessons/{user}/{lesson}', 'LessonController@update');
+Route::name('lessons.edit')->get('/lessons/{user}/{lesson}/edit', 'LessonController@edit');

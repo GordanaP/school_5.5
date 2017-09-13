@@ -40,6 +40,9 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li>
+                               <a href="{{ route('lessons.index', Auth::user()) }}">My lessons</a>
+                            </li>
+                            <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

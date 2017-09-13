@@ -8,6 +8,7 @@ class Teacher extends Model
 {
     protected $fillable = ['first_name', 'last_name', 'gender', 'parent', 'dob', 'birthplace', 'about'];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,6 +21,6 @@ class Teacher extends Model
 
     public function lessons()
     {
-        return $this->hasMany(Lesson::class);
+        return $this->hasMany(Lesson::class)->orderBy('subject_id', 'desc')->orderBy('year');
     }
 }

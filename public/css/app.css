@@ -8356,6 +8356,7 @@ body {
 
 select,
 button,
+a.btn,
 input,
 textarea,
 .panel {
@@ -8541,12 +8542,12 @@ nav.navbar.main .dropdown-menu li a {
   background: #f5f5f6;
 }
 
-.lecture__info .form-group {
-  margin-bottom: 0 !important;
-}
-
 .lecture__info .add_field_button {
   margin-top: 15px;
+}
+
+.lecture__info .input_fields_wrap .form-group {
+  margin-bottom: 0 !important;
 }
 
 .lecture__title {
