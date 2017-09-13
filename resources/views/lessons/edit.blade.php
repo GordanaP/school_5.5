@@ -11,10 +11,10 @@
 
         <main class="col-md-9 lecture">
             <div class="wrapper">
-                <form action="{{ route('lessons.update', [$user, $lesson]) }}" method="POST">
+                <form action="{{ route('lessons.update', [$user, $lesson] ) }}" method="POST">
 
                     {{ csrf_field() }}
-                    {{ csrf_field('PUT') }}
+                    {{ method_field('PUT') }}
 
                     <section class="lecture__title">
                         <div class="row">
@@ -25,9 +25,7 @@
                                         <option selected="" disabled="">Select a subject</option>
                                         @foreach ($user->teacher->subjects->unique() as $subject)
                                             <option value="{{ $subject->id }}"
-                                                @foreach ($user->teacher->subjects as $subj)
-                                                    {{ selected($subject->id, $subj->id) }}
-                                                @endforeach
+                                                {{ selected($subject->id, $lesson->subject_id) }}
                                             >
                                                 {{ $subject->name }}
                                             </option>
@@ -82,7 +80,7 @@
                     <section class="lecture__info" id="materials">
                         <div class="panel">
                             <div class="panel-heading text-uppercase ls-1">
-                                MATERIALS
+                                Materials
                             </div>
                             <div class="panel-body">
 
@@ -96,9 +94,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                {{-- @if ($lesson->readings()->count() < 3) --}}
-                                    <button class="add_field_button">Add More Fields</button>
-                                {{-- @endif --}}
+                                <button class="add_field_button">Add More Fields</button>
                             </div>
                         </div>
                     </section>
@@ -106,7 +102,7 @@
                     <section>
                         <div class="form-group">
                             <button type="submit" class="btn btn-default pull-right create__button" >
-                                Create lesson
+                                Save changes
                             </button>
                         </div>
                         <div class="clearfix"></div>

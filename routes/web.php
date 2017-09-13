@@ -16,3 +16,9 @@ Route::name('lessons.store')->post('/lessons/{user}', 'LessonController@store');
 Route::name('lessons.create')->get('/lessons/{user}/create', 'LessonController@create');
 Route::name('lessons.update')->put('/lessons/{user}/{lesson}', 'LessonController@update');
 Route::name('lessons.edit')->get('/lessons/{user}/{lesson}/edit', 'LessonController@edit');
+
+
+// Redirects all non-existing routes to index route
+Route::any('{query}',
+  function() { return redirect('/'); })
+  ->where('query', '.*');

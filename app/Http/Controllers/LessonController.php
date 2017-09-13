@@ -42,10 +42,13 @@ class LessonController extends Controller
         $lesson = Lesson::new($request);
 
         // Assign the lesson to the user
-        $newLesson = $user->createLesson($lesson);
+        $newLesson = $user->saveLesson($lesson);
 
         // Assign readings to the lesson
-        $newLesson->assignReadings($request->readings);
+        if($request->readings)
+        {
+            $newLesson->assignReadings($request);
+        }
 
         return back();
     }
@@ -79,9 +82,21 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lesson $lesson)
+    public function update(Request $request, User $user, Lesson $lesson)
     {
-        //
+        // Get the stored lesson
+        $lesson = Lesson::make($request, $lesson);
+
+        // Update the lesson
+        $updatedLesson = $user->saveLesson($lesson);
+
+        // Update the lesson readings
+        if($request->readings)
+        {
+            $updatedLesson->updateReadings($request, $lesson);
+        }
+
+        return redirect()->route('lessons.edit', [$user, $lesson]);
     }
 
     /**

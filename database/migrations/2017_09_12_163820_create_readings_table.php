@@ -19,7 +19,7 @@ class CreateReadingsTable extends Migration
             $table->unsignedInteger('lesson_id')->index();
             $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
 
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->timestamps();
         });
     }

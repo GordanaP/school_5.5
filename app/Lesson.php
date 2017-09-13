@@ -36,7 +36,7 @@ class Lesson extends Model
         return $this->hasMany(Reading::class);
     }
 
-    public static function new($request)
+    protected static function new($request)
     {
         $lesson = new static;
 
@@ -50,13 +50,34 @@ class Lesson extends Model
         return $lesson;
     }
 
-    public function assignReadings(array $readings)
+    protected static function make($request, $lesson)
     {
-        foreach ($readings as $reading)
+        $lesson->year = $request->year;
+        $lesson->title = $request->title;
+        $lesson->topic = $request->topic;
+        $lesson->goals = $request->goals;
+
+        $lesson->subject()->associate($request->subject_id);
+
+        return $lesson;
+    }
+
+    public function assignReadings($request)
+    {
+        foreach ($request->readings as $reading)
         {
             $this->readings()->create([
                 'title' => $reading
             ]);
         }
+    }
+
+    public function updateReadings($request, $lesson)
+    {
+         $lesson->readings->each(function ($item, $key) {
+            $item->delete();
+        });
+
+        $this->assignReadings($request);
     }
 }
