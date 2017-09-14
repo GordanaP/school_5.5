@@ -3,7 +3,7 @@
     var wrapper = $(".input_fields_wrap"); //fields wrapper
     var add_button = $(".add_field_button"); // add button
 
-    var x = 1; //initial fields count
+    var x = 0; //initial fields count
 
     // Add input field
     $(add_button).click(function(e){

@@ -32,11 +32,14 @@ trait LessonCreate
 
     public function assignReadings($request)
     {
-        foreach ($request->readings as $reading)
+        if (count($request->readings) > 0)
         {
-            $this->readings()->create([
-                'title' => $reading
-            ]);
+            foreach ($request->readings as $reading)
+            {
+                $this->readings()->create([
+                    'title' => $reading
+                ]);
+            }
         }
     }
 
@@ -54,5 +57,12 @@ trait LessonCreate
             $this->assignReadings($request);
         }
 
+    }
+
+    public function deleteLesson($user, $lesson)
+    {
+        $lesson = $user->teacher->lessons()->whereSlug($lesson->slug)->first();
+
+        $lesson->delete();
     }
 }

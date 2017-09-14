@@ -15,4 +15,5 @@ class LessonObserver
     {
         $lesson->slug = str_slug($lesson->title);
     }
+
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LessonRequest;
 use App\Lesson;
 use App\User;
-use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -104,6 +103,9 @@ class LessonController extends Controller
      */
     public function destroy(User $user, Lesson $lesson)
     {
-        //
+        $lesson->deleteLesson($user, $lesson);
+
+        flash()->success('The lesson has been updated.');
+        return back();
     }
 }
