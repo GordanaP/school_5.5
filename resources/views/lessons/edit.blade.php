@@ -10,103 +10,26 @@
         </aside>
 
         <main class="col-md-9 lecture">
+
+            @include('errors._list')
+            @include('flash::message')
+
             <div class="wrapper">
                 <form action="{{ route('lessons.update', [$user, $lesson] ) }}" method="POST">
 
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
 
-                    <section class="lecture__title">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="form-group" id="subject">
-                                    <label for="subject_id">Subject <span class="asterisk">*</span></label>
-                                    <select class="form-control" name="subject_id" id="subject_id">
-                                        <option selected="" disabled="">Select a subject</option>
-                                        @foreach ($user->teacher->subjects->unique() as $subject)
-                                            <option value="{{ $subject->id }}"
-                                                {{ selected($subject->id, $lesson->subject_id) }}
-                                            >
-                                                {{ $subject->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                    @include('lessons.partials._createForm', [
+                        'subject_id' => $lesson->subject_id,
+                        'year' => $lesson->year,
+                        'title' => $lesson->title,
+                        'topic' => $lesson->topic,
+                        'goals' => $lesson->goals,
+                        'readings' => $lesson->readings,
+                        'button' => 'Save changes',
+                    ])
 
-                            <div class="col-md-4">
-                                <div class="form-group" id="year">
-                                    <label for="year">Academic year <span class="asterisk">*</span></label>
-                                    <select class="form-control" name="year" id="year">
-                                        <option selected="" disabled="">Select a year</option>
-                                        @foreach (Year::all() as $year => $name)
-                                            <option value="{{ $year }}"
-                                                {{ selected($year, $lesson->year) }}
-                                            >
-                                                {{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="lecture__info" id="general">
-                        <div class="panel">
-                            <div class="panel-heading text-uppercase ls-1">
-                                General
-                            </div>
-                            <div class="panel-body">
-                                <p class="required__fields">Fields marked with * are required.</p>
-                                <div class="form-group">
-                                    <label for="title">Title <span class="asterisk">*</span></label>
-                                    <input type="text" class="form-control" name="title" id="title" value="{{ $lesson->title }}" placeholder="Lesson title">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="topic">Topic</label>
-                                    <input type="text" class="form-control" name="topic" id="topic" value="{{ $lesson->topic }}" placeholder="Lesson topic">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="goals">Goals</label>
-                                    <textarea class="form-control" name="goals" id="goals" rows="4" placeholder="Lesson goals">{{ $lesson->goals }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="lecture__info" id="materials">
-                        <div class="panel">
-                            <div class="panel-heading text-uppercase ls-1">
-                                Materials
-                            </div>
-                            <div class="panel-body">
-
-                                <div class="input_fields_wrap">
-                                    <div class="form-group">
-                                        <label for="readings">Readings</label>
-                                        @foreach ($lesson->readings as $reading)
-                                            <div class="flex align-center">
-                                                <input type="text" class="form-control" name="readings[]" value="{{ $reading->title }}" placeholder="Readings"/><a href="#" class="remove_field ml-10" >Remove</a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <button class="add_field_button">Add More Fields</button>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default pull-right create__button" >
-                                Save changes
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </section>
                 </form>
             </div>
         </main>

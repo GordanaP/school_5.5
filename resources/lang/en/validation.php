@@ -87,6 +87,9 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    "alpha_spaces"         => 'The :attribute may only contain letters and spaces.',
+    "alpha_dash_spaces"    => 'The :attribute may only contain letters, numbers, dashes, underscores, and spaces.',
+    "alpha_num_spaces"     => 'The :attribute may only contain letters, numbers, and spaces.',
 
     /*
     |--------------------------------------------------------------------------
@@ -116,6 +119,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'subject_id' => 'subject',
+        'readings[]' => 'readings',
+    ],
 
 ];

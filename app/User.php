@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
        return $this->teacher->lessons()->save($lesson);
     }
+
+    public function getSubjectsUniqueAttribute()
+    {
+        return $this->teacher->subjects->unique();
+    }
 }

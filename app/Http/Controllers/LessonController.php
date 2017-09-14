@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonRequest;
 use App\Lesson;
 use App\User;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(LessonRequest $request, User $user)
     {
         // Create a lesson
         $lesson = Lesson::new($request);
@@ -44,12 +45,10 @@ class LessonController extends Controller
         // Assign the lesson to the user
         $newLesson = $user->saveLesson($lesson);
 
-        // Assign readings to the lesson
-        if($request->readings)
-        {
-            $newLesson->assignReadings($request);
-        }
+        // Assign the readings to the lesson
+        $newLesson->assignReadings($request);
 
+        flash()->success('A new lesson has been created.');
         return back();
     }
 
@@ -59,7 +58,7 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function show(Lesson $lesson)
+    public function show(User $user, Lesson $lesson)
     {
         //
     }
@@ -82,7 +81,7 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user, Lesson $lesson)
+    public function update(LessonRequest $request, User $user, Lesson $lesson)
     {
         // Get the stored lesson
         $lesson = Lesson::make($request, $lesson);
@@ -91,11 +90,9 @@ class LessonController extends Controller
         $updatedLesson = $user->saveLesson($lesson);
 
         // Update the lesson readings
-        if($request->readings)
-        {
-            $updatedLesson->updateReadings($request, $lesson);
-        }
+        $updatedLesson->updateReadings($request, $lesson);
 
+        flash()->success('The lesson has been updated.');
         return redirect()->route('lessons.edit', [$user, $lesson]);
     }
 
@@ -105,7 +102,7 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lesson $lesson)
+    public function destroy(User $user, Lesson $lesson)
     {
         //
     }
