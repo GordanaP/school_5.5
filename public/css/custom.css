@@ -1,40 +1,25 @@
+body{
+    background: #f9f9f9;
+}
+
+* section.lecture__info .panel-body {
+background-color: #f9f9f9;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");}
+
 /* span.asterisk {color:red;} */
 /*p.required__fields{ font-family: Gabriela }*/
 
-
+@font-face {
+    font-family: Goca;
+    src: url(../fonts/avenir/AvenirLTStd-Book.otf);
+}
 
 /*main.lecture{background: #fff; padding: 18px;}*/
   /*main.lecture .wrapper{border: 1px solid #eee; padding: 12px}*/
 
-/* section.lecture__title {background: #212121; padding: 6px 15px; margin-bottom: 12px; color: #fff} */
+ section.lecture__title {background: #212121;}
 /*section.lecture__title #subject {margin-right: 5px;}*/
 
 
 /* section.lecture__info .panel-body {background: #f5f5f6} */
 
-.flex{display: flex;}
-.flex-1{flex: 1}
-.flex-2{flex: 2}
-.flex-3{flex: 3}
-.flex-column{flex-direction: column;}
-.justify-between{justify-content: space-between;}
-.justify-around{justify-content: space-around;}
-.justify-center{justify-content: center;}
-.justify-start{justify-content: flex-start;}
-.justify-end{justify-content: flex-end;}
-.align-center{align-items: center;}
-.align-end{align-items: flex-end;}
-.align-start{align-items: flex-start;}
-
-.opacity-7{opacity: 0.6}
-.opacity-9{opacity: 0.9}
-
-.grayscale-30{filter: grayscale(30%)}
-.grayscale-20{filter: grayscale(20%)}
-.grayscale-10{filter: grayscale(10%)}
-
-.image{width:100%;}
-
-.ls-1{letter-spacing: 1px}
-
-.ml-10{margin-left: 10px}

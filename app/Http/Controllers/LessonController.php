@@ -48,7 +48,7 @@ class LessonController extends Controller
         $newLesson->assignReadings($request);
 
         flash()->success('A new lesson has been created.');
-        return back();
+        return redirect()->route('lessons.show', [$user, $newLesson]);
     }
 
     /**
@@ -92,7 +92,7 @@ class LessonController extends Controller
         $updatedLesson->updateReadings($request, $lesson);
 
         flash()->success('The lesson has been updated.');
-        return redirect()->route('lessons.edit', [$user, $lesson]);
+        return back();
     }
 
     /**
@@ -107,5 +107,11 @@ class LessonController extends Controller
 
         flash()->success('The lesson has been updated.');
         return back();
+    }
+
+
+    public function addPhoto(User $user, Lesson $lesson)
+    {
+        return $lesson;
     }
 }

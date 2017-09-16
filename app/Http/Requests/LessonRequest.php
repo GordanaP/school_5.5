@@ -45,7 +45,7 @@ class LessonRequest extends FormRequest
                         }),
                     ],
                     'topic' => 'nullable|alpha_num_spaces|max:150',
-                    'goals' => 'nullable|alpha_num_spaces|max:300',
+                    'goals' => 'nullable|max:300',
                     'readings.*' => 'sometimes|required|distinct|max:255',
                 ];
                 break;
@@ -64,8 +64,8 @@ class LessonRequest extends FormRequest
                         })->ignore($this->user->teacher->id, 'teacher_id'),
                     ],
                     'topic' => 'nullable|alpha_num_spaces|max:150',
-                    'goals' => 'nullable|alpha_num_spaces|max:300',
-                    'readings.*' => 'sometimes|required|distinct|max:255',
+                    'goals' => 'nullable|max:300',
+                    'readings.*' => 'sometimes|required|distinct|max:5',
                 ];
                 break;
         }
