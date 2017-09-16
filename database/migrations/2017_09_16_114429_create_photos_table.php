@@ -19,7 +19,9 @@ class CreatePhotosTable extends Migration
             $table->unsignedInteger('lesson_id')->index();
             $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
 
+            $table->string('name');
             $table->string('path');
+            $table->string('thumbnail_path');
             $table->timestamps();
         });
     }

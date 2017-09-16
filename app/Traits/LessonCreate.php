@@ -66,8 +66,13 @@ trait LessonCreate
         $lesson->delete();
     }
 
-    public function addPhotos($photo)
+    public function addPhoto($photo)
     {
         $this->photos()->save($photo);
+    }
+
+    public function hasPhoto($photo)
+    {
+        return $this->photos->contains('path', $photo->path);
     }
 }

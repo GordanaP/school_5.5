@@ -3,35 +3,56 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Image;
 
 class Photo extends Model
 {
-    protected $fillable = ['path', 'teacher_id'];
+    protected $fillable = ['name', 'path', 'thumbnail_path'];
 
-    protected $lessonsImagesDir = 'images/lessons/';
+    protected $lessonsImagesDir = 'images/lessons';
 
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);
     }
 
-    public static function new($file, $user, $lesson)
+    protected static function makePhoto($file, $user)
     {
-        // New instance
         $photo = new static;
 
-        // Move file to the location
-        $filename = $file->getClientOriginalName();
-        $filepath = $photo->lessonsImagesDir .$user->name .'/'.$lesson->subject->name .'/'.$lesson->id;
+        $photo->saveAs($file->getClientOriginalName(), $user);
 
-        $file->move($filepath, $filename);
-
-        // Create new photo
-        $path = $filepath.'/'.$filename;
-
-        $photo->path = $path;
+        $photo->move($file, $user);
 
         return $photo;
+    }
+
+    protected function saveAs($name, $user)
+    {
+        $this->name = $name;
+        $this->path = $this->filepath($user). '/' .$name;
+        $this->thumbnail_path = $this->filepath($user). '/tn-' .$name;
+
+        return $this;
+    }
+
+    protected function move($file, $user)
+    {
+        $file->move($this->filepath($user), $this->name);
+
+        $this->makeThumbnail();
+    }
+
+    protected function makeThumbnail()
+    {
+        Image::make($this->path)            // get from path
+            ->fit(200)                      // customize
+            ->save($this->thumbnail_path);  // save to path
+    }
+
+    protected function filepath($user)
+    {
+        return $this->lessonsImagesDir. '/' .$user->name;
     }
 
 }

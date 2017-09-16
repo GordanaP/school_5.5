@@ -13,8 +13,6 @@
         </div>
         <div class="col-md-9 lesson__photos">
 
-            @include('errors._list')
-
             {{ $lesson->title }}
 
             <form class="dropzone" action="{{ route('lessons.photos', [$user, $lesson]) }}" method="POST" id="addLessonPhotosForm">
@@ -23,10 +21,14 @@
 
             </form>
 
-            <div class="row lesson__photos-display">
-                @foreach ($lesson->photos as $photo)
-                    <div class="col-md-3">
-                        <img src="{{ asset($photo->path) }}" alt="" class="image">
+            <div class="lesson__photos-display">
+                @foreach ($lesson->photos->chunk(3) as $chunk)
+                    <div class="row">
+                        @foreach ($chunk as $photo)
+                            <div class="col-md-4">
+                                <img src="{{ asset($photo->path) }}" alt="" class="image">
+                            </div>
+                        @endforeach
                     </div>
                 @endforeach
             </div>

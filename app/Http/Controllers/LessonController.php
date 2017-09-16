@@ -112,17 +112,21 @@ class LessonController extends Controller
 
     }
 
-
     public function addPhoto(Request $request, User $user, Lesson $lesson)
     {
         $request->validate([
             'photo' => 'mimes:jpg,jpeg,bmp,png,gif'
         ]);
 
-        // Move the file to location & create a new photo
-        $photo = Photo::new($request->photo, $user, $lesson);
+        // Create a photo & move to the location
+        $photo = Photo::makePhoto($request->photo, $user);
 
-        // Add to DB
-        $lesson->addPhotos($photo);
+        // Save photo to DB
+        if(! $lesson->hasPhoto($photo))
+        {
+            $lesson->addPhoto($photo);
+        }
+
     }
+
 }
