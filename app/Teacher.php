@@ -23,4 +23,9 @@ class Teacher extends Model
     {
         return $this->hasMany(Lesson::class)->orderBy('subject_id', 'desc')->orderBy('year');
     }
+
+    public function photos()
+    {
+        return $this->hasManyThrough('App\Photo', 'App\Lesson');
+    }
 }

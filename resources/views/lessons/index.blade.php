@@ -43,6 +43,9 @@
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </form>
+                            <a href="{{ route('lessons.show', [$user, $lesson]) }}">
+                                <i class="fa fa-eye ml-10" style="color: #aaa"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

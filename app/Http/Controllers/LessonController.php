@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LessonRequest;
 use App\Lesson;
+use App\Photo;
 use App\User;
+use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
@@ -59,7 +61,7 @@ class LessonController extends Controller
      */
     public function show(User $user, Lesson $lesson)
     {
-        //
+        return view('lessons.show', compact('user', 'lesson'));
     }
 
     /**
@@ -92,7 +94,7 @@ class LessonController extends Controller
         $updatedLesson->updateReadings($request, $lesson);
 
         flash()->success('The lesson has been updated.');
-        return back();
+        return redirect()->route('lessons.show', [$user, $updatedLesson]);
     }
 
     /**
@@ -107,11 +109,20 @@ class LessonController extends Controller
 
         flash()->success('The lesson has been updated.');
         return back();
+
     }
 
 
-    public function addPhoto(User $user, Lesson $lesson)
+    public function addPhoto(Request $request, User $user, Lesson $lesson)
     {
-        return $lesson;
+        $request->validate([
+            'photo' => 'mimes:jpg,jpeg,bmp,png,gif'
+        ]);
+
+        // Move the file to location & create a new photo
+        $photo = Photo::new($request->photo, $user, $lesson);
+
+        // Add to DB
+        $lesson->addPhotos($photo);
     }
 }

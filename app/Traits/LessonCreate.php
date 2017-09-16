@@ -65,4 +65,9 @@ trait LessonCreate
 
         $lesson->delete();
     }
+
+    public function addPhotos($photo)
+    {
+        $this->photos()->save($photo);
+    }
 }

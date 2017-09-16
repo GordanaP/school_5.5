@@ -39,4 +39,8 @@ class Lesson extends Model
         return $this->hasMany(Reading::class);
     }
 
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
+    }
 }
