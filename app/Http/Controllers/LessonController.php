@@ -136,6 +136,8 @@ class LessonController extends Controller
         {
             $lesson->addPhoto($photo);
         }
+
+        return $photo;
     }
 
 }
