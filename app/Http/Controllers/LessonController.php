@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonPhotoRequest;
 use App\Http\Requests\LessonRequest;
 use App\Lesson;
 use App\Photo;
 use App\User;
-use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display the user's listing of resource.
      *
+     * @param  App\User $user
      * @return \Illuminate\Http\Response
      */
     public function index(User $user)
@@ -23,8 +24,9 @@ class LessonController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating the user's new resource.
      *
+     * @param  App\User $user
      * @return \Illuminate\Http\Response
      */
     public function create(User $user)
@@ -33,9 +35,10 @@ class LessonController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store the user's newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\LessonRequest  $request
+     * @param  App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function store(LessonRequest $request, User $user)
@@ -54,9 +57,10 @@ class LessonController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the user's specified resource.
      *
      * @param  \App\Lesson  $lesson
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user, Lesson $lesson)
@@ -65,9 +69,10 @@ class LessonController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the user's specified resource.
      *
      * @param  \App\Lesson  $lesson
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user, Lesson $lesson)
@@ -76,21 +81,22 @@ class LessonController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the user's specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\LessonRequest  $request
      * @param  \App\Lesson  $lesson
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(LessonRequest $request, User $user, Lesson $lesson)
     {
-        // Get the stored lesson
+        // Get the lesson
         $lesson = Lesson::make($request, $lesson);
 
-        // Update the lesson
+        // Update
         $updatedLesson = $user->saveLesson($lesson);
 
-        // Update the lesson readings
+        // Update the readings
         $updatedLesson->updateReadings($request, $lesson);
 
         flash()->success('The lesson has been updated.');
@@ -98,9 +104,10 @@ class LessonController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the user's specified resource from storage.
      *
      * @param  \App\Lesson  $lesson
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user, Lesson $lesson)
@@ -112,21 +119,23 @@ class LessonController extends Controller
 
     }
 
-    public function addPhoto(Request $request, User $user, Lesson $lesson)
+    /**
+     *  Create a photo for the  user's specified resource.
+     *
+     * @param App\Http\Requests\LessonPhotoRequest $request
+     * @param App\Lesson  $lesson
+     * @param App\User  $user
+     */
+    public function addPhoto(LessonPhotoRequest $request, User $user, Lesson $lesson)
     {
-        $request->validate([
-            'photo' => 'mimes:jpg,jpeg,bmp,png,gif'
-        ]);
-
-        // Create a photo & move to the location
+        // Create a photo
         $photo = Photo::makePhoto($request->photo, $user);
 
-        // Save photo to DB
+        // Save to DB
         if(! $lesson->hasPhoto($photo))
         {
             $lesson->addPhoto($photo);
         }
-
     }
 
 }
