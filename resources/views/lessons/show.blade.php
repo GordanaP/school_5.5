@@ -2,6 +2,7 @@
 
 @section('links')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.css" />
+    <link rel="stylesheet" href="{{ asset('vendor/lightbox2/dist/css/lightbox.min.css') }}">
 @endsection
 
 @section('title', '| ' . $lesson->title)
@@ -27,7 +28,9 @@
                     <div class="row">
                         @foreach ($chunk as $photo)
                             <div class="col-md-4">
-                                <img src="{{ asset($photo->path) }}" alt="" class="image">
+                                <a href="{{ asset($photo->path) }}" data-lightbox="{{ $lesson->title }}" data-title="My caption">
+                                    <img src="{{ asset($photo->thumbnail_path) }}" alt="" class="image">
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -39,6 +42,7 @@
 
 @section('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.js"></script>
+    <script src="{{ asset('vendor/lightbox2/dist/js/lightbox.min.js') }}"></script>
 
     <script>
 
@@ -68,6 +72,12 @@
             maxFilesize: 3,
             acceptedFiles: '.jpg, .jpeg, .png, .bmp, .gif',
          }//Dropzone
+
+
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
 
     </script>
 @endsection
