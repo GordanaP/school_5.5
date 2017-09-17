@@ -21,9 +21,9 @@ Route::name('lessons.update')->put('/lessons/{user}/{lesson}', 'LessonController
 Route::name('lessons.destroy')->delete('/lessons/{user}/{lesson}', 'LessonController@destroy');
 Route::name('lessons.edit')->get('/lessons/{user}/{lesson}/edit', 'LessonController@edit');
 
-
 // Photo
-Route::name('lessons.photos')->post('/lessons/{user}/{lesson}/photos', 'LessonController@addPhoto');
+Route::resource('photos', 'PhotoController');
+Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@store');
 
 // Redirects all non-existing routes to index route
 Route::any('{query}',

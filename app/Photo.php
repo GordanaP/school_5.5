@@ -4,6 +4,7 @@ namespace App;
 
 use App\Observers\PhotoObserver;
 use Illuminate\Database\Eloquent\Model;
+use File;
 use Image;
 
 class Photo extends Model
@@ -143,5 +144,20 @@ class Photo extends Model
         $this->makeThumbnail();
 
         return $this;
+    }
+
+    /**
+     * Remove the photo files from the specified location
+     *
+     * @return void
+     */
+    public function delete()
+    {
+        File::delete([
+            $this->path,
+            $this->thumbnail_path,
+        ]);
+
+        parent::delete();
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonPhotoRequest;
+use App\Lesson;
 use App\Photo;
-use Illuminate\Http\Request;
+use App\User;
 
 class PhotoController extends Controller
 {
@@ -28,14 +30,25 @@ class PhotoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store the user's lesson newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param App\Http\Requests\LessonPhotoRequest $request
+     * @param App\Lesson  $lesson
+     * @param App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LessonPhotoRequest $request, User $user, Lesson $lesson)
     {
-        //
+        // Create a photo
+        $photo = Photo::makePhoto($request->photo, $user);
+
+        // Save to DB
+        if(! $lesson->hasPhoto($photo))
+        {
+            $lesson->addPhoto($photo);
+        }
+
+        return $photo;
     }
 
     /**
@@ -67,7 +80,7 @@ class PhotoController extends Controller
      * @param  \App\Photo  $photo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Photo $photo)
+    public function update(LessonPhotoRequest $request, User $user, Lesson $lesson)
     {
         //
     }
@@ -80,6 +93,9 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        //
+        $photo->delete();
+
+        flash()->success('The photo has been deleted.');
+        return back();
     }
 }

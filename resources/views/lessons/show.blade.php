@@ -3,6 +3,10 @@
 @section('links')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.css" />
     <link rel="stylesheet" href="{{ asset('vendor/lightbox2/dist/css/lightbox.min.css') }}">
+
+    <style>
+        button.lesson__photos-remove{position: absolute;}
+    </style>
 @endsection
 
 @section('title', '| ' . $lesson->title)
@@ -15,9 +19,11 @@
         </div>
         <div class="col-md-9 lesson__photos">
 
+            @include('flash::message')
+
             {{ $lesson->title }}
 
-            <form class="dropzone" action="{{ route('lessons.photos', [$user, $lesson]) }}" method="POST" id="addLessonPhotosForm" data-count="{{ $lesson->photos->count() }}">
+            <form class="dropzone" action="{{ route('photos.store', [$user, $lesson]) }}" method="POST" id="addLessonPhotosForm" data-count="{{ $lesson->photos->count() }}">
 
                 {{ csrf_field() }}
 
@@ -28,6 +34,16 @@
                     <div class="row">
                         @foreach ($chunk as $photo)
                             <div class="col-md-4">
+
+                                <form action="{{ route('photos.destroy', $photo) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+
+                                    <button class="btn lesson__photos-remove">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+
                                 <a href="{{ asset($photo->path) }}" data-lightbox="{{ $lesson->title }}" data-title="My caption">
                                     <img src="{{ asset($photo->thumbnail_path) }}" alt="" class="image">
                                 </a>
@@ -46,6 +62,7 @@
 
     <script>
 
+        // The max # of files/lesson and the remaining # of files allowed
         var maxFilesPerLesson = 3;
         var lessonFilesCount = $('#addLessonPhotosForm').attr('data-count');
         var maxFilesRemained = maxFilesPerLesson - lessonFilesCount;
@@ -77,7 +94,7 @@
         lightbox.option({
             'resizeDuration': 200,
             'wrapAround': true
-        })
+        })// Lightbox
 
     </script>
 @endsection

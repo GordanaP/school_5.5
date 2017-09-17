@@ -10,4 +10,5 @@ class PhotoObserver
     {
         $photo->upload();
     }
+
 }
