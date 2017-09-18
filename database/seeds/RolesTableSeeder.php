@@ -11,12 +11,12 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $names = ['student', 'parent', 'teacher', 'admin', 'superadmin'];
+        $roles = ['student', 'parent', 'teacher', 'admin', 'superadmin'];
 
-        foreach ($names as $name)
+        foreach ($roles as $role)
         {
             factory(App\Role::class)->create([
-                'name' => $name
+                'name' => $role
             ]);
         }
     }

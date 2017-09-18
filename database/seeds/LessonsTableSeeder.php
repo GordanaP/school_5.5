@@ -14,11 +14,12 @@ class LessonsTableSeeder extends Seeder
     {
         $user = User::whereEmail('d@gmail.com')->first();
         $subject = $user->teacher->subjects->first();
+        $lesson_title = 'Mathematical Sets';
 
         factory(App\Lesson::class)->create([
             'teacher_id' => $user->teacher->id,
             'subject_id' => $subject->id,
-            'title' => 'Mathematical Sets'
+            'title' => $lesson_title
         ]);
     }
 }

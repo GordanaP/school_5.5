@@ -12,14 +12,15 @@ class TeachersTableSeeder extends Seeder
      */
     public function run()
     {
-        $teachers = User::whereHas('roles', function ($query) {
-            $query->where('name', '=', 'teacher');
+        $users = User::whereHas('roles', function ($query) {
+            $query->whereName('teacher');
         })->get();
 
-        foreach ($teachers as $teacher)
+        foreach ($users as $user)
         {
             factory(App\Teacher::class)->create([
-                'user_id' => $teacher->id,
+                'user_id' => $user->id,
+                'first_name' => $user->name,
             ]);
         }
     }

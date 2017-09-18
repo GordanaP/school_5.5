@@ -25,7 +25,8 @@ Route::name('lessons.edit')->get('/lessons/{user}/{lesson}/edit', 'LessonControl
 Route::resource('photos', 'PhotoController');
 Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@store');
 
-// Redirects all non-existing routes to index route
+// Redirects all non-existing routes to the index route
+// Must be at the and of the page
 Route::any('{query}',
   function() { return redirect('/'); })
   ->where('query', '.*');

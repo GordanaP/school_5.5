@@ -13,10 +13,10 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        $admin = Role::whereName('superadmin')->first();
+        $superadmin = Role::whereName('superadmin')->first();
         $teacher = Role::whereName('teacher')->first();
 
-        User::whereEmail('g@gmail.com')->first()->roles()->attach($admin);
+        User::whereEmail('g@gmail.com')->first()->roles()->attach($superadmin);
         User::whereEmail('d@gmail.com')->first()->roles()->attach($teacher);
     }
 }
