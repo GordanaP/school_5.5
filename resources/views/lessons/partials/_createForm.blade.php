@@ -44,8 +44,8 @@
             <div class="col-md-3 text-uppercase ls-1">
                 General
             </div>
-            <div class="col-md-9">
 
+            <div class="col-md-9">
                 <!-- Title -->
                 <div class="form-group">
                     <label for="title">Title <span class="asterisk">*</span></label>
@@ -68,33 +68,37 @@
     </div>
 </section>
 
-<!-- Materials -->
+<!-- Readings -->
 <section class="lecture__info" id="materials">
     <div class="panel">
         <div class="panel-body">
             <div class="col-md-3 text-uppercase ls-1">
-                Materials
-            </div>
-            <div class="col-md-9">
-                <div class="input_fields_wrap">
-                    <div class="form-group">
-                        <label for="readings">Readings</label>
-                        @if ($readings)
-                            @foreach ($readings as $reading)
-                                <div class="flex align-center">
-                                    <input type="text" class="form-control" name="readings[]" value="{{ Request::is('*/*/create') ? $reading : $reading->title }}" placeholder="Readings"/><a href="#" class="remove_field" >Remove</a>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </div>
-                <button class="add_field_button">Add More Fields</button>
+                Readings
             </div>
 
+            <div class="col-md-9">
+
+                <!-- The readings field with an add button -->
+                <div class="form-group">
+                    <div class="flex">
+                        <input type="text" class="form-control" name="readings[]" placeholder=" Add readings" value="" />
+                        <button type="button" class="btn btn-default addReadingsButton"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- The readings field template containing a readings field and a remove button -->
+                <div class="form-group hide" id="readingsTemplate">
+                    <div class="flex">
+                        <input class="form-control" type="text" name="readings[]" placeholder="Add readings" />
+                        <button type="button" class="btn btn-default removeReadingsButton"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
+<!-- Button -->
 <section>
     <div class="form-group">
         <button type="submit" class="btn btn-default pull-right create__button" >

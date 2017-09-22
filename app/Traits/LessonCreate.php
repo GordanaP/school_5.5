@@ -32,13 +32,15 @@ trait LessonCreate
 
     public function assignReadings($request)
     {
-        if (count($request->readings) > 0)
-        {
+        if ($request->readings) {
             foreach ($request->readings as $reading)
             {
-                $this->readings()->create([
-                    'title' => $reading
-                ]);
+                if ($reading != null)
+                {
+                    $this->readings()->create([
+                        'title' => $reading
+                    ]);
+                }
             }
         }
     }

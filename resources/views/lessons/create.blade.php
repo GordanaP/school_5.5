@@ -8,14 +8,7 @@
 
 @section('content')
 
-    <div class="row">
-        <aside class="col-md-3">
-            <ul>
-                <li><a href="#">My portfolio</a></li>
-            </ul>
-        </aside>
-
-        <main class="col-md-9 lecture">
+        <main class="lecture">
 
             @include('errors._list')
             @include('flash::message')
@@ -37,8 +30,8 @@
 
                 </form>
             </div>
+
         </main>
-    </div>
 
 @endsection
 
@@ -48,5 +41,4 @@
 
     @include('lessons.partials._validateFormJs')
 
-    @include('lessons.partials._createFormJs')
 @endsection

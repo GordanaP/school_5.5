@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\AlphaNumSpaces;
+use App\Rules\AlphaPunctuationSpaces;
 use App\Services\Utilities\Year;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -38,15 +40,20 @@ class LessonRequest extends FormRequest
                     'year' => 'required|in:'.$years,
                     'title' =>[
                         'required',
-                        'alpha_num_spaces',
+                        new AlphaNumSpaces,
                         'max:80',
                         Rule::unique('lessons')->where(function ($query) {
                             $query->where('teacher_id', $this->user->teacher->id);
                         }),
                     ],
-                    'topic' => 'nullable|alpha_num_spaces|max:150',
-                    'goals' => 'nullable|max:300',
-                    'readings.*' => 'sometimes|required|distinct|max:255',
+                    'topic' => [
+                        'required',
+                         new AlphaPunctuationSpaces,
+                        'max:150'
+                    ],
+                    'goals' => 'required|max:300',
+                    'readings.*' => 'nullable|distinct|max:255',
+                    'readings.0' => 'required|distinct|max:255'
                 ];
                 break;
 
@@ -57,15 +64,20 @@ class LessonRequest extends FormRequest
                     'year' => 'required|in:'.$years,
                     'title' =>[
                         'required',
-                        'alpha_num_spaces',
+                        new AlphaNumSpaces,
                         'max:80',
                         Rule::unique('lessons')->where(function ($query) {
                             $query->where('teacher_id', $this->user->teacher->id);
                         })->ignore($this->user->teacher->id, 'teacher_id'),
                     ],
-                    'topic' => 'nullable|alpha_num_spaces|max:150',
-                    'goals' => 'nullable|max:300',
-                    'readings.*' => 'sometimes|required|distinct|max:5',
+                    'topic' => [
+                        'required',
+                        new AlphaPunctuationSpaces,
+                        'max:150'
+                    ],
+                    'goals' => 'required|max:300',
+                    'readings.*' => 'nullable|distinct|max:255',
+                    'readings.0' => 'required|distinct|max:255'
                 ];
                 break;
         }
@@ -77,9 +89,12 @@ class LessonRequest extends FormRequest
 
         if ($this->readings)
         {
+            // Messages for the readings array
+            $messages['readings.0.required'] = 'At least one readings is required.';
+
             foreach($this->readings as $key => $val)
             {
-                $messages['readings.'.$key.'.max'] = 'The :attribute must be less than :max characters long.';
+                $messages['readings.'.$key.'.max'] = 'The readings title #'. ($key + 1) .' must be less than :max characters long.';
             }
         }
 

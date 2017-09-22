@@ -114,9 +114,8 @@ class LessonController extends Controller
     {
         $lesson->deleteLesson($user, $lesson);
 
-        flash()->success('The lesson has been updated.');
-        return back();
-
+        // flash()->success('The lesson has been updated.');
+        // return back();
     }
 
     /**
@@ -129,7 +128,7 @@ class LessonController extends Controller
     public function addPhoto(LessonPhotoRequest $request, User $user, Lesson $lesson)
     {
         // Create a photo
-        $photo = Photo::makePhoto($request->photo, $user);
+        $photo = Photo::makePhoto($request->photo, $user)->with('lesson');
 
         // Save to DB
         if(! $lesson->hasPhoto($photo))

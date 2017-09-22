@@ -1,54 +1,58 @@
-<div class="row bg-white">
-                <p class="text-secondary mb-30">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </p>
-            </div>
+@extends('layouts.app')
 
-            <div class="row  bg-white pd-30 border-light-grey">
 
-                <!-- Lesson content-->
-                <div class="col-md-8">
-                    gordana
-                </div>
 
-                <!-- Readings and media -->
-                <div class="col-md-4">
-                    <div class="bg-secondary-light">
-                        @foreach ($lesson->readings as $reading)
-                            <p class="text-uppercase ls-1"><b>Readings</b></p>
-                            <p class="mt-6 text-secondary">{{ $reading->title }}</p>
-                        @endforeach
+@section('content')
 
-                        <p class="text-uppercase ls-1 mt-24"><b>Media</b></p>
 
-                        <p class="mt-6">
-                            <a href="https://www.youtube.com/watch?v=QIU_UbkPnaU">
-                                How to sqaure any 2 digit number in your head
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+@endsection
 
-            <div class="row mt-18">
-                @foreach ($lesson->photos->chunk(4) as $chunk)
-                    <div class="row lesson__photos mb-6">
-                        @foreach ($chunk as $photo)
-                            <div class="col-md-3">
 
-                                @include('lessons.photos._photo')
+@section('scripts')
+    <script>
+        Dropzone.options.addLessonPhotosForm = {
+            paramName: 'photo', // change default input name
+            maxFiles: maxFilesRemained,
+            accept: function(file, done) {
+                console.log("uploaded");
+                done();
+            },
+            init: function() {
+                this.on("maxfilesexceeded", function(file){
+                if(lessonFilesCount == 0)
+                {
+                    alert('Only three files per lesson are allowed.');
+                }
+                else{
+                    alert("The remaining number of the allowed files for this lesson is " + maxFilesRemained + ".");
+                }
+            },
+            maxFilesize: 3,
+            acceptedFiles: '.jpg, .jpeg, .png, .bmp, .gif',
+            success: function(file, response) {
+                if (file.status == 'success') {
+                    fileUpload.handleSuccess(response);
+                }
+                else{
+                    fileUpload.handleError(response);
+                }
+            }
+         }//Dropzone
 
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
+        var fileUpload = {
+            handleSuccess: function(response){
+                console.log(response);
 
-            <!-- Dropzone -->
-            {{-- @include('lessons.photos._dropzone') --}}
+                var gallery = $('.lesson__photos');
+                var baseUrl = 'http://localhost/school_5.5/public/';
+                var photoPath = response.thumbnail_path;
+                $(gallery).append('<img src="' + baseUrl + photoPath + '" class="image">');
+            },
+            handleError: function(response){
 
-        </div>
+            }
+        }
+    </script>
+@endsection
+
+

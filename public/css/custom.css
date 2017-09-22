@@ -2,9 +2,12 @@
  *  Overrides
  */
 select, button, a.btn, input, textarea, .panel { border-radius: 0 !important; }
-
 h1,h2,h3,h4,h5,h6,p { margin: 0; }
 ul{list-style-type: none; padding: 0; margin: 0}
+
+/*Jquery form validator*/
+.flex .form-control-feedback.glyphicon.glyphicon-remove,
+.flex .form-control-feedback.glyphicon.glyphicon-ok { margin-right: 35px; }
 
 /**
  * General
@@ -13,16 +16,35 @@ body{
     background: #f9f9f9;
     font-family: 'Roboto Slab', serif;
     color: #212121;
+    font-size: 15px;
 }
 
 /**
  * Lesson create
  */
+article.lesson { background: #fff; border: 1px solid #eee;}
+header.lesson__title {padding: 24px 12px; font-family: 'Lato', sans-serif;}
+header.lesson__title img{margin-right: 24px;}
+section.lesson__ratings { font-size: 20px; margin-top: 12px; margin-bottom: 36px; color: #757575;}
+section.lesson__ratings a { color: #cc8b00 }
+section.lesson__details main h4,
+section.lesson__details p.readings,
+section.lesson__details p.media{ font-family: 'Lato', sans-serif; color: #4d4d4d; font-weight: bold;}
+section.lesson__details main img{ margin-right: 18px;}
+    section.lesson__details main p{ color: #757575; line-height: 180%; margin-top: 18px; margin-left: 48px;}
+section.lesson__details main hr{ margin-top: 30px; margin-bottom: 30px; }
+section.lesson__details aside .well{background: #fff !important; border: 1px solid  #ffc64d; border-top-width: 6px}
+section.lesson__details aside .well p.lesson__teacher-name{margin-top: 12px; margin-bottom: 24px; font-family: 'Lato', sans-serif; letter-spacing: 1px}
+footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
+
 section.lecture__info .panel-body,
 .lesson__title {
     background-color: #f1f1f1;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
+
+
+
 
 /**
  * Lesson display

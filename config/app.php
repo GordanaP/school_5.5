@@ -177,7 +177,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\UtilityServiceProvider::class,
-        App\Providers\ValidatorServiceProvider::class,
     ],
 
     /*

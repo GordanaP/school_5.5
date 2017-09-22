@@ -28,4 +28,9 @@ class Teacher extends Model
     {
         return $this->hasManyThrough('App\Photo', 'App\Lesson');
     }
+
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) . ' ' .ucfirst($this->last_name);
+    }
 }

@@ -9,6 +9,6 @@
 
 </form>
 
-<a href="{{ asset($photo->path) }}" data-lightbox="{{ $lesson->title }}" data-title="My caption">
-    <img src="{{ asset($photo->thumbnail_path) }}" alt="{{ $lesson->title }}" class="image">
+<a href="{{ asset($photo->path) }}" data-lightbox="{{ $photo->lesson_id }}" data-title="My caption">
+    <img src="{{ asset($photo->thumbnail_path) }}" class="image">
 </a>
