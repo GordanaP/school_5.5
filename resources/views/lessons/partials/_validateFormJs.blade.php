@@ -26,9 +26,9 @@
             },
             title: {
                 validators: {
-                    notEmpty: {
-                        message: 'The title is required.'
-                    },
+                    // notEmpty: {
+                    //     message: 'The title is required.'
+                    // },
                     stringLength: {
                         min: 1,
                         max: 80,

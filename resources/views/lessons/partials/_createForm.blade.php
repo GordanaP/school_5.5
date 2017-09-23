@@ -78,13 +78,32 @@
 
             <div class="col-md-9">
 
-                <!-- The readings field with an add button -->
-                <div class="form-group">
-                    <div class="flex">
-                        <input type="text" class="form-control" name="readings[]" placeholder=" Add readings" value="" />
-                        <button type="button" class="btn btn-default addReadingsButton"><i class="fa fa-plus"></i></button>
+                @if ($readings)
+
+                    <!-- The readings fields with old input values -->
+                    @foreach ($readings as $key => $reading)
+                        @if ($reading != null)
+                        <div class="form-group">
+                            <div class="flex">
+                                <input type="text" class="form-control" name="readings[]" placeholder=" Add readings" value="{{ Request::segment(3) == 'create' ? $reading : $reading->title }}" />
+                                @if ($key == 0 )
+                                    <button type="button" class="btn btn-default addReadingsButton" {{ count($readings_array) == 4 || count($readings) == 3 ? 'disabled' : '' }}><i class="fa fa-plus"></i></button>
+                                @else
+                                    <button type="button" class="btn btn-default removeReadingsButton"><i class="fa fa-minus"></i></button>
+                                @endif
+                            </div>
+                        </div>
+                        @endif
+                    @endforeach
+                @else
+                    <!-- The initial readings input field -->
+                    <div class="form-group">
+                        <div class="flex">
+                            <input type="text" class="form-control" name="readings[]" placeholder=" Add readings" value="" />
+                            <button type="button" class="btn btn-default addReadingsButton"><i class="fa fa-plus"></i></button>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <!-- The readings field template containing a readings field and a remove button -->
                 <div class="form-group hide" id="readingsTemplate">

@@ -25,6 +25,8 @@
                         'topic' => old('topic'),
                         'goals' => old('goals'),
                         'readings' => old('readings'),
+                        'readings_array' => old('readings'),
+                        'max_field_num' => 3,
                         'button' => 'Create lesson',
                     ])
 
