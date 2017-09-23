@@ -14,8 +14,8 @@
 @section('content')
 
     <div class="row">
-
         @include('flash::message')
+    </div>
 
     <article class="row lesson">
 

@@ -1,4 +1,5 @@
 <p class="required__fields">Fields marked with * are required.</p>
+
 <section class="lecture__title">
     <div class="row">
 
@@ -38,11 +39,15 @@
     </div>
 </section>
 
+<div class="flex align-center">
+    <div class="trapezoid"></div>
+    <span class="text-uppercase ls-1 text__trapezoid">General</span>
+</div>
 <section class="lecture__info" id="general">
     <div class="panel">
         <div class="panel-body">
-            <div class="col-md-3 text-uppercase ls-1">
-                General
+            <div class="col-md-3">
+                <p><small>Enter the lesson title, topic, and goals.</small></p>
             </div>
 
             <div class="col-md-9">
@@ -54,13 +59,13 @@
 
                 <!-- Topic -->
                 <div class="form-group">
-                    <label for="topic">Topic</label>
+                    <label for="topic">Topic <span class="asterisk">*</span></label>
                     <input type="text" class="form-control" name="topic" id="topic" value="{{ $topic }}" placeholder="Lesson topic">
                 </div>
 
                 <!-- Goals -->
                 <div class="form-group">
-                    <label for="goals">Goals</label>
+                    <label for="goals">Goals <span class="asterisk">*</span></label>
                     <textarea class="form-control" name="goals" id="goals" rows="4" placeholder="Lesson goals">{{ $goals }}</textarea>
                 </div>
             </div>
@@ -69,16 +74,22 @@
 </section>
 
 <!-- Readings -->
+<div class="flex align-center">
+    <div class="trapezoid"></div>
+    <span class="text-uppercase ls-1 text__trapezoid">Readings</span>
+</div>
 <section class="lecture__info" id="materials">
     <div class="panel">
         <div class="panel-body">
-            <div class="col-md-3 text-uppercase ls-1">
-                Readings
+            <div class="col-md-3">
+                <p><small>Enter at least one of up to three readings recommended for the lesson.</small></p>
             </div>
 
             <div class="col-md-9">
 
                 @if ($readings)
+
+                    <label>Readings  <span class="asterisk">*</span></label>
 
                     <!-- The readings fields with old input values -->
                     @foreach ($readings as $key => $reading)
@@ -98,6 +109,7 @@
                 @else
                     <!-- The initial readings input field -->
                     <div class="form-group">
+                        <label>Readings  <span class="asterisk">*</span></label>
                         <div class="flex">
                             <input type="text" class="form-control" name="readings[]" placeholder=" Add readings" value="" />
                             <button type="button" class="btn btn-default addReadingsButton"><i class="fa fa-plus"></i></button>
@@ -120,7 +132,7 @@
 <!-- Button -->
 <section>
     <div class="form-group">
-        <button type="submit" class="btn btn-default pull-right create__button" >
+        <button type="submit" class="btn btn-default btn-lg pull-right create__button">
             {{ $button }}
         </button>
     </div>

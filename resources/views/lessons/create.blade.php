@@ -13,6 +13,10 @@
             @include('errors._list')
             @include('flash::message')
 
+            <h1><i class="fa fa-pencil"></i> New lesson</h1>
+
+            <hr>
+
             <div class="wrapper">
                 <form action="{{ route('lessons.store', $user) }}" method="POST" id="lessonForm">
 

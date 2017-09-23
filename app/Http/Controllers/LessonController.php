@@ -114,8 +114,8 @@ class LessonController extends Controller
     {
         $lesson->deleteLesson($user, $lesson);
 
-        // flash()->success('The lesson has been updated.');
-        // return back();
+        flash()->success('The lesson has been updated.');
+        return back();
     }
 
     /**

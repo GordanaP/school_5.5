@@ -14,6 +14,10 @@
         @include('errors._list')
         @include('flash::message')
 
+        <h1><i class="fa fa-pencil-square-o"></i> Edit lesson</h1>
+
+        <hr>
+
         <div class="wrapper">
             <form action="{{ route('lessons.update', [$user, $lesson] ) }}" method="POST" id="lessonForm">
 
