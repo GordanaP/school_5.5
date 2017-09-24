@@ -15,6 +15,7 @@
 
 @section('content')
 
+
     <!-- Calendar -->
     <main class="calendar">
         <div id="eventCalendar"></div>
@@ -31,6 +32,8 @@
     <script>
 
     var calendar = $('#eventCalendar');
+    var user = window.Laravel.user;
+    var base_url = '../calendar/' + user;
 
     calendar.fullCalendar({
         header: {
@@ -40,7 +43,7 @@
         },
         defaultView: 'month',
         handleWindowResize: true,
-        displayEventTime: true,
+        displayEventTime: false,
         showNonCurrentDates: false,
         slotDuration: '00:15:00',
         firstDay: 1,
@@ -56,6 +59,11 @@
             }
         ],
         eventLimit: true,
+        eventSources: [
+            {
+                url : base_url
+            }
+        ]
     });
 
     </script>

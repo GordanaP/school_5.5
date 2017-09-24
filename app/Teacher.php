@@ -29,6 +29,11 @@ class Teacher extends Model
         return $this->hasManyThrough('App\Photo', 'App\Lesson');
     }
 
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
     public function getFullNameAttribute()
     {
         return ucfirst($this->first_name) . ' ' .ucfirst($this->last_name);
