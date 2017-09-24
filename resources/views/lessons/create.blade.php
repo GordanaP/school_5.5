@@ -43,6 +43,7 @@
 
 @section('scripts')
     <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
+    <!-- Different from original BS file -->
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
 
     @include('lessons.partials._validateFormJs')

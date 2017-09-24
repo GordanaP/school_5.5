@@ -24,6 +24,11 @@
                         <i class="icon_folder-add_alt"></i> New lesson
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('events.index', Auth::user()) }}">
+                        <i class="fa fa-calendar"></i> My calendar
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -2,20 +2,24 @@
 
 @section('title', '| My lessons')
 
+@section('links')
+    <style>
+        table.lesson__table {font-size: 12px}
+    </style>
+@endsection
+
 @section('content')
     <h1>My lessons</h1>
 
     @include('flash::message')
 
     @if (count($lessons))
-        <table class="table table-striped">
+        <table class="table table-striped lesson__table">
             <thead>
-                <th>Subject</th>
-                <th>Year</th>
+                <th width="150px">Subject</th>
+                <th width="150px">Year</th>
                 <th>Title</th>
                 <th>Topic</th>
-                <th>Goals</th>
-                <th>Readings</th>
                 <th><i class="fa fa-cog" aria-hidden="true"></i></th>
             </thead>
             <tbody>
@@ -25,12 +29,6 @@
                         <td>{{ $lesson->year }}</td>
                         <td>{{ $lesson->title }}</td>
                         <td>{{ $lesson->topic }}</td>
-                        <td>{{ $lesson->goals }}</td>
-                        <td>
-                            @foreach ($lesson->readings as $reading)
-                                {{ $reading->title }}
-                            @endforeach
-                        </td>
                         <td class="flex">
                             <a href="{{ route('lessons.edit', [$user, $lesson] ) }}" class="btn btn-warning btn-sm">
                                 <i class="fa fa-pencil-square-o"></i>
@@ -47,6 +45,7 @@
                                 <i class="fa fa-eye ml-10" style="color: #aaa"></i>
                             </a>
                         </td>
+
                     </tr>
                 @endforeach
             </tbody>
