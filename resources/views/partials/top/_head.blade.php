@@ -20,6 +20,15 @@
 <script>
     window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
-        'user' => Auth::user()->name,
+        'user' => [
+            'name' => Auth::user()->name,
+            'role' => [
+                'teacher' => Auth::user()->isTeacher(),
+                'student' => Auth::user()->isStudent(),
+                'parent' => Auth::user()->isParent(),
+                'admin' => Auth::user()->isAdmin(),
+                'superadmin' => Auth::user()->isSuperAdmin(),
+            ]
+        ],
     ]) !!};
 </script>

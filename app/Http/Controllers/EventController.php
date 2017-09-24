@@ -15,9 +15,10 @@ class EventController extends Controller
      */
     public function index(Request $request, User $user)
     {
+        //Teacher events to be displayed in the calendar
         if ($request->ajax())
         {
-            return Event::all();
+            return $user->teacher->events;
         }
 
         return view('events.index', compact('user'));

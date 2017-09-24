@@ -9,17 +9,19 @@
 
     <style>
         main.calendar {background: #fff; padding: 18px}
+        div.modal-content {border-radius: 0}
     </style>
 @endsection
 
 
 @section('content')
 
-
     <!-- Calendar -->
     <main class="calendar">
         <div id="eventCalendar"></div>
     </main>
+
+    @include('events.partials._eventModal')
 
 @endsection
 
@@ -32,12 +34,12 @@
     <script>
 
     var calendar = $('#eventCalendar');
-    var user = window.Laravel.user;
+    var user = $('.event__button').attr('data-user');
     var base_url = '../calendar/' + user;
 
     calendar.fullCalendar({
         header: {
-            left: 'prev,next tkoday newEvent',
+            left: 'prev,next today newEvent',
             center: 'title',
             right: 'month, agendaWeek, agendaDay, list'
         },
@@ -59,11 +61,33 @@
             }
         ],
         eventLimit: true,
-        eventSources: [
+        eventSources: [ // Calendar events stored in DB
             {
-                url : base_url
+                url : base_url // EventController@index - renders events
             }
-        ]
+        ],
+        // On selecting a date - display modal to create a new event
+        select: function(start, event, jsEvent, view){ // Select a fullcalendar date
+
+            // Handle event modal
+            if( Laravel.user.role.teacher || Laravel.user.role.admin || Laravel.user.role.superadmin)
+            {
+                $('#eventModal').modal('show'); // Open the modal
+                $('.modal-title span').text('New event'); // Add title
+                $('.modal-title i').addClass('fa-pencil'); // Add class to the title icon
+                $('.modal .event__button').text('Create event'); // Add text to the button
+                $('.modal .event__button').attr('id', 'storeEvent'); // Add id to the button
+            }
+        },
+        // On clicking an existing event - display modal to edit the event
+        eventClick: function(event, jsEvent, view)
+        {
+            $('#eventModal').modal('show'); // Open the modal
+            $('.modal-title span').text('Edit event'); // Add title
+            $('.modal-title i').addClass('fa-pencil-square-o'); // Add class to the title icon
+            $('.modal .event__button').text('Save changes'); // Add text to the button
+            $('.modal .event__button').attr('id', 'updateEvent'); // Add id to the button
+        }
     });
 
     </script>
