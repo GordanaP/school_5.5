@@ -10,6 +10,22 @@
     <style>
         main.calendar {background: #fff; padding: 18px}
         div.modal-content {border-radius: 0}
+
+        #eventModal{ font-size: 13px }
+        #eventModal .modal-header{
+            border-bottom: 0;
+            background-color: #f5f5f6;
+            border-top: 6px solid #ffc64d;
+        }
+        #eventModal .modal-footer{
+            border-top: 0;
+            background: #f5f5f6;
+            border-bottom: 1px solid  #ffc64d;
+        }
+        #eventModal .event__button { background: #9CCC65; border: 1px solid #9ccc65}
+        #eventModal .event__button:hover { background: #6B9B37;}
+        #eventModal .cancel__button { background: #cc8b00; border: 1px solid  #cc8b00; color: #fff;}
+        #eventModal .close__button { border: 1px solid  cc8b00;}
     </style>
 @endsection
 

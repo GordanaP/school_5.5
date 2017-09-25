@@ -21,13 +21,13 @@
     window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
         'user' => [
-            'name' => Auth::user()->name,
+            'name' => Auth::check() && Auth::user()->name,
             'role' => [
-                'teacher' => Auth::user()->isTeacher(),
-                'student' => Auth::user()->isStudent(),
-                'parent' => Auth::user()->isParent(),
-                'admin' => Auth::user()->isAdmin(),
-                'superadmin' => Auth::user()->isSuperAdmin(),
+                'teacher' => Auth::check() && Auth::user()->isTeacher(),
+                'student' => Auth::check() && Auth::user()->isStudent(),
+                'parent' => Auth::check() && Auth::user()->isParent(),
+                'admin' => Auth::check() && Auth::user()->isAdmin(),
+                'superadmin' => Auth::check() && Auth::user()->isSuperAdmin(),
             ]
         ],
     ]) !!};

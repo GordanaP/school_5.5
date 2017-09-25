@@ -12,10 +12,10 @@
                 @include('events.partials._createForm')
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+                <button type="button" class="btn btn-default pull-left close__button" data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">
+                <button type="button" class="btn btn-default cancel__button" data-dismiss="modal">
                     Cancel
                 </button>
                 <button type="button" class="btn btn-primary event__button" data-dismiss="modal" id="" data-user="{{ $user->name }}"></button>
