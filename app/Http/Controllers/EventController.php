@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -89,4 +90,11 @@ class EventController extends Controller
     {
         //
     }
+
+    public function ajaxClassrooms(Subject $subject, User $user)
+    {
+        return $user;
+        return view('calendars.partials._ajaxClassrooms', compact('user', 'subject'));
+    }
+
 }

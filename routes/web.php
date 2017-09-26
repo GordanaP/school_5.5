@@ -29,10 +29,17 @@ Route::name('lessons.destroy')->delete('lessons/{user}/{lesson}', 'LessonControl
 Route::name('lessons.edit')->get('lessons/{user}/{lesson}/edit', 'LessonController@edit');
 Route::name('lessons.show')->get('{user}/{lesson}', 'LessonController@show');
 
+
 // Photo
 Route::resource('photos', 'PhotoController');
 Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@store');
 
+// Classroom
+Route::resource('classrooms', 'ClassroomController', [
+    'except' => 'index'
+]);
+// Route::name('classrooms.teacher')->get('classrooms/{subject}/{user}', 'ClassroomController@index');
+Route::name('classrooms.teacher')->get('classrooms/{param}/{user}', 'ClassroomController@index');
 
 // Redirects all non-existing routes to the index route
 // Must be at the and of the page

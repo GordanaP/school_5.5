@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
+use App\Subject;
+use App\Teacher;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -12,9 +15,14 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $param, User $user)
     {
-        //
+        // subject identifier is either 'slug' or 'id' (ajax call)
+        $subject = Subject::where('id', $param)
+            ->orWhere('slug', $param)
+            ->firstOrFail();
+
+        return view('classrooms.partials._subjectClassrooms', compact('user', 'subject'));
     }
 
     /**

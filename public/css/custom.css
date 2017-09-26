@@ -1,17 +1,25 @@
 /**
- *  Overrides
+ *  OVERRIDES
  */
+/*-------------
+ Bootstrap
+--------------*/
 select, button, a.btn, input, textarea, .panel { border-radius: 0 !important; }
 h1,h2,h3,h4,h5,h6,p { margin: 0; }
 ul{list-style-type: none; padding: 0; margin: 0}
+div.modal-content {border-radius: 0}
+span.input-group-addon { border-radius: 0; }
+span.input-group-addon i { margin-right: 0 }
 
-/*Jquery form validator*/
+/*----------------------
+  Jquery form validator
+----------------------*/
 .flex i.form-control-feedback.glyphicon.glyphicon-remove,
 .flex i.form-control-feedback.glyphicon.glyphicon-ok { right: 35px; top: 25px; }
-
 small.help-block {color: #cc8b00 !important}
 .has-error .form-control { border-color: #cc8b00 !important }
 i.form-control-feedback.glyphicon.glyphicon-remove { color: #cc8b00 !important;}
+
 
 /**
  * General
@@ -74,3 +82,20 @@ section.lecture__info .panel-body,
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
 footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
+
+
+/**
+ * Events calendar
+ */
+ main.calendar {background: #fff; padding: 18px}
+#eventModal { font-size: 13px; color: #4a4a4a !important; }
+#eventModal .modal-header { border-bottom: 0; background-color: #f1f1f1; border-top: 12px solid #ffc64d; font-family: 'Lato', serif; }
+#eventModal .modal-header h4{ font-size: 22px; font-weight: bold;}
+#eventModal .modal-header i{ color: #808080;}
+#eventModal .modal-footer{ border-top: 0; background: #f5f5f6; border-bottom: 1px solid  #ffc64d;}
+#eventModal .event__button { background: #6b9b37; border: 1px solid #5b842e;}
+#eventModal .event__button:hover { background: #9ccc65; border: 1px solid #84bf40; color: #212121}
+#eventModal .cancel__button { background: #cc8b00; border: 1px solid  #996900; color: #fff;}
+#eventModal .cancel__button:hover { background: #ffc64d; border: 1px solid  #ffb61a; color: #212121;}
+#eventModal .close__button { border: 1px solid  #cc8b00;}
+#eventModal .close__button:hover { background: #bdbdbd; border: 1px solid #a6a6a6;}
