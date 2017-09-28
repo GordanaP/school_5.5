@@ -6,12 +6,13 @@
     <link rel="stylesheet" href="{{ asset('vendor/fullcalendar/fullcalendar.min.css') }}">
     <link rel="stylesheet" type="media" href="{{ asset('vendor/fullcalendar/fullcalendar.print.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/datepicker/jquery-ui.css') }}">
-    <style>
+    <link rel="stylesheet" href="{{ asset('vendor/timepicker/timepicker-addon.css') }}">
+    {{-- <style>
         .markholiday .ui-state-default
         {
             color: red;
         }
-    </style>
+    </style> --}}
 @endsection
 
 
@@ -33,12 +34,13 @@
     <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('vendor/datepicker/jquery-ui.js') }}"></script>
+    <script src="{{ asset('vendor/timepicker/timepicker-addon.js') }}"></script>
 
     <script>
 
         // Empty modal fields content after closing it
         $(".modal").on("hidden.bs.modal", function() {
-            $("input, select").val("").end();
+            $("input, textarea, select").val("").end();
         });
 
 
@@ -75,16 +77,26 @@
                     url : base_url // EventController@index - renders events
                 }
             ],
-            // On selecting a date - display modal to create a new event
+            // When selecting a fullcalendar field - display a BS modal to create a new event
             select: function(start, event, jsEvent, view){
 
-                // Open the event modal
-                if( Laravel.user.role.teacher || Laravel.user.role.admin || Laravel.user.role.superadmin)
+                // Open the event modal only from today on and by authorized users
+                var selectedDate = start.format("YYYY-MM-DD");
+                var today = moment().format("YYYY-MM-DD");
+
+                if(selectedDate >= today)
                 {
-                    $('#eventModal').modal('show'); // Open the modal
+                    if( Laravel.user.role.teacher || Laravel.user.role.admin || Laravel.user.role.superadmin)
+                    {
+                        $('#eventModal').modal('show');
+                    }
+                }
+                else
+                {
+                    alert('You can not create an event in the past.');
                 }
 
-                //Set the modal parameters
+                // Set the modal parameters
                 $('.modal-title span').text('New event'); // Add title
                 $('.modal-title i').addClass('fa-pencil'); // Add class to the title icon
                 $('.modal .event__button').text('Create event'); // Add text to the button
@@ -110,57 +122,12 @@
         // Filter the classrooms for the selected subject only
         @include('classrooms.js._subjectClassroomsJs')
 
-        // Datepicker
-        $("#date").datepicker({
-            dateFormat: "yy-mm-dd", // 2017-09-27
-            minDate: 0, // today
-            changeMonth: true,
-            changeYear: true,
-            firstDay: 1, // Monday,
-            beforeShowDay: function(date) // disable and mark in red Sundays & holidays
-            {
-                var day = date.getDay();
-                var year = date.getFullYear();
-                var formattedDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        // Datepicker - set maxdate, disable SUndays & holidays
+        @include('events.js._datepicker')
 
-                var January1 = year + "-01-01";
-                var January2 = year + "-01-02";
-                var January7 = year + "-01-07";
-                var February15 = year + "-02-15";
-                var February16 = year + "-02-16";
-                var May1 = year + "-05-01";
-                var May2 = year + "-05-02";
-                var November11 = year + "-11-11";
+        // Timepicker - set time format, min & max time, min time interval
+        @include('events.js._timepicker')
 
-                var holidays = [January1, January2, January7, February15, February16, May1, May2, November11];
-
-                // Sundays
-                if (day == 0)
-                {
-                    // false = nonselectable field, markholiday = css class
-                    return [false, "markholiday"];
-                }
-                else
-                {
-                    // returns -1 if the value is not in the array, otherways returns the value of the index
-                    return (holidays.indexOf(formattedDate) == -1) ? [true] : [false, "markholiday"];
-                }
-            }
-        });
-
-        // Set max date in datepicker
-        var today = new Date();
-        var currYear = today.getFullYear();
-        var nextYear = currYear + 1;
-        var currMonth = today.getMonth();
-
-        var year = currMonth >=8 && currMonth <=11 ? nextYear : currYear
-        var month = 7;
-        var day = 31.
-
-        var maxDate = new Date(year, month, day);
-
-        $("#date").datepicker( "option", "maxDate", maxDate);
 
     </script>
 @endsection

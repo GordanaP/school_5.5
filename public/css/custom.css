@@ -36,6 +36,8 @@ i.form-control-feedback.glyphicon.glyphicon-remove { color: #cc8b00 !important;}
     }
 }
 
+.markholiday .ui-state-default {color: red !important; }
+
 
 /**
  * General
