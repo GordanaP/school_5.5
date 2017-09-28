@@ -19,9 +19,11 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('teacher_id')->index();
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
 
+            $table->unsignedInteger('subject_id')->index();
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
+
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('subject');
             $table->string('classroom');
 
             $table->timestamp('start');

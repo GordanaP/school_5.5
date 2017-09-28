@@ -18,6 +18,8 @@
 
 @section('content')
 
+    {{ action('EventController@store', $user) }}
+
     <!-- Calendar -->
     <main class="calendar">
         <div id="eventCalendar"></div>
@@ -43,10 +45,9 @@
             $("input, textarea, select").val("").end();
         });
 
-
         var calendar = $('#eventCalendar');
-        var user = $('.event__button').attr('data-user');
-        var base_url = '../calendar/' + user;
+        var user = $('.event__button').attr('data-user'); // $user->name
+        var base_url = '../calendar/' + user; // EventController@index
 
         calendar.fullCalendar({
             header: {
@@ -72,9 +73,9 @@
                 }
             ],
             eventLimit: true,
-            eventSources: [ // Calendar events stored in DB
+            eventSources: [
                 {
-                    url : base_url // EventController@index - renders events
+                    url : base_url  // renders events
                 }
             ],
             // When selecting a fullcalendar field - display a BS modal to create a new event
@@ -122,12 +123,14 @@
         // Filter the classrooms for the selected subject only
         @include('classrooms.js._subjectClassroomsJs')
 
-        // Datepicker - set maxdate, disable SUndays & holidays
+        // Datepicker - set maxdate, disable Sundays & holidays
         @include('events.js._datepicker')
 
         // Timepicker - set time format, min & max time, min time interval
         @include('events.js._timepicker')
 
+        // Create an event - add to the calendar & store to DB
+        @include('events.js._createEvent')
 
     </script>
 @endsection

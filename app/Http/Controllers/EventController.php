@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Event;
 use App\Subject;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -41,9 +42,18 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        // Create an event
+        $event = Event::createNew($request);
+
+        // Assign the event to the teacher
+        $user->assignEvent($event);
+
+        return response([
+            'message' => 'A new event has been created.',
+            'event' => $event
+        ]);
     }
 
     /**

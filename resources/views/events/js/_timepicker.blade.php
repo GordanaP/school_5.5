@@ -9,7 +9,7 @@ $.timepicker.timeRange(
         oneLine: true,
         timeFormat: 'HH:mm',
         minInterval: (1000*60*45), // 45 min
-        hourMin: 7,
+        hourMin: 8,
         hourMax: 19,
         start: {}, // start picker options
         end: {} // end picker options

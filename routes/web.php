@@ -19,6 +19,7 @@ Route::name('pages.home')->get('/home', 'PageController@home');
 
 // Events
 Route::name('events.index')->get('calendar/{user}', 'EventController@index');
+Route::name('events.store')->post('calendar/{user}', 'EventController@store');
 
 // Lesson
 Route::name('lessons.index')->get('lessons/{user}', 'LessonController@index');

@@ -19,7 +19,7 @@ class EventsTableSeeder extends Seeder
             'teacher_id' => $teacher->id,
             'title' => 'Test',
             'description' => 'Second test',
-            'subject' => $subject->name,
+            'subject_id' => $subject->id,
             'classroom' => 'I-1',
         ]);
     }

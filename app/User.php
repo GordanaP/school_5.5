@@ -43,9 +43,15 @@ class User extends Authenticatable
        return $this->hasOne(Teacher::class);
     }
 
+
     public function saveLesson($lesson)
     {
        return $this->teacher->lessons()->save($lesson);
+    }
+
+    public function assignEvent($event)
+    {
+        return $this->teacher->events()->save($event);
     }
 
     public function getSubjectsUniqueAttribute()
