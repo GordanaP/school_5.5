@@ -20,6 +20,22 @@ small.help-block {color: #cc8b00 !important}
 .has-error .form-control { border-color: #cc8b00 !important }
 i.form-control-feedback.glyphicon.glyphicon-remove { color: #cc8b00 !important;}
 
+/*--------------------------
+    Datepicker
+---------------------------*/
+.ui-datepicker {
+    z-index: 1600 !important; /* larger than 1050 (BS modal) */
+    border-radius: 0 !important;
+
+    & .ui-corner-all {
+        border-radius: 0 !important;
+    }
+
+    & .ui-state-default {
+        background-image: none !important;
+    }
+}
+
 
 /**
  * General
@@ -89,7 +105,7 @@ footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
  */
  main.calendar {background: #fff; padding: 18px}
 #eventModal { font-size: 13px; color: #4a4a4a !important; }
-#eventModal .modal-header { border-bottom: 0; background-color: #f1f1f1; border-top: 12px solid #ffc64d; font-family: 'Lato', serif; }
+#eventModal .modal-header { border-bottom: 0; background-color: #f5f5f6; border-top: 12px solid #ffc64d; font-family: 'Lato', serif; }
 #eventModal .modal-header h4{ font-size: 22px; font-weight: bold;}
 #eventModal .modal-header i{ color: #808080;}
 #eventModal .modal-footer{ border-top: 0; background: #f5f5f6; border-bottom: 1px solid  #ffc64d;}

@@ -38,8 +38,7 @@ Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@sto
 Route::resource('classrooms', 'ClassroomController', [
     'except' => 'index'
 ]);
-// Route::name('classrooms.teacher')->get('classrooms/{subject}/{user}', 'ClassroomController@index');
-Route::name('classrooms.teacher')->get('classrooms/{param}/{user}', 'ClassroomController@index');
+Route::name('classrooms.teacher')->get('classrooms/{param}/{user}', 'ClassroomController@index'); /*param = suubject's either id or slug*/
 
 // Redirects all non-existing routes to the index route
 // Must be at the and of the page

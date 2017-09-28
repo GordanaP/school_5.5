@@ -13,7 +13,7 @@
                         <option value="{{ $subject->id }}"
                             {{ selected($subject->id, $subject_id) }}
                         >
-                            {{ $subject->name }}
+                            {{ ucwords($subject->name) }}
                         </option>
                     @endforeach
                 </select>
@@ -30,7 +30,7 @@
                         <option value="{{ $label }}"
                             {{ selected($label, $year) }}
                         >
-                            {{ $name }}
+                            {{ $label }}
                         </option>
                     @endforeach
                 </select>

@@ -11,7 +11,7 @@
 <div class="form-group">
     <label for="description">Description</label>
     <div class="input-group">
-        <span class="input-group-addon"><i class="icon_menu-circle_alt2"></i></span>
+        <span class="input-group-addon"><i class="fa fa-bars" aria-hidden="true"></i></span>
         <input type="text" class="form-control" name="description" id="description" placeholder="Enter event description">
     </div>
 </div>
@@ -39,7 +39,7 @@
         <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
         <select class="form-control" name="classroom" id="classroom">
             <option value="" selected="" disabled="">Select a classroom</option>
-            <!-- Render options for the selected subjects using an ajax call -->
+            <!-- Options for the selected subject only by using an ajax call -->
         </select>
     </div>
 </div>
