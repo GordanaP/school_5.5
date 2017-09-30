@@ -3,7 +3,7 @@ $(document).on('click', '#storeEvent', function(){
     var title = $('#title').val();
     var description = $('#description').val();
     var subject_id = $('#subject_id').val();
-    var classroom = $('#classroom').val();
+    var classroom_id = $('#classroom_id').val();
     var date = $('#date').val();
     var start = $('#start').val();
     var end = $('#end').val();
@@ -29,12 +29,12 @@ $(document).on('click', '#storeEvent', function(){
             title : title,
             description : description,
             subject_id : subject_id,
-            classroom : classroom,
+            classroom_id : classroom_id,
             start : startTime,
             end : endTime,
         },
         success : function(response) {
-            console.log(response.message);
+            console.log(response.event);
         }
     })
 });

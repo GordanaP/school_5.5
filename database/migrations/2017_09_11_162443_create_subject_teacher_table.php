@@ -22,10 +22,11 @@ class CreateSubjectTeacherTable extends Migration
             $table->unsignedInteger('subject_id')->index();
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
 
-            $table->string('classroom');
+            $table->unsignedInteger('classroom_id');
+            $table->string('year');
             $table->timestamps();
 
-            $table->unique(['teacher_id', 'subject_id', 'classroom']);
+            $table->unique(['teacher_id', 'subject_id', 'classroom_id']);
         });
     }
 

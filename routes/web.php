@@ -10,7 +10,6 @@ Route::name('tests.store')->post('tests/{user}', 'TestController@store');
 Route::view('/', 'welcome')->name('index');
 Route::view('/invoice', 'pages.invoice')->name('invoice');
 
-
 // Auth
 Auth::routes();
 
@@ -30,7 +29,6 @@ Route::name('lessons.destroy')->delete('lessons/{user}/{lesson}', 'LessonControl
 Route::name('lessons.edit')->get('lessons/{user}/{lesson}/edit', 'LessonController@edit');
 Route::name('lessons.show')->get('{user}/{lesson}', 'LessonController@show');
 
-
 // Photo
 Route::resource('photos', 'PhotoController');
 Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@store');
@@ -39,7 +37,12 @@ Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@sto
 Route::resource('classrooms', 'ClassroomController', [
     'except' => 'index'
 ]);
-Route::name('classrooms.teacher')->get('classrooms/{param}/{user}', 'ClassroomController@index'); /*param = suubject's either id or slug*/
+Route::name('classrroms.subject')->get('classrooms/{param}/{user}', 'ClassroomController@index');
+
+
+
+// Subject
+Route::name('subjects.year')->get('years/{param}/{user}', 'SubjectController@subjectYears');
 
 // Redirects all non-existing routes to the index route
 // Must be at the and of the page

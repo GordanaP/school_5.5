@@ -7,18 +7,9 @@
     <link rel="stylesheet" type="media" href="{{ asset('vendor/fullcalendar/fullcalendar.print.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/datepicker/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/timepicker/timepicker-addon.css') }}">
-    {{-- <style>
-        .markholiday .ui-state-default
-        {
-            color: red;
-        }
-    </style> --}}
 @endsection
 
-
 @section('content')
-
-    {{ action('EventController@store', $user) }}
 
     <!-- Calendar -->
     <main class="calendar">
@@ -112,11 +103,35 @@
             // On clicking an existing event - display modal to edit the event
             eventClick: function(event, jsEvent, view)
             {
-                $('#eventModal').modal('show'); // Open the modal
+                // Open modal to auth user only
+                if(event.teacher_id == Laravel.user.teacher_id)
+                {
+                    $('#eventModal').modal('show'); // Open the modal
+                }
+
+
+                // Handle the modal
                 $('.modal-title span').text('Edit event'); // Add title
                 $('.modal-title i').addClass('fa-pencil-square-o'); // Add class to the title icon
                 $('.modal .event__button').text('Save changes'); // Add text to the button
                 $('.modal .event__button').attr('id', 'updateEvent'); // Add id to the button
+
+                // Retrive the edit form values
+                var date = $.fullCalendar.moment(event.start).format('YYYY-MM-DD');
+                var start = $.fullCalendar.moment(event.start).format('HH:mm');
+                var end = $.fullCalendar.moment(event.end).format('HH:mm');
+
+                $('#title').val(event.title);
+                $('#description').val(event.description);
+                $('#subject_id').val(event.subject_id);
+                $('#classroom_id').val(event.classroom_id);
+                $('#date').val(date);
+                $('#start').val(start);
+                $('#end').val(end);
+
+                // $('#editEventModal #updateEvent').attr('data-id', event.id);
+                // $('#editEventModal #deleteEvent').attr('data-id', event.id);
+                // $('#editEventModal #deleteEvent').attr('data-user', event.user_id);
             }
         });
 

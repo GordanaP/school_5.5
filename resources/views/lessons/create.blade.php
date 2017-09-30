@@ -22,7 +22,7 @@
 
                     {{ csrf_field() }}
 
-                    @include('lessons.partials._createForm', [
+                    @include('lessons.partials._lessonForm', [
                         'subject_id' => old('subject_id'),
                         'year' => old('year'),
                         'title' => old('title'),
@@ -42,10 +42,19 @@
 @endsection
 
 @section('scripts')
+
+    <!-- Custom JS with CXRF protection -->
+    <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
     <!-- Different from original BS file -->
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
 
-    @include('lessons.partials._validateFormJs')
+
+    <script>
+
+        // JS form validation
+        @include('lessons.js._validateJs')
+
+    </script>
 
 @endsection

@@ -58,7 +58,6 @@ trait LessonCreate
         {
             $this->assignReadings($request);
         }
-
     }
 
     public function deleteLesson($user, $lesson)

@@ -22,7 +22,7 @@
 
         <!-- Year -->
         <div class="col-md-4">
-            <div class="form-group" id="year">
+            <div class="form-group">
                 <label for="year">Academic year <span class="asterisk">*</span></label>
                 <select class="form-control" name="year" id="year">
                     <option selected="" disabled="">Select a year</option>
@@ -132,7 +132,7 @@
 <!-- Button -->
 <section>
     <div class="form-group">
-        <button type="submit" class="btn btn-default btn-lg pull-right create__button">
+        <button type="submit" class="btn btn-default btn-lg pull-right create__button" data-user="{{ $user->name }}">
             {{ $button }}
         </button>
     </div>

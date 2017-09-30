@@ -1,0 +1,119 @@
+/**
+ *  OVERRIDES
+ */
+/*-------------
+ Bootstrap
+--------------*/
+select, button, a.btn, input, textarea, .panel { border-radius: 0 !important; }
+h1,h2,h3,h4,h5,h6,p { margin: 0; }
+ul{list-style-type: none; padding: 0; margin: 0}
+div.modal-content {border-radius: 0}
+span.input-group-addon { border-radius: 0; }
+span.input-group-addon i { margin-right: 0 }
+
+/*----------------------
+  Jquery form validator
+----------------------*/
+.flex i.form-control-feedback.glyphicon.glyphicon-remove,
+.flex i.form-control-feedback.glyphicon.glyphicon-ok { right: 35px; top: 25px; }
+small.help-block {color: #cc8b00 !important}
+.has-error .form-control { border-color: #cc8b00 !important }
+i.form-control-feedback.glyphicon.glyphicon-remove { color: #cc8b00 !important;}
+
+/*--------------------------
+    Datepicker
+---------------------------*/
+.ui-datepicker {
+    z-index: 1600 !important; /* larger than 1050 (BS modal) */
+    border-radius: 0 !important;
+
+    & .ui-corner-all {
+        border-radius: 0 !important;
+    }
+
+    & .ui-state-default {
+        background-image: none !important;
+    }
+}
+
+.markholiday .ui-state-default {color: red !important; }
+
+
+/**
+ * General
+ */
+body{
+    background: #f9f9f9;
+    font-family: 'Roboto Slab', serif;
+    color: #212121;
+    font-size: 15px;
+}
+
+span.asterisk{color: #cc8b00}
+
+p.required__fields { margin-bottom: 10px; }
+button.create__button{background: #6B9B37; color: #fff}
+button.create__button:hover{background: #9CCC65; color: #fff}
+
+/**
+ * Lesson create
+ */
+.trapezoid {
+    border-bottom: 40px solid #ffc64d;
+    border-right: 35px solid transparent;
+    height: 0;
+    width: 140px;
+    margin-top: 5px;
+    padding-left: 15px;
+}
+.text__trapezoid {position: absolute; margin-left: 15px; font-weight: bold; font-size: 14px;}
+
+main.lecture{ border: 1px solid #eee; }
+main.lecture h1 {font-family: 'Lato', sans-serif; color: #6B9B37; margin-bottom: 20px;}
+main.lecture .wrapper {background: #f7f7f8}
+section.lecture__title span.asterisk { color: #ffc64d; }
+#subject small.help-block {color: #ffc64d; !important}
+#subject .has-error .form-control { border-color: #ffc64d; !important }
+#subject i.form-control-feedback.glyphicon.glyphicon-remove { color: #ffc64d; !important;}
+
+/**
+ * Lesson display
+ */
+article.lesson { background: #fff; border: 1px solid #eee;}
+header.lesson__title {padding: 24px 12px; font-family: 'Lato', sans-serif;}
+header.lesson__title img{margin-right: 24px;}
+section.lesson__ratings { font-size: 20px; margin-top: 12px; margin-bottom: 36px; color: #757575;}
+section.lesson__ratings a { color: #cc8b00 }
+section.lesson__details main h4,
+section.lesson__details p.readings,
+section.lesson__details p.media{ font-family: 'Lato', sans-serif; color: #4d4d4d; font-weight: bold;}
+section.lesson__details main img{ margin-right: 18px;}
+    section.lesson__details main p{ color: #757575; line-height: 180%; margin-top: 18px; margin-left: 48px;}
+section.lesson__details main hr{ margin-top: 30px; margin-bottom: 30px; }
+section.lesson__details aside .well{background: #fff !important; border: 1px solid  #ffc64d; border-top-width: 6px}
+section.lesson__details aside .well p.lesson__teacher-name{margin-top: 12px; margin-bottom: 24px; font-family: 'Lato', sans-serif; letter-spacing: 1px}
+section.lecture__info .panel-body {padding: 15px 0 0;}
+section.lecture__info .panel-body p {font-family: Lora;  margin: 0 0 15px 0;  font-style: italic;}
+section.lecture__info .panel-body,
+.lesson__title {
+    background-color: #f1f1f1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
+
+
+/**
+ * Events calendar
+ */
+ main.calendar {background: #fff; padding: 18px}
+#eventModal { font-size: 13px; color: #4a4a4a !important; }
+#eventModal .modal-header { border-bottom: 0; background-color: #f5f5f6; border-top: 12px solid #ffc64d; font-family: 'Lato', serif; }
+#eventModal .modal-header h4{ font-size: 22px; font-weight: bold;}
+#eventModal .modal-header i{ color: #808080;}
+#eventModal .modal-footer{ border-top: 0; background: #f5f5f6; border-bottom: 1px solid  #ffc64d;}
+#eventModal .event__button { background: #6b9b37; border: 1px solid #5b842e;}
+#eventModal .event__button:hover { background: #9ccc65; border: 1px solid #84bf40; color: #212121}
+#eventModal .cancel__button { background: #cc8b00; border: 1px solid  #996900; color: #fff;}
+#eventModal .cancel__button:hover { background: #ffc64d; border: 1px solid  #ffb61a; color: #212121;}
+#eventModal .close__button { border: 1px solid  #cc8b00;}
+#eventModal .close__button:hover { background: #bdbdbd; border: 1px solid #a6a6a6;}

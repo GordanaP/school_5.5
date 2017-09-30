@@ -14,13 +14,14 @@ class EventsTableSeeder extends Seeder
     {
         $teacher = Teacher::first();
         $subject = $teacher->subjects->first();
+        $classroom_id = $subject->pivot->classroom_id;
 
         factory(App\Event::class)->create([
             'teacher_id' => $teacher->id,
             'title' => 'Test',
-            'description' => 'Second test',
+            'description' => 'First test',
             'subject_id' => $subject->id,
-            'classroom' => 'I-1',
+            'classroom_id' => $classroom_id,
         ]);
     }
 }

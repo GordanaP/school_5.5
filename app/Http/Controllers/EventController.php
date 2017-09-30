@@ -23,7 +23,9 @@ class EventController extends Controller
             return $user->teacher->events;
         }
 
-        return view('events.index', compact('user'));
+        return view('events.index')->with([
+            'user' => $user->load('teacher'),
+        ]);;
     }
 
     /**

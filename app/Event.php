@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    protected $fillable = ['title', 'description', 'classroom', 'start', 'end'];
+    protected $fillable = ['title', 'description', 'classroom_id', 'start', 'end'];
 
     public function teacher()
     {
@@ -25,7 +25,7 @@ class Event extends Model
 
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->classroom = $request->classroom;
+        $event->classroom_id = $request->classroom_id;
         $event->start = new Carbon($request->date .' '.$request->start);
         $event->end = new Carbon($request->date .' '.$request->end);
 

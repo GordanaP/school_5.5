@@ -22,6 +22,8 @@
         'csrfToken' => csrf_token(),
         'user' => [
             'name' => Auth::check() && Auth::user()->name,
+            'id' => Auth::check() && Auth::id(),
+            'teacher_id' => Auth::check() && Auth::user()->isTeacher() ? Auth::user()->teacher->id : '',
             'role' => [
                 'teacher' => Auth::check() && Auth::user()->isTeacher(),
                 'student' => Auth::check() && Auth::user()->isStudent(),

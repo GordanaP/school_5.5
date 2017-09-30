@@ -1,0 +1,86 @@
+.flex{display: flex;}
+.flex-1{flex: 1}
+.flex-2{flex: 2}
+.flex-3{flex: 3}
+.flex-column{flex-direction: column;}
+.justify-between{justify-content: space-between;}
+.justify-around{justify-content: space-around;}
+.justify-center{justify-content: center;}
+.justify-start{justify-content: flex-start;}
+.justify-end{justify-content: flex-end;}
+.align-center{align-items: center;}
+.align-end{align-items: flex-end;}
+.align-start{align-items: flex-start;}
+
+.opacity-7{opacity: 0.6}
+.opacity-9{opacity: 0.9}
+
+.grayscale-30{filter: grayscale(30%)}
+.grayscale-20{filter: grayscale(20%)}
+.grayscale-10{filter: grayscale(10%)}
+
+.image{width:100%;}
+
+.ls-1{letter-spacing: 1px}
+
+.ml-10{margin-left: 10px}
+.mr-10{margin-right: 10px}
+.mt-10{margin-top: 10px}
+.mb-10{margin-bottom: 10px}
+
+.ml-6{margin-left: 6px}
+.mr-6{margin-right: 6px}
+.mt-6{margin-top: 6px}
+.mb-6{margin-bottom: 6px}
+
+.ml-12{margin-left: 12px}
+.mr-12{margin-right: 12px}
+.mt-12{margin-top: 12px}
+.mb-12{margin-bottom: 12px}
+
+.ml-18{margin-left: 18px}
+.mr-18{margin-right: 18px}
+.mt-18{margin-top: 18px}
+.mb-18{margin-bottom: 18px}
+
+.ml-24{margin-left: 24px}
+.mr-24{margin-right: 24px}
+.mt-24{margin-top: 24px}
+.mb-24{margin-bottom: 24px}
+
+.ml-30{margin-left: 30px}
+.mr-30{margin-right: 30px}
+.mt-30{margin-top: 30px}
+.mb-30{margin-bottom: 30px}
+
+
+.pl-10{padding-left: 10px}
+.pr-10{padding-right: 10px}
+.pt-10{padding-top: 10px}
+.pb-10{padding-bottom: 10px}
+
+.pd-30{padding: 30px;}
+.pd-0 {padding: 0 !important}
+
+.lh-18{line-height: 1.8}
+
+
+
+/* Background color */
+.bg-primary {background: #9ccc65;}
+.bg-primary-dark {background: #6b9b37;}
+.bg-primary-light {background: #cfff95}
+.bg-white {background: #fff;}
+
+.bg-secondary {background: #ffee58;}
+.bg-secondary-dark { background: #c9bc1f }
+.bg-secondary-light { background: #ffff8b }
+
+/*Text colors*/
+.text-primary {color: #212121}
+.text-secondary { color: #757575 }
+.text-light-grey {color: #777}
+
+/* Border */
+.border-dark-grey { border: 1px solid #bdbdbd; }
+.border-light-grey {border: 1px solid #eee;}

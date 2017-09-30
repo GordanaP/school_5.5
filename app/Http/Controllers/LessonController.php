@@ -18,7 +18,7 @@ class LessonController extends Controller
      */
     public function index(User $user)
     {
-        $lessons = $user->teacher->lessons->load('readings', 'subject');
+        $lessons = $user->load('teacher')->teacher->lessons->load('readings', 'subject');
 
         return view('lessons.index', compact('user', 'lessons'));
     }
@@ -31,7 +31,10 @@ class LessonController extends Controller
      */
     public function create(User $user)
     {
-        return view('lessons.create', compact('user'));
+
+        return view('lessons.create')->with([
+            'user' => $user->load('teacher')
+        ]);
     }
 
     /**
@@ -77,7 +80,10 @@ class LessonController extends Controller
      */
     public function edit(User $user, Lesson $lesson)
     {
-        return view('lessons.edit', compact('user', 'lesson'));
+        return view('lessons.edit')->with([
+            'user' => $user->load('teacher'),
+            'lesson' => $lesson,
+        ]);
     }
 
     /**
@@ -138,5 +144,4 @@ class LessonController extends Controller
 
         return $photo;
     }
-
 }

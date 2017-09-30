@@ -24,7 +24,7 @@
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
 
-                @include('lessons.partials._createForm', [
+                @include('lessons.partials._lessonForm', [
                     'subject_id' => $lesson->subject_id,
                     'year' => $lesson->year,
                     'title' => $lesson->title,
@@ -43,9 +43,16 @@
 @endsection
 
 @section('scripts')
+
+    <!-- Custom JS with CXRF protection -->
+    <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
 
-    @include('lessons.partials._validateFormJs')
+    <script>
+
+        @include('lessons.js._validateJs')
+
+    </script>
 
 @endsection
