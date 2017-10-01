@@ -102,9 +102,13 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(User $user, Event $event)
     {
-        //
+        $event->delete();
+
+        return response([
+            'message' => 'The event has been removed from the calendar',
+        ]);
     }
 
     public function ajaxClassrooms(Subject $subject, User $user)

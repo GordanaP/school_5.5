@@ -1,5 +1,6 @@
 $(document).on('click', '#storeEvent', function(){
 
+    // Variables
     var title = $('#title').val();
     var description = $('#description').val();
     var subjectId = $('#subject_id').val();
@@ -14,8 +15,8 @@ $(document).on('click', '#storeEvent', function(){
     var event = {
         title:title,
         description:description,
-        start: date,
-        end: date,
+        start: startTime,
+        end: endTime,
         allDay: false,
     };
 
