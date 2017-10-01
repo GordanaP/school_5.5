@@ -2,8 +2,8 @@ $(document).on('click', '#storeEvent', function(){
 
     var title = $('#title').val();
     var description = $('#description').val();
-    var subject_id = $('#subject_id').val();
-    var classroom_id = $('#classroom_id').val();
+    var subjectId = $('#subject_id').val();
+    var classroomId = $('#classroom_id').val();
     var date = $('#date').val();
     var start = $('#start').val();
     var end = $('#end').val();
@@ -28,13 +28,13 @@ $(document).on('click', '#storeEvent', function(){
         data: {
             title : title,
             description : description,
-            subject_id : subject_id,
-            classroom_id : classroom_id,
+            subject_id : subjectId,
+            classroom_id : classroomId,
             start : startTime,
             end : endTime,
         },
         success : function(response) {
-            console.log(response.event);
+            console.log(response.message);
         }
     })
 });

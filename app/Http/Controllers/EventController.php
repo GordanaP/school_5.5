@@ -50,11 +50,10 @@ class EventController extends Controller
         $event = Event::createNew($request);
 
         // Assign the event to the teacher
-        $user->assignEvent($event);
+        $user->saveEvent($event);
 
         return response([
             'message' => 'A new event has been created.',
-            'event' => $event
         ]);
     }
 
@@ -87,9 +86,14 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, User $user, Event $event)
     {
-        //
+        // Update the event
+        $event->saveChanges($request, $event);
+
+        return response([
+            'message' => 'The event has been updated.',
+        ]);
     }
 
     /**

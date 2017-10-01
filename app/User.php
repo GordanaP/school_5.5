@@ -49,7 +49,7 @@ class User extends Authenticatable
        return $this->teacher->lessons()->save($lesson);
     }
 
-    public function assignEvent($event)
+    public function saveEvent($event)
     {
         return $this->teacher->events()->save($event);
     }

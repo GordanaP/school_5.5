@@ -97,26 +97,25 @@
                 // Set the date & times input fields value by using momentjs
                 start = moment(start.format());
                 $('#date').val(start.format('YYYY-MM-DD'));
-                $('#start').val(start.format('HH:mm'));
-                $('#end').val(start.format('HH:mm'));
+                $('#start').val(start.format('08:00'));
+                $('#end').val(start.format('08:45'));
             },
-            // On clicking an existing event - display modal to edit the event
+            // On clicking an existing event - display the modal to edit the existing event
             eventClick: function(event, jsEvent, view)
             {
-                // Open modal to auth user only
+                // Open the modal to the auth user only
                 if(event.teacher_id == Laravel.user.teacher_id)
                 {
                     $('#eventModal').modal('show'); // Open the modal
                 }
 
-
-                // Handle the modal
+                // Handle the modal parameters
                 $('.modal-title span').text('Edit event'); // Add title
                 $('.modal-title i').addClass('fa-pencil-square-o'); // Add class to the title icon
                 $('.modal .event__button').text('Save changes'); // Add text to the button
                 $('.modal .event__button').attr('id', 'updateEvent'); // Add id to the button
 
-                // Retrive the edit form values
+                // Fetch the event form values from DB
                 var date = $.fullCalendar.moment(event.start).format('YYYY-MM-DD');
                 var start = $.fullCalendar.moment(event.start).format('HH:mm');
                 var end = $.fullCalendar.moment(event.end).format('HH:mm');
@@ -129,10 +128,10 @@
                 $('#start').val(start);
                 $('#end').val(end);
 
-                // $('#editEventModal #updateEvent').attr('data-id', event.id);
-                // $('#editEventModal #deleteEvent').attr('data-id', event.id);
-                // $('#editEventModal #deleteEvent').attr('data-user', event.user_id);
-            }
+                // Asssign to the button a data-event attribute containing event id for future reference
+                $('button#updateEvent').attr('data-event', event.id);
+
+            },
         });
 
         // Filter the classrooms for the selected subject only
@@ -145,7 +144,10 @@
         @include('events.js._timepicker')
 
         // Create an event - add to the calendar & store to DB
-        @include('events.js._createEvent')
+        @include('events.js._storeEvent')
+
+        // Edit the event - save changes to the calendar & DB
+        @include('events.js._updateEvent')
 
     </script>
 @endsection

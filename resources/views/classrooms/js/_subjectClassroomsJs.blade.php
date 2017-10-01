@@ -10,13 +10,8 @@ $(document).on('change', '#subject_id', function() {
             type: 'get',
             success: function(response)
             {
-                // add the html on classrooms/partials/_teacherClassrooms managed by ClassroomController@index//
                 $('#classroom_id').html(response);
             }
         });
     }
 });
-
-
-
-
