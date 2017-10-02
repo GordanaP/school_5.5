@@ -117,3 +117,12 @@ footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
 #eventModal .cancel__button:hover { background: #ffc64d; border: 1px solid  #ffb61a; color: #212121;}
 #eventModal .close__button { border: 1px solid  #cc8b00;}
 #eventModal .close__button:hover { background: #bdbdbd; border: 1px solid #a6a6a6;}
+.event__tooltip {
+    width:auto;
+    height:auto;
+    background:  #ffefcc;
+    position:absolute;
+    z-index:10001;
+    padding:10px 10px 10px 10px;
+    line-height: 200%;
+}

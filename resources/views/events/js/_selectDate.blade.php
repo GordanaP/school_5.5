@@ -1,8 +1,9 @@
 // Open the event modal only from today on and by authorized users
 var selectedDate = start.format("YYYY-MM-DD");
 var today = moment().format("YYYY-MM-DD");
+var day = moment(selectedDate).day();
 
-if(selectedDate >= today)
+if(selectedDate >= today && day > 0)
 {
     if( Laravel.user.role.teacher || Laravel.user.role.admin || Laravel.user.role.superadmin)
     {
@@ -11,8 +12,9 @@ if(selectedDate >= today)
 }
 else
 {
-    alert('You can not create an event in the past.');
+    alert('Past dates and Sundays are not available for creating an event.');
 }
+
 
 // Set the modal parameters
 $('.modal-title span').text('New event'); // Add title

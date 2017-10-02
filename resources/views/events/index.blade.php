@@ -70,6 +70,7 @@
                     url : base_url  // renders events
                 }
             ],
+            eventColor: '#ffae00',
             select: function(start, event, jsEvent, view) // Select a date
             {
                 @include('events.js._selectDate')
@@ -78,6 +79,31 @@
             {
                 @include('events.js._clickEvent')
             },
+            eventMouseover: function (event, jsEvent, view)
+            {
+                // Tooltip showing on hovering the event
+                var tooltip = '<div class="event__tooltip">' + 'Subject: ' + event.subject.name + '</br> Class: ' + event.classroom.label +  '<br> Time: ' + event.start.format('HH:mm') + ' - ' + event.end.format('HH:mm') + '</div>';
+
+                $("body").append(tooltip);
+
+                $(this).mouseover(function (e) {
+                    $(this).css('z-index', 10000);
+                    $('.event__tooltip').fadeIn('500');
+                    $('.event__tooltip').fadeTo('10', 1.9);
+                })
+                .mousemove(function (e)
+                {
+                    $('.event__tooltip').css('top', e.pageY + 10);
+                    $('.event__tooltip').css('left', e.pageX + 20);
+                });
+            },
+            eventMouseout: function (event, jsEvent, view)
+            {
+               $(this).css('z-index', 8);
+
+               $('.event__tooltip').remove();
+           },
+
         });
 
         // Filter the classrooms for the selected subject only

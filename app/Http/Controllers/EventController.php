@@ -20,7 +20,7 @@ class EventController extends Controller
         //Teacher events to be displayed in the calendar
         if ($request->ajax())
         {
-            return $user->teacher->events;
+            return $user->teacher->events->load('subject', 'classroom');
         }
 
         return view('events.index')->with([

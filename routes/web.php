@@ -39,7 +39,7 @@ Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@sto
 Route::resource('classrooms', 'ClassroomController', [
     'except' => 'index'
 ]);
-Route::name('classrroms.subject')->get('classrooms/{param}/{user}', 'ClassroomController@index');
+Route::name('classrooms.subject')->get('classrooms/{param}/{user}', 'ClassroomController@index');
 
 
 
