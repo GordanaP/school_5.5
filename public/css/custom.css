@@ -105,7 +105,7 @@ footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
 /**
  * Events calendar
  */
- main.calendar {background: #fff; padding: 18px}
+ main.calendar { background-color: #fff; padding: 18px; border: 1px solid #eee;}
 #eventModal { font-size: 13px; color: #4a4a4a !important; }
 #eventModal .modal-header { border-bottom: 0; background-color: #f5f5f6; border-top: 12px solid #ffc64d; font-family: 'Lato', serif; }
 #eventModal .modal-header h4{ font-size: 22px; font-weight: bold;}
@@ -126,3 +126,12 @@ footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
     padding:10px 10px 10px 10px;
     line-height: 200%;
 }
+section.event__datepicker #event__datepicker-title {
+    margin-right: 7px;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-bottom: 0px;
+    background: #e69d00 !important;
+    color: #fff;
+}
+.fc-newEvent-button {background: none !important; border: 1px solid #e69d00 !important; }

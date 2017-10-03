@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="{{ asset('vendor/timepicker/timepicker-addon.css') }}">
 @endsection
 
+@section('sidebar')
+    <!-- Inline datepicker -->
+    <section class="event__datepicker">
+        <div id="event__datepicker-title">Event date</div>
+        <div id="datepicker"></div>
+    </section>
+@endsection
+
 @section('content')
 
     <!-- Calendar -->
@@ -30,10 +38,12 @@
     <script src="{{ asset('vendor/timepicker/timepicker-addon.js') }}"></script>
 
     <script>
+        // Datepickers - set maxdate, disable Sundays & holidays, pass the date to the calendar
+        @include('events.js._datepicker')
 
-        // Empty modal fields content after closing it
+        //Empty modal fields after on close
         $(".modal").on("hidden.bs.modal", function() {
-            $("input, textarea, select").val("").end();
+            $("input, textarea, select#subject_id, select#classroom_id").val("");
         });
 
         // Variables
@@ -42,8 +52,11 @@
         var base_url = '../calendar/' + userName; // EventController@index
 
         calendar.fullCalendar({
+            customButtons:{
+                @include('events.js._customButton')
+            },
             header: {
-                left: 'prev,next today newEvent',
+                left: 'prev,next newEvent',
                 center: 'title',
                 right: 'month, agendaWeek, agendaDay, list'
             },
@@ -81,29 +94,17 @@
             },
             eventMouseover: function (event, jsEvent, view)
             {
-                // Tooltip showing on hovering the event
-                var tooltip = '<div class="event__tooltip">' + 'Subject: ' + event.subject.name + '</br> Class: ' + event.classroom.label +  '<br> Time: ' + event.start.format('HH:mm') + ' - ' + event.end.format('HH:mm') + '</div>';
-
-                $("body").append(tooltip);
-
-                $(this).mouseover(function (e) {
-                    $(this).css('z-index', 10000);
-                    $('.event__tooltip').fadeIn('500');
-                    $('.event__tooltip').fadeTo('10', 1.9);
-                })
-                .mousemove(function (e)
-                {
-                    $('.event__tooltip').css('top', e.pageY + 10);
-                    $('.event__tooltip').css('left', e.pageX + 20);
-                });
+                @include('events.js._eventMouseOver')
             },
             eventMouseout: function (event, jsEvent, view)
             {
                $(this).css('z-index', 8);
-
                $('.event__tooltip').remove();
-           },
-
+            },
+            dayRender: function (date, cell)
+            {
+                @include('events.js._dayRender')
+            }
         });
 
         // Filter the classrooms for the selected subject only
