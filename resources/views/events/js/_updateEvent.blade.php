@@ -3,6 +3,9 @@ $(document).on('click', '#updateEvent', function()
 {
     // The modal fields' values
     var title = $('#title').val();
+    var description = $('#description').val();
+    var subjectId = $('#subject_id').val();
+    var classroomId = $('#classroom_id').val();
     var date = $('#date').val();
     var start = $('#start').val();
     var end = $('#end').val();
@@ -19,6 +22,9 @@ $(document).on('click', '#updateEvent', function()
     // Set the first event's values
     event[0].id = eventId;
     event[0].title = title;
+    event[0].description = description;
+    event[0].subject_id = subjectId;
+    event[0].classroom_id = classroomId;
     event[0].start = startTime;
     event[0].end = endTime;
 
@@ -32,6 +38,9 @@ $(document).on('click', '#updateEvent', function()
         data: {
             id: eventId,
             title: title,
+            description: description,
+            subject_id: subjectId,
+            classroom_id: classroomId,
             start: startTime,
             end: endTime,
         },

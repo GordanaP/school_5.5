@@ -39,11 +39,11 @@
         <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
         <select class="form-control" name="classroom_id" id="classroom_id">
             <option value="" selected="" disabled="">Select a classroom</option>
-            @foreach ($user->teacher->subjects as $subj)
+            {{-- @foreach ($user->teacher->subjects as $subj)
                 <option value="{{ $subj->pivot->classroom_id }}">
                     {{ \App\Classroom::where('id', $subj->pivot->classroom_id)->first()->label }}
                 </option>
-            @endforeach
+            @endforeach --}}
             <!-- Options for the selected subject only by using an ajax call -->
         </select>
     </div>

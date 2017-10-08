@@ -53,6 +53,18 @@
         // Timepicker - set time format, min & max time, min time interval
         @include('events.js._timepicker')
 
+        $('#datepicker').datepicker({
+
+            onChangeMonthYear: function(year, month, datepicker)
+            {
+                    var newDate = new Date();
+                    newDate.setMonth(month -1);
+                    newDate.setYear(year);
+
+                    calendar.fullCalendar("gotoDate", newDate);
+            }
+        });
+
         // Variables
         var calendar = $('#eventCalendar');
         var eventDate = "YYYY-MM-DD";
@@ -151,6 +163,9 @@
 
                 // Populate the modal fields with the event attr values
                 $("#title").val(event.title);
+                $("#description").val(event.description);
+                $("#subject_id").val(event.subject_id);
+                $("#classroom_id").val(event.classroom_id);
                 $("#date").val(event.start.format(eventDate));
                 $("#start").val(event.start.format(eventTime));
                 $("#end").val(event.end.format(eventTime));
@@ -174,6 +189,9 @@
                     });
             }
         });
+
+        // Populate the classroom select box dinamically depending on the subject
+        @include('classrooms.js._subjectClassroomsJs')
 
         // Create an event - populate the calendar & the DB
         @include('events.js._storeEvent')

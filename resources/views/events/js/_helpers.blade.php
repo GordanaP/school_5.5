@@ -32,7 +32,7 @@ function minStartHourAndEventDurationOnMonthView(view, date, hour=8, minutes=45)
 
 function hoverOverTheEvent(event)
 {
-    var tooltip = '<div class="event__tooltip">Time: ' + event.start.format(eventTime) + ' - ' + event.end.format(eventTime) + '</div>';
+    var tooltip = '<div class="event__tooltip"><b>Subject:</b> ' + event.subject.name + '</br><b>Class:</b> ' + event.classroom.label +  '<br><b>Time:</b> ' + event.start.format(eventTime) + ' - ' + event.end.format(eventTime) + '</div>';
 
     $("body").append(tooltip);
 

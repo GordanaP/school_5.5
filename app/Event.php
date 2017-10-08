@@ -29,12 +29,12 @@ class Event extends Model
         $event = new static;
 
         $event->title = $request->title;
-        // $event->description = $request->description;
+        $event->description = $request->description;
         $event->start = new Carbon($request->start);
         $event->end = new Carbon($request->end);
 
-        // $event->subject()->associate($request->subject_id);
-        // $event->classroom()->associate($request->classroom_id);
+        $event->subject()->associate($request->subject_id);
+        $event->classroom()->associate($request->classroom_id);
 
         return $event;
     }
@@ -42,12 +42,12 @@ class Event extends Model
     public function saveChanges($request, $event)
     {
         $event->title = $request->title;
-        // $event->description = $request->description;
+        $event->description = $request->description;
         $event->start = new Carbon($request->start);
         $event->end = new Carbon($request->end);
 
-        // $event->subject()->associate($request->subject_id);
-        // $event->classroom()->associate($request->classroom_id);
+        $event->subject()->associate($request->subject_id);
+        $event->classroom()->associate($request->classroom_id);
 
         return $event->save();
     }
