@@ -1,5 +1,5 @@
-var startTime = $("input[name='start']");
-var endTime = $("input[name='end']");
+var startTime = $("#start");
+var endTime = $("#end");
 
 $.timepicker.timeRange(
     startTime,

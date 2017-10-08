@@ -54,7 +54,6 @@ class EventController extends Controller
 
         return response([
             'message' => 'A new event has been created.',
-            'eventId' => $event->id,
         ]);
     }
 

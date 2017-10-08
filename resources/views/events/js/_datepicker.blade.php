@@ -1,4 +1,4 @@
-$("input[name='date'], #datepicker").datepicker({
+$("#date, #datepicker").datepicker({
     dateFormat: "yy-mm-dd", // 2017-09-27
     minDate: 0, // today
     changeMonth: true,

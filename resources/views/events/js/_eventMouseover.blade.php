@@ -1,5 +1,5 @@
 // Tooltip showing on hovering over the event
-var tooltip = '<div class="event__tooltip">' + 'Subject: ' + event.subject.name + '</br> Class: ' + event.classroom.label +  '<br> Time: ' + event.start.format('HH:mm') + ' - ' + event.end.format('HH:mm') + '</div>';
+var tooltip = '<div class="event__tooltip">Time: ' + event.start.format(eventTime) + ' - ' + event.end.format(eventTime) + '</div>';
 
 $("body").append(tooltip);
 
@@ -13,3 +13,5 @@ $(this).mouseover(function (e) {
     $('.event__tooltip').css('top', e.pageY + 10);
     $('.event__tooltip').css('left', e.pageX + 20);
 });
+
+

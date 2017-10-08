@@ -1,18 +1,19 @@
+// DELETE AN EVENT
 $(document).on('click', '#deleteEvent', function()
 {
-    // Event url
-    var eventId = $('button#updateEvent').data('event');
+    // EventId and url
+    var eventId = $("#eventModal").attr('data-event');
     var eventUrl = baseUrl + '/' + eventId;
 
     // Remove the event from the calendar
     calendar.fullCalendar('removeEvents', eventId);
 
-    // Remove the event from the DB
+    // Remove the event from DB
     $.ajax({
-        url : eventUrl,
+        url: eventUrl,
         type: 'DELETE',
-        success : function (response) {
-            console.log(response.message)
+        success: function(response) {
+            console.log(response.message);
         }
-    })
-})
+    });
+}); // Delete event
