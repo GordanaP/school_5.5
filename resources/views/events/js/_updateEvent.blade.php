@@ -1,20 +1,21 @@
-$(document).on('click', 'button#updateEvent', function(){
-
+$(document).on('click', 'button#updateEvent', function()
+{
     // Variables
-    var title = $('#title').val();
-    var description = $('#description').val();
-    var subjectId = $('#subject_id').val();
-    var classroomId = $('#classroom_id').val();
-    var date = $('#date').val();
-    var start = $('#start').val();
-    var end = $('#end').val();
+    var title = $('#_title').val();
+    var description = $('#_description').val();
+    var subjectId = $('#_subject_id').val();
+    var classroomId = $('#_classroom_id').val();
+    var date = $('#_date').val();
+    var start = $('#_start').val();
+    var end = $('#_end').val();
     var startTime = date + ' ' + start;
     var endTime = date + ' ' + end;
 
+    // Event url
     var eventId = $(this).data('event');
-    var url = base_url + '/' + eventId;
+    var eventUrl = baseUrl + '/' + eventId;
 
-    // Create fullcalendar event object
+    // Create calendar event object
     var event = calendar.fullCalendar('clientEvents', eventId);
 
     event[0].title = title;
@@ -30,8 +31,8 @@ $(document).on('click', 'button#updateEvent', function(){
 
     // Update DB event
     $.ajax({
-        type: 'put',
-        url: url,
+        url: eventUrl,
+        type: 'PUT',
         data:{
             title: title,
             description: description,

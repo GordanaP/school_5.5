@@ -29,12 +29,12 @@ class Event extends Model
         $event = new static;
 
         $event->title = $request->title;
-        $event->description = $request->description;
-        $event->start = new Carbon($request->date .' '.$request->start);
-        $event->end = new Carbon($request->date .' '.$request->end);
+       // $event->description = $request->description;
+        $event->start = new Carbon($request->start);
+        $event->end = new Carbon($request->end);
 
-        $event->subject()->associate($request->subject_id);
-        $event->classroom()->associate($request->classroom_id);
+        // $event->subject()->associate($request->subject_id);
+        // $event->classroom()->associate($request->classroom_id);
 
         return $event;
     }
@@ -43,8 +43,8 @@ class Event extends Model
     {
         $event->title = $request->title;
         $event->description = $request->description;
-        $event->start = new Carbon($request->date .' '.$request->start);
-        $event->end = new Carbon($request->date .' '.$request->end);
+        $event->start = new Carbon($request->start);
+        $event->end = new Carbon($request->end);
 
         $event->subject()->associate($request->subject_id);
         $event->classroom()->associate($request->classroom_id);

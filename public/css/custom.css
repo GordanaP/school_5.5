@@ -111,12 +111,12 @@ footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
 #eventModal .modal-header h4{ font-size: 22px; font-weight: bold;}
 #eventModal .modal-header i{ color: #808080;}
 #eventModal .modal-footer{ border-top: 0; background: #f5f5f6; border-bottom: 1px solid  #ffc64d;}
-#eventModal .event__button { background: #6b9b37; border: 1px solid #5b842e;}
-#eventModal .event__button:hover { background: #9ccc65; border: 1px solid #84bf40; color: #212121}
-#eventModal .cancel__button { background: #cc8b00; border: 1px solid  #996900; color: #fff;}
-#eventModal .cancel__button:hover { background: #ffc64d; border: 1px solid  #ffb61a; color: #212121;}
-#eventModal .close__button { border: 1px solid  #cc8b00;}
-#eventModal .close__button:hover { background: #bdbdbd; border: 1px solid #a6a6a6;}
+#eventModal .event-button { background: #6b9b37; border: 1px solid #5b842e;}
+#eventModal .event-button:hover { background: #9ccc65; border: 1px solid #84bf40; color: #212121}
+#eventModal .cancel-button { background: #cc8b00; border: 1px solid  #996900; color: #fff;}
+#eventModal .cancel-button:hover { background: #ffc64d; border: 1px solid  #ffb61a; color: #212121;}
+#eventModal .close-button { border: 1px solid  #cc8b00;}
+#eventModal .close-button:hover { background: #bdbdbd; border: 1px solid #a6a6a6;}
 .event__tooltip {
     width:auto;
     height:auto;

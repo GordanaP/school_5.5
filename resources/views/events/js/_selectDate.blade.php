@@ -1,6 +1,6 @@
-// Open the event modal only from today on and by authorized users
-var selectedDate = start.format("YYYY-MM-DD");
-var today = moment().format("YYYY-MM-DD");
+// Open the modal only from today on and by authorized users
+var selectedDate = start.format(eventDate);
+var today = moment().format(eventDate);
 var day = moment(selectedDate).day();
 
 if(selectedDate >= today && day > 0)
@@ -15,15 +15,13 @@ else
     alert('Past dates and Sundays are not available for creating an event.');
 }
 
-
 // Set the modal parameters
-$('.modal-title span').text('New event'); // Add title
-$('.modal-title i').addClass('fa-pencil'); // Add class to the title icon
-$('.modal .event__button').text('Create event').attr('id', 'storeEvent'); // Add text & attr to the event button
-$('.modal .cancel__button').text('Cancel'); // Add text to the cancel button
+$('.modal-title span').text('New event');
+$('.modal-title i').addClass('fa-pencil');
+$('.modal .event__button').text('Create event').attr('id', 'storeEvent');
+$('.modal .cancel__button').text('Cancel');
 
-// Set the date & times input fields value by using momentjs
-start = moment(start.format());
-$('#date').val(start.format('YYYY-MM-DD'));
-$('#start').val(start.format('08:00'));
-$('#end').val(start.format('08:45'));
+// Set the date & times input fields values: start = moment(selectedDate);
+$('#date').val(start.format(eventDate));
+$('#start').val(start.format(eventTime));
+$('#end').val(start.format(eventTime));

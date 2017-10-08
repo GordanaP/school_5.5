@@ -5,23 +5,18 @@ if(event.teacher_id == Laravel.user.teacher_id)
 }
 
 // Handle the modal parameters
-$('.modal-title span').text('Edit event'); // Add a title
-$('.modal-title i').addClass('fa-pencil-square-o'); // Add a class to the title icon
-$('.modal .event__button').text('Save changes').attr('id', 'updateEvent'); // Add text & id to the event button
-$('.modal .cancel__button').text('Delete').attr('id', 'deleteEvent'); // Add text & id to the cancel button
+$('.modal-title span').text('Edit event');
+$('.modal-title i').addClass('fa-pencil-square-o');
+$('.modal .event__button').text('Save changes')
+    .attr('id', 'updateEvent')
+    .attr('data-event', event.id); // attach event id for future reference ESSENTAL
+$('.modal .cancel__button').text('Delete').attr('id', 'deleteEvent');
 
-// Fetch the event form values from DB
-var date = $.fullCalendar.moment(event.start).format('YYYY-MM-DD');
-var start = $.fullCalendar.moment(event.start).format('HH:mm');
-var end = $.fullCalendar.moment(event.end).format('HH:mm');
-
-$('#title').val(event.title);
-$('#description').val(event.description);
-$('#subject_id').val(event.subject_id);
-$('#classroom_id').val(event.classroom_id);
-$('#date').val(date);
-$('#start').val(start);
-$('#end').val(end);
-
-// Assign a data-event attribute containing event id for future reference
-$('button#updateEvent').attr('data-event', event.id);
+// Fetch the event values from DB to the modal input fields
+$('#_title').val(event.title);
+$('#_description').val(event.description);
+$('#_subject_id').val(event.subject_id);
+$('#_classroom_id').val(event.classroom_id);
+$('#_date').val(event.start.format(eventDate));
+$('#_start').val(event.start.format(eventTime));
+$('#_end').val(event.end.format(eventTime));

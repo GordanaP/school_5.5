@@ -3,18 +3,17 @@
 @section('title', ' | My calendar')
 
 @section('links')
-    <link rel="stylesheet" href="{{ asset('vendor/fullcalendar/fullcalendar.min.css') }}">
-    <link rel="stylesheet" type="media" href="{{ asset('vendor/fullcalendar/fullcalendar.print.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/datepicker/jquery-ui.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/timepicker/timepicker-addon.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.print.min.css') }}" type="media" >
+    <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/timepicker-1.6.3/timepicker-addon.css') }}">
 @endsection
 
 @section('sidebar')
-    <!-- Inline datepicker -->
-    <section class="event__datepicker">
+{{--     <section class="event__datepicker">
         <div id="event__datepicker-title">Event date</div>
         <div id="datepicker"></div>
-    </section>
+    </section> --}}
 @endsection
 
 @section('content')
@@ -32,29 +31,25 @@
 @section('scripts')
     <!-- Custom JS with CXRF protection -->
     <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('vendor/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('vendor/fullcalendar/fullcalendar.min.js') }}"></script>
-    <script src="{{ asset('vendor/datepicker/jquery-ui.js') }}"></script>
-    <script src="{{ asset('vendor/timepicker/timepicker-addon.js') }}"></script>
+    <script src="{{ asset('vendor/moment-2.18.1/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('vendor/timepicker-1.6.3/timepicker-addon.js') }}"></script>
 
     <script>
-        // Datepickers - set maxdate, disable Sundays & holidays, pass the date to the calendar
-        @include('events.js._datepicker')
 
-        //Empty modal fields after on close
+        // Empty the modal fields on close
         $(".modal").on("hidden.bs.modal", function() {
-            $("input, textarea, select#subject_id, select#classroom_id").val("");
+            $("input, select, data-event").val("").end();
         });
 
         // Variables
         var calendar = $('#eventCalendar');
-        var userName = $('.event__button').attr('data-user'); // $user->name
-        var base_url = '../calendar/' + userName; // EventController@index
+        var userName = "{{ $user->name }}";
+        var baseUrl = '../calendar/' + userName; // EventController@index
 
+        // Initialize fullcalendar with options
         calendar.fullCalendar({
-            customButtons:{
-                @include('events.js._customButton')
-            },
             header: {
                 left: 'prev,next newEvent',
                 center: 'title',
@@ -67,8 +62,8 @@
             slotDuration: '00:15:00',
             firstDay: 1,
             navLinks: true,
-            editable: true,
             selectable: true,
+            editable: true,
             selectHelper: true,
             businessHours: [
                 {
@@ -77,53 +72,165 @@
                     end: '20:00:00'
                 }
             ],
+            minTime: "08:00:00",
+            maxTime: "20:00:00",
             eventLimit: true,
             eventSources: [
                 {
-                    url : base_url  // renders events
+                    url : baseUrl  // renders events
                 }
             ],
             eventColor: '#ffae00',
-            select: function(start, event, jsEvent, view) // Select a date
+            // SELECT A DATE
+            select: function(start, end, jsEvent, view)
             {
-                @include('events.js._selectDate')
+                // Start & end are the moment of the selected field, i.e Tue Oct 03 2017 08:00:00 GMT+0000
+
+                // Open the modal
+                $(".modal").modal('show');
+
+                // Set the modal parameters
+                $(".modal-title i").addClass("fa-pencil");
+                $(".modal-title span").text("New event");
+                $(".cancel-button").text("Cancel");
+                $(".event-button").text("Create event").attr('id', 'storeEvent');
+
+                // Set the modal fields' values = the selected calendar date & time values
+                $('#date').val(start.format('YYYY-MM-DD'));
+
+                if (view.name == "month")
+                {
+                     // The min start time on month view
+                    $('#start').val(start.set('hour', 8).format('HH:mm'))
+                }
+                else
+                {
+                    $('#start').val(start.format('HH:mm'));
+                }
+
+                // Set the end to happen 45 min after the start
+                $('#end').val(start.add(45, 'm').format('HH:mm'));
             },
-            eventClick: function(event, jsEvent, view) // Click on the event
+            // CLICK ON THE EVENT
+            eventClick: function(event, jsEvent, view)
             {
-                @include('events.js._clickEvent')
+                // Open the modal & assign the event id for future reference
+                $(".modal").modal('show').attr('data-event', event.id);
+
+                // Set the modal parameters
+                $(".modal-title i").addClass("fa-pencil-square-o");
+                $(".modal-title span").text("Edit event");
+                $(".event-button").text("Save changes").attr('id', 'updateEvent');
+                $(".cancel-button").text("Delete").attr('id', 'deleteEvent');
+
+                // Populate the modal fields with the event attr values
+                $("#title").val(event.title);
+                $("#date").val(event.start.format('YYYY-MM-DD'));
+                $("#start").val(event.start.format('HH:mm'));
+                $("#end").val(event.end.format('HH:mm'));
             },
-            eventMouseover: function (event, jsEvent, view)
-            {
-                @include('events.js._eventMouseOver')
-            },
-            eventMouseout: function (event, jsEvent, view)
-            {
-               $(this).css('z-index', 8);
-               $('.event__tooltip').remove();
-            },
-            dayRender: function (date, cell)
-            {
-                @include('events.js._dayRender')
+        }); // FullCalendar
+
+
+        // CREATE A NEW EVENT
+        $(document).on('click', '#storeEvent', function()
+        {
+            // The modal fields' values
+            var title = $('#title').val();
+            var date = $('#date').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+            var startTime = date + ' ' + start;
+            var endTime = date + ' ' + end;
+
+            // Create a new event object
+            event = {
+                title: title,
+                start: startTime,
+                end: endTime,
             }
+
+            // Display the event in the calendar
+            calendar.fullCalendar('renderEvent', event);
+
+            // Store the event in DB
+            $.ajax({
+                url: baseUrl,
+                type: 'POST',
+                data: event,
+                success: function(response){
+                    console.log(response.message);
+
+                    // Repopulate the calendar with the events to attach the newly created event's id to the #eventModal data-event attribute
+                    calendar.fullCalendar('refetchEvents')
+                }
+            });
+
+        })
+
+        // UPDATE AN EVENT
+        $(document).on('click', '#updateEvent', function()
+        {
+            // The modal fields' values
+            var title = $('#title').val();
+            var date = $('#date').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+            var startTime = date + ' ' + start;
+            var endTime = date + ' ' + end;
+
+            // EventId & url
+            var eventId = $("#eventModal").attr('data-event');
+            var eventUrl = baseUrl + '/' + eventId;
+
+            // Get the calendar events (array)
+            var event = calendar.fullCalendar('clientEvents', eventId);
+
+            // Set the first event's values
+            event[0].id = eventId;
+            event[0].title = title;
+            event[0].start = startTime;
+            event[0].end = endTime;
+
+            // Update the calendar event
+            calendar.fullCalendar('updateEvent', event[0]);
+
+            // Update the DB record
+            $.ajax({
+                url: eventUrl,
+                type: 'PUT',
+                data: {
+                    id: eventId,
+                    title: title,
+                    start: startTime,
+                    end: endTime,
+                },
+                success: function(response) {
+                    console.log(response.message);
+                }
+            })
+        })
+
+        // DELETE AN EVENT
+        $(document).on('click', '#deleteEvent', function()
+        {
+            // EventId and url
+            var eventId = $("#eventModal").attr('data-event');
+            var eventUrl = baseUrl + '/' + eventId;
+
+            // Remove the event from the calendar
+            calendar.fullCalendar('removeEvents', eventId);
+
+            // Remove the event from DB
+            $.ajax({
+                url: eventUrl,
+                type: 'DELETE',
+                success: function(response) {
+                    console.log(response.message);
+                }
+            })
         });
 
-        // Filter the classrooms for the selected subject only
-        @include('classrooms.js._subjectClassroomsJs')
-
-        // Datepicker - set maxdate, disable Sundays & holidays
-        @include('events.js._datepicker')
-
-        // Timepicker - set time format, min & max time, min time interval
-        @include('events.js._timepicker')
-
-        // Create an event - add to the calendar & store to DB
-        @include('events.js._storeEvent')
-
-        // Edit the event - save changes to the calendar & DB
-        @include('events.js._updateEvent')
-
-        // Delete the event - remove from the calendar & DB
-        @include('events.js._deleteEvent')
-
     </script>
+
 @endsection

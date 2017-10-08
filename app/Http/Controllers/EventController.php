@@ -25,7 +25,7 @@ class EventController extends Controller
 
         return view('events.index')->with([
             'user' => $user->load('teacher'),
-        ]);;
+        ]);
     }
 
     /**
@@ -54,6 +54,7 @@ class EventController extends Controller
 
         return response([
             'message' => 'A new event has been created.',
+            'eventId' => $event->id,
         ]);
     }
 

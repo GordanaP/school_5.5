@@ -1,5 +1,5 @@
-$(document).on('click', '#storeEvent', function(){
-
+$(document).on('click', '#storeEvent', function()
+{
     // Variables
     var title = $('#title').val();
     var description = $('#description').val();
@@ -24,7 +24,7 @@ $(document).on('click', '#storeEvent', function(){
 
     // Store event in the DB
     $.ajax({
-        url : base_url,
+        url : baseUrl,
         type: 'POST',
         data: {
             title : title,

@@ -1,4 +1,4 @@
-$("#date, #datepicker").datepicker({
+$("input[name='date'], #datepicker").datepicker({
     dateFormat: "yy-mm-dd", // 2017-09-27
     minDate: 0, // today
     changeMonth: true,
@@ -47,4 +47,4 @@ var day = 31.
 
 var maxDate = new Date(year, month, day);
 
-$("#date, #datepicker").datepicker( "option", "maxDate", maxDate);
+$("input[name='date'], #datepicker").datepicker( "option", "maxDate", maxDate);

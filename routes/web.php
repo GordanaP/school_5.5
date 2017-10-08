@@ -16,7 +16,7 @@ Auth::routes();
 // Page
 Route::name('pages.home')->get('/home', 'PageController@home');
 
-// Events
+// Event
 Route::name('events.index')->get('calendar/{user}', 'EventController@index');
 Route::name('events.store')->post('calendar/{user}', 'EventController@store');
 Route::name('events.update')->put('calendar/{user}/{event}', 'EventController@update');

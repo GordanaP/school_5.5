@@ -1,17 +1,30 @@
-$(document).on('change', '#subject_id', function() {
-    var subject_id = $(this).val(); // the selected option's value
-    var user = $('.event__button').data('user'); // the user name
-    var url = '../classrooms/' + subject_id + '/' + user; // the rendered classrooms by 'classrooms.index'
+$(document).on('change', "#subject_id", function() {
+    var subjectId = $(this).val(); // the selected option's value
+    var url = '../classrooms/' + subjectId + '/' + userName; // classrooms rendered by 'classrooms.index'
 
-    if(subject_id)
-    {
-        $.ajax({
-            url : url,
-            type: 'get',
-            success: function(response)
-            {
-                $('#classroom_id').html(response);
-            }
-        });
-    }
+    $.ajax({
+        url : url,
+        type: 'get',
+        success: function(response)
+        {
+            $("#classroom_id").html(response);
+        }
+    });
+
+});
+
+
+$(document).on('change', "#_subject_id", function() {
+    var subjectId = $(this).val(); // the selected option's value
+    var url = '../classrooms/' + subjectId + '/' + userName; // classrooms rendered by 'classrooms.index'
+
+    $.ajax({
+        url : url,
+        type: 'get',
+        success: function(response)
+        {
+            $("#_classroom_id").html(response);
+        }
+    });
+
 });

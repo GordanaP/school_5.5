@@ -1,5 +1,5 @@
-var startTime = $('#start');
-var endTime = $('#end');
+var startTime = $("input[name='start']");
+var endTime = $("input[name='end']");
 
 $.timepicker.timeRange(
     startTime,
@@ -7,7 +7,7 @@ $.timepicker.timeRange(
     {
         controlType: 'select', // dropdown menu instead of slider
         oneLine: true,
-        timeFormat: 'HH:mm',
+        timeFormat: eventTime,
         minInterval: (1000*60*45), // 45 min
         hourMin: 8,
         hourMax: 19,
