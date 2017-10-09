@@ -65,5 +65,40 @@ function changeCellColor(date, cell, e, bgcolor="#daecc6")
     else{
         cell.css("background-color", "#fff");
     }
-
 }
+
+// Catholic Easter Sunday
+function catholicEasterSunday(year)
+{
+    var C = Math.floor(year/100);
+    var N = year - 19*Math.floor(year/19);
+    var K = Math.floor((C - 17)/25);
+    var I = C - Math.floor(C/4) - Math.floor((C - K)/3) + 19*N + 15;
+    I = I - 30*Math.floor((I/30));
+    I = I - Math.floor(I/28)*(1 - Math.floor(I/28)*Math.floor(29/(I + 1))*Math.floor((21 - N)/11));
+    var J = year + Math.floor(year/4) + I + 2 - C + Math.floor(C/4);
+    J = J - 7*Math.floor(J/7);
+    var L = I - J;
+    var M = 3 + Math.floor((L + 40)/44);
+    var D = L + 28 - 31*Math.floor(M/4);
+
+    return moment(new Date(year, padout(M-1), padout(D)));
+}
+
+function padout(number) { return (number < 10) ? '0' + number : number; }
+
+
+// Orthodox Easter Sunday
+function orthodoxEasterSunday(year)
+{
+    d = (year%19*19+15)%30;
+
+    e = (year%4*2+year%7*4-d+34)%7+d+127;
+
+    month = Math.floor(e/31);
+
+    a = e%31 + 1 + (month > 4);
+
+    return moment(new Date(year, (month-1), a));
+}
+

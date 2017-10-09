@@ -18,8 +18,10 @@ $("#date, #datepicker").datepicker({
         var May1 = year + "-05-01";
         var May2 = year + "-05-02";
         var November11 = year + "-11-11";
+        var GoodFriday = orthodoxEasterSunday(year).subtract(2, 'd').format(eventDate);
+        var EasterMonday = orthodoxEasterSunday(year).add(1, 'd').format(eventDate);
 
-        var holidays = [January1, January2, January7, February15, February16, May1, May2, November11];
+        var holidays = [January1, January2, January7, February15, February16, May1, May2, November11, GoodFriday, EasterMonday];
 
         // Sundays
         if (day == 0)

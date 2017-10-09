@@ -53,17 +53,6 @@
         // Timepicker - set time format, min & max time, min time interval
         @include('events.js._timepicker')
 
-        $('#datepicker').datepicker({
-
-            onChangeMonthYear: function(year, month, datepicker)
-            {
-                    var newDate = new Date();
-                    newDate.setMonth(month -1);
-                    newDate.setYear(year);
-
-                    calendar.fullCalendar("gotoDate", newDate);
-            }
-        });
 
         // Variables
         var calendar = $('#eventCalendar');
@@ -125,7 +114,7 @@
             eventSources: [
                 {
                     url : baseUrl  // renders events
-                }
+                },
             ],
             eventColor: '#ffae00',
             // SELECT A DATE
@@ -201,6 +190,8 @@
 
         // Remove the event from the calendar & DB
         @include('events.js._deleteEvent')
+
+
 
     </script>
 
