@@ -16,11 +16,15 @@ Auth::routes();
 // Page
 Route::name('pages.home')->get('/home', 'PageController@home');
 
+//Holiday
+Route::resource('calendar/holidays', 'HolidayController');
+
 // Event
 Route::name('events.index')->get('calendar/{user}', 'EventController@index');
 Route::name('events.store')->post('calendar/{user}', 'EventController@store');
 Route::name('events.update')->put('calendar/{user}/{event}', 'EventController@update');
 Route::name('events.destroy')->delete('calendar/{user}/{event}', 'EventController@destroy');
+
 
 // Lesson
 Route::name('lessons.index')->get('lessons/{user}', 'LessonController@index');

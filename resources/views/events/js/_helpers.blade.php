@@ -102,3 +102,33 @@ function orthodoxEasterSunday(year)
     return moment(new Date(year, (month-1), a));
 }
 
+
+function isNotHoliday(date)
+{
+    var year = date.format('YYYY');
+    var dateFormatted = date.format(eventDate);
+    var january = 0;
+    var february = 1;
+    var april = 3;
+    var may = 4;
+    var november = 10;
+
+
+    var January1 = moment(new Date(year, january, 1)).format(eventDate);
+    var January2 = moment(new Date(year, january, 2)).format(eventDate);
+    var January7 = moment(new Date(year, january, 7)).format(eventDate);
+    var February15 = moment(new Date(year, february, 15)).format(eventDate);
+    var February16 = moment(new Date(year, february, 16)).format(eventDate);
+    var May1 = moment(new Date(year, may, 1)).format(eventDate);
+    var May2 = moment(new Date(year, may, 2)).format(eventDate);
+    var Easter = orthodoxEasterSunday(year);
+    var GoodFriday = orthodoxEasterSunday(year).subtract(2, 'd').format(eventDate);
+    var EasterMonday = orthodoxEasterSunday(year).add(1, 'd').format(eventDate);
+    var November11 = moment(new Date(year, november, 11)).format(eventDate);
+
+
+    var holidays = [January1, January2, January7, February15, February16, May1, May2, Easter, GoodFriday, EasterMonday, November11];
+
+    return holidays.indexOf(dateFormatted) == -1;
+
+}

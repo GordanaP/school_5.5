@@ -61,6 +61,7 @@
 
         var userName = "{{ $user->name }}";
         var baseUrl = '../calendar/' + userName; // EventController@index
+        var holidaysUrl = "{{ route('holidays.index') }}"; // HolidayController@index
 
         // Initialize fullcalendar with options
         calendar.fullCalendar({
@@ -113,7 +114,10 @@
             eventLimit: true,
             eventSources: [
                 {
-                    url : baseUrl  // renders events
+                    url : baseUrl
+                },
+                {
+                    url : holidaysUrl  // renders events
                 },
             ],
             eventColor: '#ffae00',
@@ -123,9 +127,9 @@
                 // Start & end are the moment of the selected field, i.e Tue Oct 03 2017 08:00:00 GMT+0000
 
                 // Open the modal
-                isNotSunday(start) && isNotPast(start)
+                isNotSunday(start) && isNotPast(start) && isNotHoliday(start)
                     ? $(".modal").modal('show')
-                    : alert('Past dates and Sundays are not available for creating an event.');
+                    : alert('Past dates, Sundays & holidays are not available for creating an event.');
 
                 // Set the modal parameters
                 $(".modal-title i").addClass("fa-pencil");
@@ -142,7 +146,8 @@
             eventClick: function(event, jsEvent, view)
             {
                 // Open the modal & assign the event id for future reference
-                $(".modal").modal('show').attr('data-event', event.id);
+                isNotHoliday(event.start) ? $(".modal").modal('show').attr('data-event', event.id) : '';
+
 
                 // Set the modal parameters
                 $(".modal-title i").addClass("fa-pencil-square-o");
@@ -162,7 +167,7 @@
             // HOVER OVER THE EVENT
             eventMouseover: function (event, jsEvent, view)
             {
-                hoverOverTheEvent(event);
+                isNotHoliday(event.start) ? hoverOverTheEvent(event) : '';
             },
             eventMouseout: function (event, jsEvent, view)
             {
@@ -176,7 +181,19 @@
                     {
                         changeCellColor(date, cell, e)
                     });
-            }
+            },
+            eventRender: function (event, element)
+            {
+                var start = moment(event.start);
+                var end = moment(event.end);
+
+                //Add class to multiple days event - class attribute in CSS
+                while( start.format(eventDate) != end.format(eventDate) ){
+                    var dataToFind = start.format(eventDate);
+                    $("td[data-date='"+dataToFind+"']").addClass('activeDay');
+                    start.add(1, 'd');
+                }
+            },
         });
 
         // Populate the classroom select box dinamically depending on the subject

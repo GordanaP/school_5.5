@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         'lessons',
         'readings',
         'events',
+        'holidays',
     ];
 
     /**
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LessonsTableSeeder::class);
         $this->call(ReadingsTableSeeder::class);
         $this->call(EventsTableSeeder::class);
+        $this->call(HolidaysTableSeeder::class);
     }
 
     /**
