@@ -10,7 +10,7 @@ $.timepicker.timeRange(
         timeFormat: eventTime,
         //minInterval: (1000*60*45), // 45 min
         hourMin: 8,
-        hourMax: 19,
+        hourMax: 20,
         // start: {}, // start picker options
         // end: {}, // end picker options
         onSelect: function() {

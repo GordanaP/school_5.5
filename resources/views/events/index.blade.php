@@ -50,17 +50,17 @@
             $('#eventForm').formValidation('resetForm', true);
         });
 
-
-        // Form datepicker - min date, Sundays & holidays disabled, revalidate form on selecting the date
+        // Form datepicker - revalidate date field value on selecting the date
         $('#eventDate').datepicker({
             @include('events.js._datepickerOptions'),
-            onSelect: function(date, inst) {
+            onSelect: function()
+            {
                 /* Revalidate the field when choosing it from the datepicker */
                 $('#eventForm').formValidation('revalidateField', 'eventDate');
             }
         })
 
-        // Link datepicker to the calendar
+        // Inline datepicker - link to the calendar
         $('#datepicker').datepicker({
             @include('events.js._datepickerOptions'),
         })
@@ -71,14 +71,14 @@
             calendar.fullCalendar( 'gotoDate', datePicker );
         })
 
-        // Timepicker - set time format, min & max time, min time interval
+        // Timepicker
         @include('events.js._timepicker');
 
         // Variables
         var calendar = $('#eventCalendar');
         var eventDate = "YYYY-MM-DD";
         var eventTime = "HH:mm";
-        var TIME_PATTERN = /^(09|1[0-7]{1}):[0-5]{1}[0-9]{1}$/;
+        var TIME_PATTERN = /^(08|1[0-9]{1}):[0-5]{1}[0-9]{1}$/;
 
         var userName = "{{ $user->name }}";
         var baseUrl = '../calendar/' + userName; // EventController@index
@@ -161,14 +161,12 @@
                 // Set the modal fields' values = the selected calendar date & time values
                 $('#eventDate').val(start.format(eventDate));
                 minStartHourAndEventDurationOnMonthView(view, start);
-
             },
             // CLICK ON THE EVENT
             eventClick: function(event, jsEvent, view)
             {
                 // Open the modal & assign the event id for future reference
                 isNotHoliday(event.start) ? $(".modal").modal('show').attr('data-event', event.id) : '';
-
 
                 // Set the modal parameters
                 $(".modal-title i").addClass("fa-pencil-square-o");
@@ -220,10 +218,10 @@
         // Populate the classroom select box dinamically depending on the subject
         @include('classrooms.js._subjectClassroomsJs')
 
-        // Create an event - populate the calendar & the DB
+        // Validate event form fields values
         $('#eventForm').formValidation({
             framework: 'bootstrap',
-            excluded: ':disabled',
+            excluded: ':disabled', // modal fields validation
             icon: {
                 valid: 'glyphicon glyphicon-ok',
                 invalid: 'glyphicon glyphicon-remove',
@@ -247,7 +245,7 @@
                 classroom_id: {
                     validators: {
                         notEmpty: {
-                            message: 'The subject is required'
+                            message: 'The classroom is required'
                         }
                     }
                 },
@@ -270,7 +268,7 @@
                         },
                         regexp: {
                             regexp: TIME_PATTERN,
-                            message: 'The start time must be between 09:00 and 17:59'
+                            message: 'The start time must be between 08:00 and 20:00'
                         },
                         callback: {
                             message: 'The start time must be earlier then the end one',
@@ -279,6 +277,7 @@
                                 if (endTime === '' || !TIME_PATTERN.test(endTime)) {
                                     return true;
                                 }
+
                                 var startHour    = parseInt(value.split(':')[0], 10),
                                     startMinutes = parseInt(value.split(':')[1], 10),
                                     endHour      = parseInt(endTime.split(':')[0], 10),
@@ -313,6 +312,7 @@
                                 if (startTime == '' || !TIME_PATTERN.test(startTime)) {
                                     return true;
                                 }
+
                                 var startHour    = parseInt(startTime.split(':')[0], 10),
                                     startMinutes = parseInt(startTime.split(':')[1], 10),
                                     endHour      = parseInt(value.split(':')[0], 10),
@@ -335,7 +335,7 @@
         .on('success.validator.fv', function(e, data) {
             if (data.field === 'eventDate' && data.validator === 'date' && data.result.date)
             {
-                // The eventDate field passes the date validator,
+                // The eventDate field passes the date validator
                 var currentDate = moment(data.result.date, eventDate, true);
 
                 // The selected date is Sunday
@@ -371,8 +371,8 @@
                 }
             }
         })
-        .on('success.form.fv', function(e) {
-
+        .on('success.form.fv', function(e)
+        {
             e.preventDefault();
 
             // The modal fields' values
@@ -386,29 +386,75 @@
             var startTime = date + ' ' + start;
             var endTime = date + ' ' + end;
 
-            // Create a new event object
-            event = {
-                title: title,
-                description: description,
-                subject_id: subjectId,
-                classroom_id: classroomId,
-                start: startTime,
-                end: endTime,
+            // Create an event - populate the calendar & the DB
+            if($(".event-button").attr('id') == 'storeEvent')
+            {
+                // Create a new event object
+                event = {
+                    title: title,
+                    description: description,
+                    subject_id: subjectId,
+                    classroom_id: classroomId,
+                    start: startTime,
+                    end: endTime,
+                }
+
+                // Display the event in the calendar
+                calendar.fullCalendar('renderEvent', event);
+
+                // Store the event in DB
+                $.ajax({
+                    url: baseUrl,
+                    type: 'POST',
+                    data: event,
+                    success: function(response){
+                        $('#eventModal').modal('hide');
+                        console.log(response.message);
+                    }
+                });
             }
 
-            // Display the event in the calendar
-            calendar.fullCalendar('renderEvent', event);
+            // Update an event - in the calendar & the DB
+            if($(".event-button").attr('id') == 'updateEvent')
+            {
+                // EventId & url
+                var eventId = $("#eventModal").attr('data-event');
+                var eventUrl = baseUrl + '/' + eventId;
 
-            // Store the event in DB
-            $.ajax({
-                url: baseUrl,
-                type: 'POST',
-                data: event,
-                success: function(response){
-                    $('#eventModal').modal('hide');
-                    console.log(response.message);
-                }
-            });
+                // Get the calendar events (array)
+                var event = calendar.fullCalendar('clientEvents', eventId);
+
+                // Set the first event's values
+                event[0].id = eventId;
+                event[0].title = title;
+                event[0].description = description;
+                event[0].subject_id = subjectId;
+                event[0].classroom_id = classroomId;
+                event[0].start = startTime;
+                event[0].end = endTime;
+
+                // Update the calendar event
+                calendar.fullCalendar('updateEvent', event[0]);
+
+                // Update the DB record
+                $.ajax({
+                    url: eventUrl,
+                    type: 'PUT',
+                    data: {
+                        id: eventId,
+                        title: title,
+                        description: description,
+                        subject_id: subjectId,
+                        classroom_id: classroomId,
+                        start: startTime,
+                        end: endTime,
+                    },
+                    success: function(response) {
+                        $('#eventModal').modal('hide');
+                        console.log(response.message);
+                    }
+                });
+            }
         });
 
         // Remove the event from the calendar & DB
