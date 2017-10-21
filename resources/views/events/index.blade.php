@@ -72,12 +72,13 @@
         })
 
         // Timepicker - set time format, min & max time, min time interval
-        @include('events.js._timepicker')
+        @include('events.js._timepicker');
 
         // Variables
         var calendar = $('#eventCalendar');
         var eventDate = "YYYY-MM-DD";
         var eventTime = "HH:mm";
+        var TIME_PATTERN = /^(09|1[0-7]{1}):[0-5]{1}[0-9]{1}$/;
 
         var userName = "{{ $user->name }}";
         var baseUrl = '../calendar/' + userName; // EventController@index
@@ -262,16 +263,70 @@
                     }
                 },
                 start: {
+                    verbose: false,
                     validators: {
                         notEmpty: {
-                            message: 'The start is required'
+                            message: 'The start time is required'
+                        },
+                        regexp: {
+                            regexp: TIME_PATTERN,
+                            message: 'The start time must be between 09:00 and 17:59'
+                        },
+                        callback: {
+                            message: 'The start time must be earlier then the end one',
+                            callback: function(value, validator, $field) {
+                                var endTime = validator.getFieldElements('end').val();
+                                if (endTime === '' || !TIME_PATTERN.test(endTime)) {
+                                    return true;
+                                }
+                                var startHour    = parseInt(value.split(':')[0], 10),
+                                    startMinutes = parseInt(value.split(':')[1], 10),
+                                    endHour      = parseInt(endTime.split(':')[0], 10),
+                                    endMinutes   = parseInt(endTime.split(':')[1], 10);
+
+                                if (startHour < endHour || (startHour == endHour && startMinutes < endMinutes)) {
+                                    // The end time is also valid
+                                    // So, we need to update its status
+                                    validator.updateStatus('end', validator.STATUS_VALID, 'callback');
+                                    return true;
+                                }
+
+                                return false;
+                            }
                         }
                     }
                 },
                 end: {
+                    verbose: false,
                     validators: {
                         notEmpty: {
-                            message: 'The end is required'
+                            message: 'The end time is required'
+                        },
+                        regexp: {
+                            regexp: TIME_PATTERN,
+                            message: 'The end time must be between 09:00 and 17:59'
+                        },
+                        callback: {
+                            message: 'The end time must be later then the start one',
+                            callback: function(value, validator, $field) {
+                                var startTime = validator.getFieldElements('start').val();
+                                if (startTime == '' || !TIME_PATTERN.test(startTime)) {
+                                    return true;
+                                }
+                                var startHour    = parseInt(startTime.split(':')[0], 10),
+                                    startMinutes = parseInt(startTime.split(':')[1], 10),
+                                    endHour      = parseInt(value.split(':')[0], 10),
+                                    endMinutes   = parseInt(value.split(':')[1], 10);
+
+                                if (endHour > startHour || (endHour == startHour && endMinutes > startMinutes)) {
+                                    // The start time is also valid
+                                    // So, we need to update its status
+                                    validator.updateStatus('start', validator.STATUS_VALID, 'callback');
+                                    return true;
+                                }
+
+                                return false;
+                            }
                         }
                     }
                 },
@@ -312,7 +367,7 @@
                 {
                     data.fv
                         .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
-                        .updateMessage(data.field, data.validator, 'Please choose a day before 2017-08-31');
+                        .updateMessage(data.field, data.validator, 'Please choose a day before ' + schoolYearEndFormatted());
                 }
             }
         })
