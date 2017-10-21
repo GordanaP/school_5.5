@@ -54,7 +54,7 @@
     <label for="date">Date</label>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-        <input type="text" class="form-control" name="date" id="date" placeholder="YYYY-MM-DD">
+        <input type="text" class="form-control" name="eventDate" id="eventDate" placeholder="YYYY-MM-DD">
     </div>
 </div>
 
@@ -82,4 +82,3 @@
         </div>
     </div>
 </div>
-

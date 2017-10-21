@@ -6,7 +6,7 @@ $(document).on('click', '#storeEvent', function()
     var description = $('#description').val();
     var subjectId = $('#subject_id').val();
     var classroomId = $('#classroom_id').val();
-    var date = $('#date').val();
+    var date = $('#eventDate').val();
     var start = $('#start').val();
     var end = $('#end').val();
     var startTime = date + ' ' + start;

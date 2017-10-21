@@ -3,6 +3,7 @@
 @section('title', ' | My calendar')
 
 @section('links')
+    <link rel="stylesheet" href="{{ asset('vendor/formvalidation/dist/css/formValidation.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.print.min.css') }}" type="media" >
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
@@ -31,6 +32,8 @@
 @section('scripts')
     <!-- Custom JS with CXRF protection -->
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
+    <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/moment-2.18.1/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
@@ -41,18 +44,35 @@
         // Helper js function
         @include('events.js._helpers')
 
-
         // Empty the modal fields on close
         $(".modal").on("hidden.bs.modal", function() {
             $("input, select#subject_id, select#classroom_id, data-event").val("").end();
+            $('#eventForm').formValidation('resetForm', true);
         });
 
-        // Datepicker - set min & max date, disable Sundays & holidays
-        @include('events.js._datepicker')
+
+        // Form datepicker - min date, Sundays & holidays disabled, revalidate form on selecting the date
+        $('#eventDate').datepicker({
+            @include('events.js._datepickerOptions'),
+            onSelect: function(date, inst) {
+                /* Revalidate the field when choosing it from the datepicker */
+                $('#eventForm').formValidation('revalidateField', 'eventDate');
+            }
+        })
+
+        // Link datepicker to the calendar
+        $('#datepicker').datepicker({
+            @include('events.js._datepickerOptions'),
+        })
+        .on("change", function (e)
+        {
+            var datePicker = e.target.value;
+
+            calendar.fullCalendar( 'gotoDate', datePicker );
+        })
 
         // Timepicker - set time format, min & max time, min time interval
         @include('events.js._timepicker')
-
 
         // Variables
         var calendar = $('#eventCalendar');
@@ -81,7 +101,7 @@
                         $(".cancel-button").text("Cancel");
                         $(".event-button").text("Create event").attr('id', 'storeEvent');
 
-                        $("#date").val(today.format(eventDate));
+                        $("#eventDate").val(today.format(eventDate));
                         $("#start").val('8:00');
                         $("#end").val('8:45');
                     },
@@ -138,7 +158,7 @@
                 $(".event-button").text("Create event").attr('id', 'storeEvent');
 
                 // Set the modal fields' values = the selected calendar date & time values
-                $('#date').val(start.format(eventDate));
+                $('#eventDate').val(start.format(eventDate));
                 minStartHourAndEventDurationOnMonthView(view, start);
 
             },
@@ -160,7 +180,7 @@
                 $("#description").val(event.description);
                 $("#subject_id").val(event.subject_id);
                 $("#classroom_id").val(event.classroom_id);
-                $("#date").val(event.start.format(eventDate));
+                $("#eventDate").val(event.start.format(eventDate));
                 $("#start").val(event.start.format(eventTime));
                 $("#end").val(event.end.format(eventTime));
             },
@@ -200,15 +220,144 @@
         @include('classrooms.js._subjectClassroomsJs')
 
         // Create an event - populate the calendar & the DB
-        @include('events.js._storeEvent')
+        $('#eventForm').formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            icon: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                title: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The title is required'
+                        }
+                    }
+                },
+                subject_id: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The subject is required'
+                        }
+                    }
+                },
+                classroom_id: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The subject is required'
+                        }
+                    }
+                },
+                eventDate: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The date is required'
+                        },
+                        date: {
+                            format: eventDate,
+                            message: 'The date format is not valid'
+                        },
+                    }
+                },
+                start: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The start is required'
+                        }
+                    }
+                },
+                end: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The end is required'
+                        }
+                    }
+                },
+            }
+        })
+        .on('success.validator.fv', function(e, data) {
+            if (data.field === 'eventDate' && data.validator === 'date' && data.result.date)
+            {
+                // The eventDate field passes the date validator,
+                var currentDate = moment(data.result.date, eventDate, true);
 
-        // Update the event in the calendar RT& DB
-        @include('events.js._updateEvent')
+                // The selected date is Sunday
+                if (! isNotSunday(currentDate)) {
+                    // Treat the field as invalid
+                    data.fv
+                        .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+                        .updateMessage(data.field, data.validator, 'Please choose a day except Sunday');
+                }
+
+                // The selected date is holiday
+                if (! isNotHoliday(currentDate)) {
+                    // Treat the field as invalid
+                    data.fv
+                        .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+                        .updateMessage(data.field, data.validator, 'Please choose a day except national holiday');
+                }
+
+                // The selected date is in the past
+                if (currentDate.isBefore(today()))
+                {
+                    data.fv
+                    .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+                    .updateMessage(data.field, data.validator, 'Please choose a day after today');
+                }
+
+                // The selected date is after the max date
+                if (currentDate.isAfter(schoolYearEnd()))
+                {
+                    data.fv
+                        .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+                        .updateMessage(data.field, data.validator, 'Please choose a day before 2017-08-31');
+                }
+            }
+        })
+        .on('success.form.fv', function(e) {
+
+            e.preventDefault();
+
+            // The modal fields' values
+            var title = $('#title').val();
+            var description = $('#description').val();
+            var subjectId = $('#subject_id').val();
+            var classroomId = $('#classroom_id').val();
+            var date = $('#eventDate').val();
+            var start = $('#start').val();
+            var end = $('#end').val();
+            var startTime = date + ' ' + start;
+            var endTime = date + ' ' + end;
+
+            // Create a new event object
+            event = {
+                title: title,
+                description: description,
+                subject_id: subjectId,
+                classroom_id: classroomId,
+                start: startTime,
+                end: endTime,
+            }
+
+            // Display the event in the calendar
+            calendar.fullCalendar('renderEvent', event);
+
+            // Store the event in DB
+            $.ajax({
+                url: baseUrl,
+                type: 'POST',
+                data: event,
+                success: function(response){
+                    $('#eventModal').modal('hide');
+                    console.log(response.message);
+                }
+            });
+        });
 
         // Remove the event from the calendar & DB
         @include('events.js._deleteEvent')
-
-
 
     </script>
 

@@ -49,4 +49,11 @@
     <!-- Different from original BS file -->
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
 
+    <script>
+
+        @include('lessons.js._validateJs')
+
+    </script>
+
+
 @endsection

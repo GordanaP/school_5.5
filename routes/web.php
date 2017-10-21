@@ -5,7 +5,6 @@ use App\User;
 
 // Test
 Route::name('tests.index')->get('tests/{user}', 'TestController@index');
-Route::name('tests.store')->post('tests/{user}', 'TestController@store');
 
 Route::view('/', 'welcome')->name('index');
 Route::view('/invoice', 'pages.invoice')->name('invoice');

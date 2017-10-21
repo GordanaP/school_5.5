@@ -102,7 +102,7 @@ function orthodoxEasterSunday(year)
     return moment(new Date(year, (month-1), a));
 }
 
-
+// Not holiday
 function isNotHoliday(date)
 {
     var year = date.format('YYYY');
@@ -130,5 +130,34 @@ function isNotHoliday(date)
     var holidays = [January1, January2, January7, February15, February16, May1, May2, Easter, GoodFriday, EasterMonday, November11];
 
     return holidays.indexOf(dateFormatted) == -1;
+}
 
+function today()
+{
+    var today = new Date();
+    var currYear = today.getFullYear();
+    var currMonth = today.getMonth();
+    var currDay = today.getDate();
+
+    return new Date(currYear, currMonth, currDay);
+}
+
+function schoolYearEnd()
+{
+    var today = new Date();
+    var currYear = today.getFullYear();
+    var nextYear = currYear + 1;
+    var currMonth = today.getMonth();
+
+    var year = currMonth >=8 && currMonth <=11 ? nextYear : currYear
+
+    var month = 7;
+    var day = 31;
+
+    return new Date(year, month, day);
+}
+
+function schoolYearEndFormatted()
+{
+    return moment(schoolYearEnd()).format(eventDate);
 }
