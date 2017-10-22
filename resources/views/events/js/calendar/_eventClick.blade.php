@@ -1,3 +1,14 @@
+// Open url link in new window
+if (event.url) {
+    window.open(event.url);
+    return false;
+}
+
+// To prevent url link
+// if (event.url) {
+    // return false;
+// }
+
 // Open the custom event modal only & assign the event id for future reference
 // For the event id to be assigned to the newly created event, the events must be refetched on the successful ajax post call
 isNotHoliday(event.start) ? $(".modal").modal('show').attr('data-event', event.id) : '';

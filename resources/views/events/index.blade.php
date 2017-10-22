@@ -35,7 +35,8 @@
     <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/moment-2.18.1/moment.min.js') }}"></script>
-    <script src="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.js') }}"></script>
+    <script src="{{ asset('vendor/fullcalendar-3.5.1/gcal.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/timepicker-1.6.3/timepicker-addon.js') }}"></script>
 

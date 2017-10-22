@@ -15,7 +15,7 @@ calendar.fullCalendar({
     firstDay: 1,
     navLinks: true,
     selectable: true,
-    editable: true,
+    //editable: true,
     selectHelper: true,
     businessHours: [
         {
@@ -27,12 +27,14 @@ calendar.fullCalendar({
     minTime: "08:00:00",
     maxTime: "20:00:00",
     eventLimit: true,
+    timezone: 'Europe/Belgrade',
+    googleCalendarApiKey: 'AIzaSyByHn9BQ2IIrMnMcrklCKeCAXACuV_ABew',
     eventSources: [
         {
-            url : baseUrl
+            googleCalendarId: 'en.rs#holiday@group.v.calendar.google.com',
         },
         {
-            url : holidaysUrl  // renders events
+            url : baseUrl
         },
     ],
     eventColor: '#ffae00',
