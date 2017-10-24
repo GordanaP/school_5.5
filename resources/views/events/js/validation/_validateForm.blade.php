@@ -1,4 +1,4 @@
-$('#eventForm').formValidation({
+eventForm.formValidation({
     framework: 'bootstrap',
     excluded: ':disabled', // modal fields validation
     icon: {
@@ -11,14 +11,19 @@ $('#eventForm').formValidation({
             validators: {
                 notEmpty: {
                     message: 'The title is required'
+                },
+                stringLength: {
+                    max: 70,
+                    message: 'The title must be less than 70 characters long'
                 }
             }
         },
         description: {
             validators: {
                 stringLength: {
+                    min:5,
                     max: 150,
-                    message: 'The description must be less than 150 characters long'
+                    message: 'The description must be between 5 and 150 characters long'
                 }
             }
         },
@@ -26,14 +31,14 @@ $('#eventForm').formValidation({
             validators: {
                 notEmpty: {
                     message: 'The subject is required'
-                }
+                },
             }
         },
         classroom_id: {
             validators: {
                 notEmpty: {
                     message: 'The classroom is required'
-                }
+                },
             }
         },
         eventDate: {
@@ -44,7 +49,7 @@ $('#eventForm').formValidation({
                 date: {
                     format: eventDate,
                     message: 'The date format is not valid'
-                },
+                }
             }
         },
         start: {
@@ -94,9 +99,10 @@ $('#eventForm').formValidation({
 })
 .on('success.form.fv', function(e)
 {
+    // Prevent page refreshing
     e.preventDefault();
 
-    // The modal fields' values
+    // Get the event attributes' values
     var title = $('#title').val(),
         description = $('#description').val(),
         subjectId = $('#subject_id').val(),
@@ -107,7 +113,17 @@ $('#eventForm').formValidation({
         startTime = date + ' ' + start,
         endTime = date + ' ' + end;
 
-    // Create an event - populate the calendar & the DB
+    // Create an event object
+    event = {
+        title: title,
+        description: description,
+        subject_id: subjectId,
+        classroom_id: classroomId,
+        start: startTime,
+        end: endTime,
+    }
+
+    // Populate the calendar & the DB with a new event
     if($(".event-button").attr('id') == 'storeEvent')
     {
         @include('events.js.eventcrud._storeEvent')

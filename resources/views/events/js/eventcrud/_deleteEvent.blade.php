@@ -1,7 +1,7 @@
 $(document).on('click', '#deleteEvent', function()
 {
     // EventId and url
-    var eventId = $("#eventModal").attr('data-event'),
+    var eventId = eventModal.attr('data-event'),
         eventUrl = baseUrl + '/' + eventId;
 
     // Remove the event from the calendar

@@ -45,16 +45,18 @@
         var calendar = $('#eventCalendar'),
             eventDate = "YYYY-MM-DD",
             eventTime = "HH:mm",
-            TIME_PATTERN = /^(08|1[0-9]{1}):[0-5]{1}[0-9]{1}$/,
+            eventModal = $('#eventModal'),
+            eventForm = $('#eventForm'),
+            TIME_PATTERN = /^(08|1[0-9]{1}):[0-5]{1}[0-9]{1}$/;
 
-            userName = "{{ $user->name }}",
-            baseUrl = '../calendar/' + userName, // EventController@index
-            holidaysUrl = "{{ route('holidays.index') }}"; // HolidayController@index
+        var userName = "{{ $user->name }}",
+            baseUrl = '../calendar/' + userName; // EventController@index
 
         // Empty the modal fields on close
-        $(".modal").on("hidden.bs.modal", function() {
+        eventModal.on("hidden.bs.modal", function() {
             $("input, select#subject_id, select#classroom_id, data-event").val("").end();
-            $('#eventForm').formValidation('resetForm', true);
+            eventForm.formValidation('resetForm', true);
+            $('span.help-block').text('');
         });
 
         // Helper js function

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Http\Requests\EventRequest;
 use App\Subject;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class EventController extends Controller
 {
@@ -44,7 +46,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user)
+    public function store(EventRequest $request, User $user)
     {
         // Create an event
         $event = Event::createNew($request);
@@ -55,6 +57,7 @@ class EventController extends Controller
         return response([
             'message' => 'A new event has been created.',
         ]);
+
     }
 
     /**
@@ -86,7 +89,7 @@ class EventController extends Controller
      * @param  \App\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user, Event $event)
+    public function update(EventRequest $request, User $user, Event $event)
     {
         // Update the event
         $event->saveChanges($request, $event);
@@ -107,14 +110,15 @@ class EventController extends Controller
         $event->delete();
 
         return response([
-            'message' => 'The event has been removed from the calendar',
+            'message' => 'The event has been removed from the calendar.',
         ]);
     }
 
-    public function ajaxClassrooms(Subject $subject, User $user)
-    {
-        return $user;
-        return view('calendars.partials._ajaxClassrooms', compact('user', 'subject'));
-    }
+    // public function ajaxClassrooms(Subject $subject, User $user)
+    // {
+    //     return $user;
+
+    //     return view('calendars.partials._ajaxClassrooms', compact('user', 'subject'));
+    // }
 
 }

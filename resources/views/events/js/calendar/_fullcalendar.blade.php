@@ -15,7 +15,7 @@ calendar.fullCalendar({
     firstDay: 1,
     navLinks: true,
     selectable: true,
-    //editable: true,
+    editable: true,
     selectHelper: true,
     businessHours: [
         {

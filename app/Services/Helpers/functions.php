@@ -43,3 +43,18 @@ function orthodox_easter_monday($year)
 
     return \Carbon\Carbon::create($year, $month, ($day+13), 0)->addDay(2);
 }
+
+function maxDate()
+{
+    $currMonth = \Carbon\Carbon::now()->month;
+    $currYear = \Carbon\Carbon::now()->year;
+    $nextYear = \Carbon\Carbon::now()->addYear()->year;
+
+    $year = $currMonth >=9 && $currMonth <=12 ? $nextYear : $currYear;
+    $month = 8;
+    $day = 31;
+
+    $date = \Carbon\Carbon::createFromDate($year, $month, $day)->toDateString();
+
+    return $date;
+}

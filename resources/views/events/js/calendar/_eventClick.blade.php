@@ -11,7 +11,7 @@ if (event.url) {
 
 // Open the custom event modal only & assign the event id for future reference
 // For the event id to be assigned to the newly created event, the events must be refetched on the successful ajax post call
-isNotHoliday(event.start) ? $(".modal").modal('show').attr('data-event', event.id) : '';
+isNotHoliday(event.start) ? eventModal.modal('show').attr('data-event', event.id) : '';
 
 // Set the modal parameters
 $(".modal-title i").addClass("fa-pencil-square-o");

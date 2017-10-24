@@ -2,7 +2,7 @@
 
 // Open the modal
 isNotSunday(start) && isNotPast(start) && isNotHoliday(start)
-    ? $(".modal").modal('show')
+    ? eventModal.modal('show')
     : alert('Past dates, Sundays & holidays are not available for creating an event.');
 
 // Set the modal parameters

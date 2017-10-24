@@ -3,7 +3,7 @@ $('#eventDate').datepicker({
     @include('events.js.calendar._datepickerOptions'),
     onSelect: function()
     {
-        $('#eventForm').formValidation('revalidateField', 'eventDate');
+        eventForm.formValidation('revalidateField', 'eventDate');
     }
 })
 
@@ -34,8 +34,8 @@ $.timepicker.timeRange(
         // start: {}, // start picker options
         // end: {}, // end picker options
         onSelect: function() {
-            $('#eventForm').formValidation('revalidateField', 'start');
-            $('#eventForm').formValidation('revalidateField', 'end');
+            eventForm.formValidation('revalidateField', 'start');
+            eventForm.formValidation('revalidateField', 'end');
         },
     },
 );

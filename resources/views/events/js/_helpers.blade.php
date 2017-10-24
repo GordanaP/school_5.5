@@ -33,6 +33,26 @@ function changeCellColor(date, cell, e, bgcolor="#daecc6")
     }
 }
 
+function clearValidationError(name) {
+    var group = $("#form-group-" + name);
+    group.removeClass('has-error');
+    group.find('span.help-block').text('');
+}
+
+function datepickerMaxDate()
+{
+    var today = new Date(),
+        currYear = today.getFullYear(),
+        nextYear = currYear + 1,
+        currMonth = today.getMonth(),
+
+        year = currMonth >=8 && currMonth <=11 ? nextYear : currYear,
+        month = 7,
+        day = 31;
+
+    return new Date(year, month, day);
+}
+
 function hoverOverTheEvent(event)
 {
     var tooltip = '<div class="event__tooltip"><b>Subject:</b> ' + event.subject.name + '</br><b>Class:</b> ' + event.classroom.label +  '<br><b>Time:</b> ' + event.start.format(eventTime) + ' - ' + event.end.format(eventTime) + '</div>';
@@ -143,6 +163,14 @@ function schoolYearEnd()
 function schoolYearEndFormatted()
 {
     return moment(schoolYearEnd()).format(eventDate);
+}
+
+function showValidationErrors(name, error)
+{
+    var group = $("#form-group-" + name);
+    group.addClass('has-error');
+    group.find('span.help-block').text(error);
+    group.find('i.form-control-feedback').addClass('glyphicon-remove');
 }
 
 function today()
