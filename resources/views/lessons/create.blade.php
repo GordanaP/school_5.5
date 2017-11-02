@@ -8,36 +8,36 @@
 
 @section('content')
 
-        <main class="lecture">
+    <main class="lecture">
 
-            @include('errors._list')
-            @include('flash::message')
+        @include('errors._list')
+        @include('flash::message')
 
-            <h1><i class="fa fa-pencil"></i> New lesson</h1>
+        <h1><i class="fa fa-pencil"></i> New lesson</h1>
 
-            <hr>
+        <hr>
 
-            <div class="wrapper">
-                <form action="{{ route('lessons.store', $user) }}" method="POST" id="lessonForm">
+        <div class="wrapper">
+            <form action="{{ route('lessons.store', $user) }}" method="POST" id="lessonForm">
 
-                    {{ csrf_field() }}
+                {{ csrf_field() }}
 
-                    @include('lessons.partials._lessonForm', [
-                        'subject_id' => old('subject_id'),
-                        'year' => old('year'),
-                        'title' => old('title'),
-                        'topic' => old('topic'),
-                        'goals' => old('goals'),
-                        'readings' => old('readings'),
-                        'readings_array' => old('readings'),
-                        'max_field_num' => 3,
-                        'button' => 'Create lesson',
-                    ])
+                @include('lessons.partials._lessonForm', [
+                    'subject_id' => old('subject_id'),
+                    'year' => old('year'),
+                    'title' => old('title'),
+                    'topic' => old('topic'),
+                    'goals' => old('goals'),
+                    'readings' => old('readings'),
+                    'readings_array' => old('readings'),
+                    'max_field_num' => 3,
+                    'button' => 'Create lesson',
+                ])
 
-                </form>
-            </div>
+            </form>
+        </div>
 
-        </main>
+    </main>
 
 @endsection
 

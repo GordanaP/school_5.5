@@ -56,6 +56,27 @@ button.create__button{background: #6B9B37; color: #fff}
 button.create__button:hover{background: #9CCC65; color: #fff}
 
 /**
+ * Lesson table
+ */
+table.lesson__table {
+    font-size: 12px;
+    background-color: #f1f1f1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+    margin-bottom: 0 !important;
+}
+table.lesson__table td.sorting_1 a {color: #e69d00;}
+table.lesson__table thead{ background: #777777; color: #ddd;}
+div#lessonTable_wrapper {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: #f7f7f8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%236b9b37' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+}
+div#lessonTable_wrapper label{color: #777777;}
+table#lessonTable.dataTable thead th, table.dataTable thead td{ border-bottom: none;}
+table#lessonTable{border: 1px solid #ccc;}
+
+/**
  * Lesson create
  */
 .trapezoid {
