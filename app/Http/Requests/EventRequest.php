@@ -26,11 +26,14 @@ class EventRequest extends FormRequest
         $subject_ids = $this->user->subjects_unique->pluck('id')->toArray();
         $subject_ids = implode(',', $subject_ids);
 
+        $classroom_ids = $this->user->teacher->teacherSubjects($this->subject_id)->pluck('pivot.classroom_id')->toArray();
+        $classroom_ids = implode(',', $classroom_ids);
+
         return [
-            'title' => 'required|max:70',
-            'description' => 'required|min:5|max:150',
+            'title' => 'required|min:5|max:70',
+            'description' => 'nullable|min:5|max:150',
             'subject_id' => 'required|in:'.$subject_ids,
-            'classroom_id' => 'required',
+            'classroom_id' => 'required|in:'.$classroom_ids,
             'start' => 'required|date_format:Y-m-d H:i|after_or_equal:today',
             'end' => 'required|date_format:Y-m-d H:i|before_or_equal:'.maxDate(),
         ];

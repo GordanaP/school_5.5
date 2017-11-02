@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
@@ -45,9 +46,20 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Request $request, User $user, $param, Lesson $lesson)
     {
-        //
+        // Subject identifier is either 'slug' or 'id' (ajax call)
+        $subj = Subject::where('id', $param)
+            ->orWhere('slug', $param)
+            ->firstOrFail();
+
+        $years = $user->teacher->teacherSubjects($subj->id)->pluck('pivot.year')->unique();
+
+
+        if($request->ajax())
+        {
+            return view('years._subjectYears', compact('user', 'years', 'lesson'));
+        }
     }
 
     /**

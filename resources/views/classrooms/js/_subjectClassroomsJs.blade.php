@@ -1,5 +1,5 @@
-$(document).on('change', "#subject_id", function() {
-    var subjectId = $(this).val(); // the selected option's value
+subject.on('change', function(e) {
+    var subjectId = e.target.value; // the selected option's value
     var classroomsUrl = '../classrooms/' + subjectId + '/' + userName; // classrooms rendered by 'classrooms.index'
 
     $.ajax({
@@ -7,8 +7,7 @@ $(document).on('change', "#subject_id", function() {
         type: 'GET',
         success: function(response)
         {
-            $("#classroom_id").html(response);
+            classroom.html(response);
         }
     });
-
 });

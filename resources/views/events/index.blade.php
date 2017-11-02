@@ -32,9 +32,11 @@
 @section('scripts')
     <!-- Custom JS with CXRF protection -->
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/helpers.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
     <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/moment-2.18.1/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/moment-2.18.1/moment-timezone-with-data.min.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar-3.5.1/fullcalendar.js') }}"></script>
     <script src="{{ asset('vendor/fullcalendar-3.5.1/gcal.js') }}"></script>
     <script src="{{ asset('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
@@ -47,6 +49,9 @@
             eventTime = "HH:mm",
             eventModal = $('#eventModal'),
             eventForm = $('#eventForm'),
+            title = $('#title'),
+            subject = $('#subject_id'),
+            classroom = $('#classroom_id'),
             TIME_PATTERN = /^(08|1[0-9]{1}):[0-5]{1}[0-9]{1}$/;
 
         var userName = "{{ $user->name }}",
@@ -59,17 +64,19 @@
             $('span.help-block').text('');
         });
 
-        // Helper js function
-        @include('events.js._helpers')
+        // Modal autofocus field
+        eventModal.on('shown.bs.modal', function () {
+          title.focus();
+        })
 
         // Datepicker
         @include('events.js.calendar._datetimepicker');
 
-        // Populate the classroom select box dinamically depending on the subject
-        @include('classrooms.js._subjectClassroomsJs')
-
         // Initialize fullcalendar with options
         @include('events.js.calendar._fullcalendar')
+
+        // Populate the classroom select box dinamically depending on the subject
+        @include('classrooms.js._subjectClassroomsJs')
 
         // Validate event form fields values
         @include('events.js.validation._validateForm')

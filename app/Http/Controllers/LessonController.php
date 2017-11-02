@@ -6,7 +6,10 @@ use App\Http\Requests\LessonPhotoRequest;
 use App\Http\Requests\LessonRequest;
 use App\Lesson;
 use App\Photo;
+use App\Services\Utilities\Year;
 use App\User;
+use Illuminate\Http\Request;
+
 
 class LessonController extends Controller
 {

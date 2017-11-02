@@ -8,8 +8,8 @@ class Classroom extends Model
 {
     protected $fillable = ['label'];
 
-    public function getRouteKeyName()
+    public static function getLabel($classroom_id)
     {
-        return 'label';
+        return static::where('id', $classroom_id)->first()->label;
     }
 }

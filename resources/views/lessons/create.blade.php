@@ -51,6 +51,29 @@
 
     <script>
 
+        var lessonForm = $('#lessonForm'),
+            subject = $('#subject_id'),
+            year = $('#year');
+
+        // Get year options dynamically
+        subject.on('change', function(e)
+        {
+            var subjectId = e.target.value;
+            var teacherSubjectYearUrl = '../../subjects/' + "{{ $user->name }}" + '/' + subjectId;
+
+            $.ajax({
+                url: teacherSubjectYearUrl,
+                type: 'GET',
+                success: function(response){
+                    year.html(response);
+                }
+            });
+        })
+
+    </script>
+
+    <script>
+
         @include('lessons.js._validateJs')
 
     </script>

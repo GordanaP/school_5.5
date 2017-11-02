@@ -20,7 +20,7 @@ function changeCellColor(date, cell, e, bgcolor="#daecc6")
     var dateFormatted = date.format(eventDate),
         datePicker = e.target.value;
 
-    // Go to calendar date
+    // Go to the calendar date
     calendar.fullCalendar( 'gotoDate', datePicker );
 
     // Add CSS style the calendar cell
@@ -102,16 +102,14 @@ function isNotHoliday(date)
 
 function isNotPast(date)
 {
-    var selectedDate = date.format(eventDate),
-        today = moment().format(eventDate);
+    var today = moment();
 
-    return selectedDate >= today;
+    return date >= today;
 }
 
 function isNotSunday(date)
 {
-    var selectedDate = date.format(eventDate),
-        day = moment(selectedDate).day();
+    var day = date.day();
 
     return day > 0;
 }

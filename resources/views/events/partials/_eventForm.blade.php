@@ -1,5 +1,5 @@
 <!-- Title -->
-<div class="form-group"  id="form-group-title">
+<div class="form-group" id="form-group-title">
     <label for="title">Title</label>
     <div class="input-group">
         <span class="input-group-addon"><i class="icon_star_alt"></i></span>
@@ -9,7 +9,7 @@
 </div>
 
 <!-- Description -->
-<div class="form-group"  id="form-group-description">
+<div class="form-group" id="form-group-description">
     <label for="description">Description</label>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-bars" aria-hidden="true"></i></span>
@@ -36,17 +36,12 @@
 </div>
 
 <!-- Classroom -->
-<div class="form-group"  id="form-group-classroom_id">
+<div class="form-group" id="form-group-classroom_id">
     <label for="classroom">Classroom</label>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-sitemap"></i></span>
         <select class="form-control" name="classroom_id" id="classroom_id">
             <option value="" selected="" disabled="">Select a classroom</option>
-            {{-- @foreach ($user->teacher->subjects as $subj)
-                <option value="{{ $subj->pivot->classroom_id }}">
-                    {{ \App\Classroom::where('id', $subj->pivot->classroom_id)->first()->label }}
-                </option>
-            @endforeach --}}
             <!-- Options for the selected subject only by using an ajax call -->
         </select>
     </div>
@@ -54,7 +49,7 @@
 </div>
 
 <!-- Date -->
-<div class="form-group"  id="form-group-eventDate">
+<div class="form-group" id="form-group-eventDate">
     <label for="date">Date</label>
     <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -67,7 +62,7 @@
 
     <!-- Start-->
     <div class="col-md-6">
-        <div class="form-group"  id="form-group-start">
+        <div class="form-group" id="form-group-start">
             <label for="start">Start</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
@@ -79,7 +74,7 @@
 
     <!-- End -->
     <div class="col-md-6">
-        <div class="form-group"  id="form-group-end">
+        <div class="form-group" id="form-group-end">
             <label for="end">End</label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>

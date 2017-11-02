@@ -21,7 +21,7 @@ beforeShowDay: function(date) // disable and mark in red Sundays & holidays
         GoodFriday = orthodoxEasterSunday(year).subtract(2, 'd').format(eventDate),
         EasterMonday = orthodoxEasterSunday(year).add(1, 'd').format(eventDate);
 
-    var holidays = [January1, January2, January7, February15, February16, May1, May2, November11, GoodFriday, EasterMonday];
+        var holidays = [January1, January2, January7, February15, February16, May1, May2, November11, GoodFriday, EasterMonday];
 
     // Sundays
     if (day == 0)
@@ -29,6 +29,7 @@ beforeShowDay: function(date) // disable and mark in red Sundays & holidays
         // false = nonselectable field, markholiday = css class
         return [false, "markholiday"];
     }
+    // Holidays
     else
     {
         // returns -1 if the value is not in the array, otherways returns the value of the index

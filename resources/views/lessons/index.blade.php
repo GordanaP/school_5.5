@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+
     <h1>My lessons</h1>
 
     @include('flash::message')

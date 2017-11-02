@@ -13,15 +13,16 @@ eventForm.formValidation({
                     message: 'The title is required'
                 },
                 stringLength: {
+                    min: 5,
                     max: 70,
-                    message: 'The title must be less than 70 characters long'
+                    message: 'The title must be between 5 and 70 characters long'
                 }
             }
         },
         description: {
             validators: {
                 stringLength: {
-                    min:5,
+                    min: 5,
                     max: 150,
                     message: 'The description must be between 5 and 150 characters long'
                 }

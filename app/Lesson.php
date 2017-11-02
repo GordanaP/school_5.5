@@ -19,10 +19,10 @@ class Lesson extends Model
         static::observe(LessonObserver::class);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 
     public function teacher()
     {

@@ -25,14 +25,14 @@
             <div class="form-group">
                 <label for="year">Academic year <span class="asterisk">*</span></label>
                 <select class="form-control" name="year" id="year">
-                    <option selected="" disabled="">Select a year</option>
-                    @foreach (Year::all() as $label => $name)
+                    <option value="">Select a year</option>
+                    {{-- @foreach (Year::all() as $label => $name)
                         <option value="{{ $label }}"
                             {{ selected($label, $year) }}
                         >
                             {{ $label }}
                         </option>
-                    @endforeach
+                    @endforeach --}}
                 </select>
             </div>
         </div>
@@ -119,7 +119,7 @@
 
                 <!-- The readings field template containing a readings field and a remove button -->
                 <div class="form-group hide" id="readingsTemplate">
-                    <div class="flex">
+                    <div class="flex added-field">
                         <input class="form-control" type="text" name="readings[]" placeholder="Add readings" />
                         <button type="button" class="btn btn-default removeReadingsButton"><i class="fa fa-minus"></i></button>
                     </div>

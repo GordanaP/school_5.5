@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\AlphaNumSpaces;
-use App\Rules\AlphaPunctuationSpaces;
 use App\Services\Utilities\Year;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class LessonRequest extends FormRequest
 {
@@ -30,7 +27,8 @@ class LessonRequest extends FormRequest
         $subject_ids = $this->user->subjects_unique->pluck('id')->toArray();
         $subject_ids = implode(',', $subject_ids);
 
-        $years = implode(',', array_keys(Year::all()));
+        $years = $this->user->teacher->teacherSubjects($this->subject_id)->pluck('pivot.year')->unique()->toArray();
+        $years = implode(',', $years);
 
         switch ($this->method())
         {
@@ -38,22 +36,10 @@ class LessonRequest extends FormRequest
                 return [
                     'subject_id' => 'required|in:'.$subject_ids,
                     'year' => 'required|in:'.$years,
-                    'title' =>[
-                        'required',
-                        new AlphaNumSpaces,
-                        'max:80',
-                        Rule::unique('lessons')->where(function ($query) {
-                            $query->where('teacher_id', $this->user->teacher->id);
-                        }),
-                    ],
-                    'topic' => [
-                        'required',
-                         new AlphaPunctuationSpaces,
-                        'max:150'
-                    ],
-                    'goals' => 'required|max:300',
-                    'readings.*' => 'nullable|distinct|max:255',
-                    'readings.0' => 'required|distinct|max:255'
+                    'title' => 'required',
+                    'topic' => 'required',
+                    'goals' => 'required',
+                    'readings' => 'required',
                 ];
                 break;
 
@@ -62,43 +48,12 @@ class LessonRequest extends FormRequest
                 return [
                     'subject_id' => 'required|in:'.$subject_ids,
                     'year' => 'required|in:'.$years,
-                    'title' =>[
-                        'required',
-                        new AlphaNumSpaces,
-                        'max:80',
-                        Rule::unique('lessons')->where(function ($query) {
-                            $query->where('teacher_id', $this->user->teacher->id);
-                        })->ignore($this->user->teacher->id, 'teacher_id'),
-                    ],
-                    'topic' => [
-                        'required',
-                        new AlphaPunctuationSpaces,
-                        'max:150'
-                    ],
-                    'goals' => 'required|max:300',
-                    'readings.*' => 'nullable|distinct|max:255',
-                    'readings.0' => 'required|distinct|max:255'
+                    'title' => 'required',
+                    'topic' => 'required',
+                    'goals' => 'required',
+                    'readings' => 'required',
                 ];
                 break;
         }
     }
-
-    public function messages()
-    {
-        $messages = [];
-
-        if ($this->readings)
-        {
-            // Messages for the readings array
-            $messages['readings.0.required'] = 'At least one readings is required.';
-
-            foreach($this->readings as $key => $val)
-            {
-                $messages['readings.'.$key.'.max'] = 'The readings title #'. ($key + 1) .' must be less than :max characters long.';
-            }
-        }
-
-        return $messages;
-    }
-
 }

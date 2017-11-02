@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Classroom;
+use App\Event;
 use App\Subject;
 use App\Teacher;
 use App\User;
@@ -15,14 +16,16 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $param, User $user)
+    public function index(Request $request, $param, User $user, Event $event)
     {
-        // subject identifier is either 'slug' or 'id' (ajax call)
-        $subject = Subject::where('id', $param)
+        // Subject identifier is either 'slug' or 'id' (ajax call)
+        $subj = Subject::where('id', $param)
             ->orWhere('slug', $param)
             ->firstOrFail();
 
-        return view('classrooms.partials._subjectClassrooms', compact('user', 'subject'));
+        $subjects = $user->teacher->teacherSubjects($subj->id);
+
+        return view('classrooms.partials._subjectClassrooms', compact('user', 'subjects', 'event'));
     }
 
     /**

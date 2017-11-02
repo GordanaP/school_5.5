@@ -38,4 +38,10 @@ class Teacher extends Model
     {
         return ucfirst($this->first_name) . ' ' .ucfirst($this->last_name);
     }
+
+    public function teacherSubjects($subject_id)
+    {
+
+       return $this->subjects()->where('subject_id', $subject_id)->get();
+    }
 }
