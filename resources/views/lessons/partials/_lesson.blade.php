@@ -73,10 +73,12 @@
     </div>
 </footer>
 
-<section class="col-md-12">
-    <form class="dropzone" action="{{ route('photos.store', [$user, $lesson]) }}" method="POST" id="addLessonPhotosForm" data-count="{{ $lesson->photos->count() }}">
+@can('access', $lesson)
+    <section class="col-md-12">
+        <form class="dropzone" action="{{ route('photos.store', [$user, $lesson]) }}" method="POST" id="addLessonPhotosForm" data-count="{{ $lesson->photos->count() }}">
 
-        {{ csrf_field() }}
+            {{ csrf_field() }}
 
-    </form>
-</section>
+        </form>
+    </section>
+@endcan

@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->teacher->subjects->unique();
     }
+
+    public function owns($model)
+    {
+        return $this->id == $model->user_id;
+    }
+
+    public function me($user)
+    {
+        return $this->id === $user->id;
+    }
 }

@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 
 class LessonController extends Controller
 {
+    public function __construct()
+    {
+        // Authenticate
+        $this->middleware('auth')->only('index','show');
+
+        // Authorize
+        $this->authorizeResource(Lesson::class);
+    }
+
     /**
      * Display the user's listing of resource.
      *
@@ -34,6 +43,7 @@ class LessonController extends Controller
      */
     public function create(User $user)
     {
+        $this->authorize('access', $user);
 
         return view('lessons.create')->with([
             'user' => $user->load('teacher')
@@ -49,6 +59,8 @@ class LessonController extends Controller
      */
     public function store(LessonRequest $request, User $user)
     {
+        $this->authorize('access', $user);
+
         // Create a lesson
         $lesson = Lesson::new($request);
 
@@ -123,7 +135,7 @@ class LessonController extends Controller
     {
         $lesson->deleteLesson($user, $lesson);
 
-        flash()->success('The lesson has been updated.');
+        flash()->success('The lesson has been deleted.');
         return back();
     }
 
@@ -146,5 +158,16 @@ class LessonController extends Controller
         }
 
         return $photo;
+    }
+
+    protected function resourceAbilityMap()
+    {
+         return [
+            'create' => 'create',
+            'store' => 'create',
+            'edit'    => 'access',
+            'update'  => 'access',
+            'destroy' => 'access',
+        ];
     }
 }

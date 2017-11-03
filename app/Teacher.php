@@ -44,4 +44,9 @@ class Teacher extends Model
 
        return $this->subjects()->where('subject_id', $subject_id)->get();
     }
+
+    public function owns($model)
+    {
+        return $this->id === $model->teacher_id;
+    }
 }

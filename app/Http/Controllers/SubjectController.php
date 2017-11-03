@@ -55,7 +55,6 @@ class SubjectController extends Controller
 
         $years = $user->teacher->teacherSubjects($subj->id)->pluck('pivot.year')->unique();
 
-
         if($request->ajax())
         {
             return view('years._subjectYears', compact('user', 'years', 'lesson'));

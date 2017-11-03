@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav">
                 <li>
                     <a href="{{ route('lessons.create', Auth::user()) }}">
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i> My lessons
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i> New lesson
                     </a>
                 </li>
                 <li>
@@ -64,8 +64,4 @@
             </ul>
         </div>
     </div>
-</nav>
-
-<nav  class="navbar navbar-default navbar-static-top" style="background: #595959">
-    abc
 </nav>
