@@ -4,9 +4,6 @@
 
 @section('links')
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
-    <style>
-        .new-item{font-family: Arial; text-transform: uppercase; font-weight: bold; letter-spacing: 0.8px; font-size: 15px; color: #777;}
-    </style>
 @endsection
 
 @section('content')

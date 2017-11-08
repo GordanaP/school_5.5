@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Teacher;
 use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
     protected $fillable = ['first_name', 'last_name', 'gender', 'parent', 'dob', 'birthplace', 'about'];
-
 
     public function user()
     {
@@ -41,8 +41,12 @@ class Teacher extends Model
 
     public function teacherSubjects($subject_id)
     {
-
        return $this->subjects()->where('subject_id', $subject_id)->get();
+    }
+
+    public function subjects_unique()
+    {
+        return optional($this->subjects)->unique();
     }
 
     public function owns($model)

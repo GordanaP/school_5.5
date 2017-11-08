@@ -95,6 +95,8 @@ class LessonController extends Controller
      */
     public function edit(User $user, Lesson $lesson)
     {
+        $this->authorize('access', $user);
+
         return view('lessons.edit')->with([
             'user' => $user->load('teacher'),
             'lesson' => $lesson,

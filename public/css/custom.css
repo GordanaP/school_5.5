@@ -54,6 +54,14 @@ span.asterisk{color: #cc8b00}
 p.required__fields { margin-bottom: 10px; }
 button.create__button{background: #6B9B37; color: #fff}
 button.create__button:hover{background: #9CCC65; color: #fff}
+.new-item{
+    font-family: Arial;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    color: #777;
+}
 
 /**
  * Lesson table
@@ -122,6 +130,10 @@ section.lecture__info .panel-body,
 }
 footer.lesson__photos{margin-bottom: 36px; margin-top: 36px;}
 
+/**
+ * Events calendar
+ */
+
 
 /**
  * Events calendar
@@ -158,3 +170,5 @@ section.event__datepicker #event__datepicker-title {
 .fc-newEvent-button {background: none !important; border: 1px solid #e69d00 !important; }
 .activeDay { background-color:#ffae00 !important; border: 1px solid #ff0000; }
 .activeDay .fc-content{ background: #ff0000 !important; }
+
+

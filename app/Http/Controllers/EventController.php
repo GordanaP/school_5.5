@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Response;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        // Authenticate
+        $this->middleware('auth')->only('index');
+
+        // Authorize
+        $this->authorizeResource(Event::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +28,9 @@ class EventController extends Controller
      */
     public function index(Request $request, User $user)
     {
+        // The authenticated user can view their calendar only
+        $this->authorize('access', $user);
+
         //Teacher events to be displayed in the calendar
         if ($request->ajax())
         {
@@ -30,15 +42,6 @@ class EventController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,6 +51,8 @@ class EventController extends Controller
      */
     public function store(EventRequest $request, User $user)
     {
+        $this->authorize('access', $user);
+
         // Create an event
         $event = Event::createNew($request);
 
@@ -57,30 +62,8 @@ class EventController extends Controller
         return response([
             'message' => 'A new event has been created.',
         ]);
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Event $event)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Event  $event
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Event $event)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -114,11 +97,12 @@ class EventController extends Controller
         ]);
     }
 
-    // public function ajaxClassrooms(Subject $subject, User $user)
-    // {
-    //     return $user;
-
-    //     return view('calendars.partials._ajaxClassrooms', compact('user', 'subject'));
-    // }
-
+    protected function resourceAbilityMap()
+    {
+         return [
+            'store' => 'create',
+            'update'  => 'access',
+            'destroy' => 'access',
+        ];
+    }
 }

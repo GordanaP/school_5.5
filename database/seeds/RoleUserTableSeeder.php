@@ -13,10 +13,22 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        $superadmin = Role::whereName('superadmin')->first();
-        $teacher = Role::whereName('teacher')->first();
+        //$superadmin = Role::whereName('superadmin')->first();
+        $teacher_role = Role::whereName('teacher')->first();
+        $student_role = Role::whereName('student')->first();
 
-        User::whereEmail('g@gmail.com')->first()->roles()->attach($superadmin);
-        User::whereEmail('d@gmail.com')->first()->roles()->attach($teacher);
+        $student_users = User::whereIn('email', ['a@gmail.com', 'm@gmail.com', 'b@gmail.com'])->get();
+        $teacher_users = User::whereIn('email', ['d@gmail.com', 'g@gmail.com'])->get();
+
+        foreach($teacher_users as $user)
+        {
+            $user->roles()->attach($teacher_role);
+        }
+
+        foreach($student_users as $user)
+        {
+            $user->roles()->attach($student_role);
+        }
+
     }
 }

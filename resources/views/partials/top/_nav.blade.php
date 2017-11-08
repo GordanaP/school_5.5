@@ -29,6 +29,11 @@
                         <i class="fa fa-calendar"></i> My calendar
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('classrooms.byUser', Auth::user()) }}">
+                        <i class="fa fa-sitemap"></i> My classrooms
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -14,7 +14,7 @@ class SubjectTeacherTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::whereEmail('d@gmail.com')->first();
+        $user = User::whereEmail('g@gmail.com')->first();
 
         $subject1 = Subject::whereName('maths')->first();
         $classrooms1 = Classroom::whereIn('label', ['I-1', 'I-2'])->get();

@@ -16,16 +16,9 @@ class ClassroomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $param, User $user, Event $event)
+    public function byUser(User $user)
     {
-        // Subject identifier is either 'slug' or 'id' (ajax call)
-        $subj = Subject::where('id', $param)
-            ->orWhere('slug', $param)
-            ->firstOrFail();
-
-        $subjects = $user->teacher->teacherSubjects($subj->id);
-
-        return view('classrooms.partials._subjectClassrooms', compact('user', 'subjects', 'event'));
+        return view('classrooms.index', compact('user'));
     }
 
     /**
@@ -55,9 +48,11 @@ class ClassroomController extends Controller
      * @param  \App\Classroom  $classroom
      * @return \Illuminate\Http\Response
      */
-    public function show(Classroom $classroom)
+    public function show(User $user, Classroom $classroom, Subject $subject)
     {
-        //
+        $students = $classroom->students;
+
+        return view('classrooms.show', compact('students'));
     }
 
     /**
@@ -92,5 +87,22 @@ class ClassroomController extends Controller
     public function destroy(Classroom $classroom)
     {
         //
+    }
+
+    /**
+     * Display the teacher classrooms.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bySubject(Request $request, $param, User $user, Event $event)
+    {
+        // Subject identifier is either 'slug' or 'id' (ajax call)
+        $subj = Subject::where('id', $param)
+            ->orWhere('slug', $param)
+            ->firstOrFail();
+
+        $subjects = $user->teacher->teacherSubjects($subj->id);
+
+        return view('classrooms.partials._subjectClassrooms', compact('user', 'subjects', 'event'));
     }
 }

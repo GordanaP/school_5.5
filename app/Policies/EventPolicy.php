@@ -3,15 +3,15 @@
 namespace App\Policies;
 
 use App\User;
-use App\Lesson;
+use App\Event;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class LessonPolicy
+class EventPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can create a lesson.
+     * Determine whether the user can create the event.
      *
      * @param  \App\User  $user
      * @return mixed
@@ -21,16 +21,17 @@ class LessonPolicy
         return $user->isTeacher();
     }
 
+
     /**
-     * Determine whether the user can access the lesson.
+     * Determine whether the user can access the event.
      *
      * @param  \App\User  $user
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Event  $event
      * @return mixed
      */
-    public function access(User $user, Lesson $lesson)
+    public function access(User $user, Event $event)
     {
-        return $user->isTeacher() && $user->teacher->owns($lesson);
+        return $user->isTeacher() && $user->teacher->owns($event);
     }
 
 }

@@ -24,7 +24,6 @@ Route::name('events.store')->post('calendar/{user}', 'EventController@store');
 Route::name('events.update')->put('calendar/{user}/{event}', 'EventController@update');
 Route::name('events.destroy')->delete('calendar/{user}/{event}', 'EventController@destroy');
 
-
 // Lesson
 Route::name('lessons.index')->get('lessons/{user}', 'LessonController@index');
 Route::name('lessons.store')->post('lessons/{user}', 'LessonController@store');
@@ -39,10 +38,9 @@ Route::resource('photos', 'PhotoController');
 Route::name('photos.store')->post('{user}/{lesson}/photos', 'PhotoController@store');
 
 // Classroom
-Route::resource('classrooms', 'ClassroomController', [
-    'except' => 'index'
-]);
-Route::name('classrooms.subject')->get('classrooms/{param}/{user}/{event?}', 'ClassroomController@index');
+Route::name('classrooms.byUser')->get('classrooms/{user}', 'ClassroomController@byUser');
+Route::name('classrooms.show')->get('classrooms/{user}/{classroom}/{subject}', 'ClassroomController@show');
+Route::name('classrooms.subject')->get('classrooms/{param}/{user}/{event?}', 'ClassroomController@bySubject');
 
 // Subject
 Route::get('subjects/{user}/{param}/{lesson?}', 'SubjectController@show');
